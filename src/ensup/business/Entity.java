@@ -3,31 +3,31 @@ package ensup.business;
 public class Entity
 {
 	private String surname;
-	private String mailAdress;
-	private String adress;
+	private String mailAddress;
+	private String address;
 	private int phoneNumber;
 
 	/**
 	 * @param surname
-	 * @param mailAdress
-	 * @param adress
+	 * @param mailAddress
+	 * @param address
 	 * @param phoneNumber
 	 */
-	public Entity(String surname, String mailAdress, String adress, int phoneNumber) {
+	public Entity(String surname, String mailAddress, String address, int phoneNumber) {
 		super();
 		this.surname = surname;
-		this.mailAdress = mailAdress;
-		this.adress = adress;
+		this.mailAddress = mailAddress;
+		this.address = address;
 		this.phoneNumber = phoneNumber;
 	}
 	
 	/**
 	 * @param surname
-	 * @param mailAdress
+	 * @param mailAddress
 	 */
-	public Entity(String surname, String mailAdress)
+	public Entity(String surname, String mailAddress)
 	{
-		this(surname, mailAdress, null, -1);
+		this(surname, mailAddress, null, -1);
 	}
 
 	public String getSurname() {
@@ -38,20 +38,20 @@ public class Entity
 		this.surname = surname;
 	}
 
-	public String getMailAdress() {
-		return mailAdress;
+	public String mailAddress() {
+		return mailAddress;
 	}
 
-	public void setMailAdress(String mailAdress) {
-		this.mailAdress = mailAdress;
+	public void setMailAddress(String mailAddress) {
+		this.mailAddress = mailAddress;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public int getPhoneNumber() {
@@ -64,7 +64,7 @@ public class Entity
 
 	@Override
 	public String toString() {
-		return "Unity [surname=" + surname + ", mailAdress=" + mailAdress + ", adress=" + adress + ", phoneNumber="
+		return "Unity [surname=" + surname + ", mailAddress=" + mailAddress + ", address=" + address + ", phoneNumber="
 				+ phoneNumber + "]";
 	}
 }
