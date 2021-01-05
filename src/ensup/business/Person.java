@@ -80,4 +80,14 @@ public class Person extends Entity{
         this.name = name;
     }
 
+	@Override
+	public String toString()
+	{
+		String res = super.toString();
+		res = res.replace(super.getClass().getName(), "Person");
+		res = res.substring(0, res.length()-1);
+		res = res + ", id=" + id + ", name=" + name + ", password=" + password + "]";
+		
+		return res;
+	}
 }
