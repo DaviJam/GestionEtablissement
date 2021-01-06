@@ -19,6 +19,9 @@
 *.tar.gz
 *.rar
 
+# Folder lib
+/lib/
+
 # Eclipse IDE
 /bin/
 .project
