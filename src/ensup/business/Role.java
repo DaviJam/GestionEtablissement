@@ -6,11 +6,11 @@ import java.util.List;
 public enum Role
 {
 	DIRECTOR (1, "Director"),
-	MANAGER (2, "Manager"),
-	TEACHER (3, "Teacher"),
-	STUDENT (4, "Student");
+	MANAGER  (2, "Manager"),
+	TEACHER  (3, "Teacher"),
+	STUDENT  (4, "Student");
 	
-	private int numRole;
+	private int    numRole;
 	private String name;
 	
 	private Role(int numRole, String name)
@@ -35,6 +35,13 @@ public enum Role
 	
 	public List<Role> getAllRoles()
 	{
-		return new ArrayList<Role>();
+		List<Role> lRole = new ArrayList<Role>();
+		
+		lRole.add(this.DIRECTOR);
+		lRole.add(this.MANAGER);
+		lRole.add(this.TEACHER);
+		lRole.add(this.STUDENT);
+		
+		return lRole;
 	}
 }
