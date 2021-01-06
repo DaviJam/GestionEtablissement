@@ -1,7 +1,5 @@
 package ensup.dao;
 
-import ensup.business.Role;
-
 import java.util.List;
 
 /**
@@ -10,6 +8,23 @@ import java.util.List;
  * @param <T> the type parameter
  */
 public interface IDao<T> {
+
+    /**
+     * Create.
+     *
+     * @param entity the entity
+     * @return the int
+     */
+    int create(T entity);
+
+    /**
+     * Update.
+     *
+     * @param entity the entity
+     * @return the int
+     */
+    int update(T entity);
+
     /**
      * Get.
      *
@@ -29,8 +44,7 @@ public interface IDao<T> {
      * delete.
      *
      * @param entity the entity
+     * @return the int
      */
-    void delete(T entity);
-
-
+    int delete(T entity);
 }
