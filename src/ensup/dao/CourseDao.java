@@ -78,7 +78,7 @@ public class CourseDao implements ICourseDao
 		try
 		{
 			st = cn.createStatement();
-			res = st.executeQuery("SELECT id FROM Course WHERE subject='"+subject+"', nbHours="+nbHours);
+			res = st.executeQuery("SELECT id FROM Course WHERE subject="+subject+", nbHours="+nbHours);
 			while( res.next() )
 				index = res.getInt("id");
 		}
@@ -100,9 +100,9 @@ public class CourseDao implements ICourseDao
 		PreparedStatement pstmt = null;
 		try
 		{
-			pstmt = cn.prepareStatement("INSERT INTO Course (\\\"subject\\\", \\\"nbHours\\\") VALUES ( ?, ?)");
+			pstmt = cn.prepareStatement("INSERT INTO Course (coursesubject, nbhours) VALUES ( ?, ? )");
 			
-			int index = 0;
+			int index = 1;
 			pstmt.setString(index++, course.getCourseSubject());
 			pstmt.setFloat(index++, course.getNbHours());
 
