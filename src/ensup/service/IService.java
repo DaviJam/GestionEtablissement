@@ -10,4 +10,5 @@ public interface IService<T>
     void delete(T entity);
     T get(int index);
     List<T> getAll();
+    int createCourse(T entity);
 }

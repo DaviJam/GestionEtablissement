@@ -4,10 +4,12 @@ import java.util.List;
 
 import ensup.business.Course;
 import ensup.dao.CourseDao;
+import ensup.dao.ICourseDao;
 
 public class CourseService implements ICourseService
 {
 	private CourseDao dao;
+
 	
 	public CourseService()
 	{
@@ -22,6 +24,10 @@ public class CourseService implements ICourseService
 	public List<Course> getAll()
 	{
 		return this.dao.getAll();
+	}
+
+	public int createCourse(Course entity) {
+		return this.dao.createCourse(entity);
 	}
 
 	public void create(String subject, float nbHours)
@@ -42,4 +48,5 @@ public class CourseService implements ICourseService
 	{
 		this.dao.delete(cours);
 	}
+
 }

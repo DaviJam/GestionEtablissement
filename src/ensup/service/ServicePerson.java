@@ -38,4 +38,9 @@ public class ServicePerson implements IEntityService<Person, Role>
         return null;
     }
 
+    @Override
+    public int createCourse(Person entity) {
+        return 0;
+    }
+
 }
