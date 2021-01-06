@@ -93,6 +93,30 @@ public class CourseDao implements ICourseDao
 		
 		return index;
 	}
+
+	public int createCourse(Course course)
+	{
+		Connection cn = Connect.openConnection();
+		PreparedStatement pstmt = null;
+		try
+		{
+			pstmt = cn.prepareStatement("INSERT INTO Course (coursesubject, nbhours) VALUES ( ?, ?)");
+			pstmt.setString(1, course.getCourseSubject());
+			pstmt.setFloat(2, course.getNbHours());
+			pstmt.execute();
+		}
+		catch (SQLException e) {e.printStackTrace();}
+		finally{
+			try {
+				pstmt.close();
+				cn.close();
+			}
+			catch(SQLException sqle) { sqle.printStackTrace(); }
+		}
+
+		return 0;
+
+	}
 	
 	public int create( Course course )
 	{

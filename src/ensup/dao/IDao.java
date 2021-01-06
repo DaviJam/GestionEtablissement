@@ -17,6 +17,8 @@ public interface IDao<T> {
      */
     int create(T entity);
 
+    int createCourse(T entity);
+
     /**
      * Update.
      *
