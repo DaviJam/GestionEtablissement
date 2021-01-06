@@ -79,6 +79,7 @@ public class Course {
      * Instantiates a new Course.
      */
     public Course() {
+    	this(null, -1, -1);
     }
 
     public Course(String subject, float nbHours) {

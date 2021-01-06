@@ -48,5 +48,4 @@ public class CourseService implements ICourseService
 	{
 		this.dao.delete(cours);
 	}
-
 }
