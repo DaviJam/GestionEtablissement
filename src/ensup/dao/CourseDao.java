@@ -25,7 +25,7 @@ public class CourseDao implements ICourseDao
 			res = st.executeQuery("SELECT * FROM Course");
 			while( res.next() )
 			{
-				Course cours = new Course(res.getString("subject"),res.getFloat("nbHours"),res.getInt("id"));
+				Course cours = new Course(res.getString("coursesubject"),res.getFloat("nbhours"),res.getInt("id"));
 				
 				alCourse.add(cours);
 			}
@@ -54,7 +54,7 @@ public class CourseDao implements ICourseDao
 			st = cn.createStatement();
 			res = st.executeQuery("SELECT * FROM Course WHERE id="+index);
 			while( res.next() )
-				cours = new Course(res.getString("subject"),res.getFloat("nbHours"),res.getInt("id"));
+				cours = new Course(res.getString("coursesubject"),res.getFloat("nbhours"),res.getInt("id"));
 		}
 		catch (SQLException e) {e.printStackTrace();}
 		finally{
@@ -68,7 +68,7 @@ public class CourseDao implements ICourseDao
 		return cours;
 	}
 	
-	public int getIndex( String subject, float nbHours )
+	public int getIndex( String coursesubject, float nbhours )
 	{
 		Connection cn = Connect.openConnection();
 		int index = -1;
@@ -78,7 +78,7 @@ public class CourseDao implements ICourseDao
 		try
 		{
 			st = cn.createStatement();
-			res = st.executeQuery("SELECT id FROM Course WHERE subject="+subject+", nbHours="+nbHours);
+			res = st.executeQuery("SELECT id FROM Course WHERE coursesubject='"+coursesubject+"' AND nbhours="+nbhours);
 			while( res.next() )
 				index = res.getInt("id");
 		}
@@ -153,7 +153,7 @@ public class CourseDao implements ICourseDao
 
 		try {
 			st = cn.createStatement();
-			st.execute("UPDATE Course SET subject = '" + course.getCourseSubject() + "', nbHours = "  + course.getNbHours() + "");
+			st.execute("UPDATE Course SET coursesubject = '" + course.getCourseSubject() + "', nbhours = "  + course.getNbHours() + "");
 		}
 		catch( SQLException sqle) {sqle.printStackTrace();}
 		finally{
