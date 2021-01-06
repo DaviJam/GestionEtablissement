@@ -20,8 +20,9 @@ public class Teacher extends Person{
      * @param name        the name
      * @param password    the password
      */
-    public Teacher(String surname, String mailAddress, String address, int phoneNumber, int id, String name, String password) {
+    public Teacher(String surname, String mailAddress, String address, String phoneNumber, int id, String name, String password, String subjectTaught) {
         super(surname, mailAddress, address, phoneNumber, id, name, password);
+        this.subjectTaught = subjectTaught;
     }
 
     /**
