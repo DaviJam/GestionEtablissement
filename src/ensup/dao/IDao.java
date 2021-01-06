@@ -2,6 +2,8 @@ package ensup.dao;
 
 import ensup.business.Role;
 
+import java.util.List;
+
 /**
  * The interface Dao.
  *
@@ -9,17 +11,26 @@ import ensup.business.Role;
  */
 public interface IDao<T> {
     /**
-     * Read.
+     * Get.
      *
      * @param index the index
      * @return the class of type T
      */
-    T Read(int index);
+    T get(int index);
 
     /**
-     * Delete.
+     * Get all list.
+     *
+     * @return the list
+     */
+    List<T> getAll();
+
+    /**
+     * delete.
      *
      * @param entity the entity
      */
-    void Delete(T entity);
+    void delete(T entity);
+
+
 }
