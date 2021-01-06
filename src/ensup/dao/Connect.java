@@ -11,18 +11,9 @@ public class Connect
 	private static final String USERNAME = "web";
 	private static final String PASSWORD = "Ensup2020*";
 	
-	public Connection cn;
-	
-	public Connect()
+	public static Connection openConnection()
 	{
-		this.cn = null;
-		openConnection();
-	}
-	
-	public Connection getConnection() { return this.cn; }
-	
-	public void openConnection()
-	{
+		Connection cn = null;
 		try
 		{
 			//Chargement du Driver
@@ -31,20 +22,14 @@ public class Connect
 			
 			//Récuperation de la connection
 			if( URL != null && USERNAME != null && PASSWORD != null )
-				this.cn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+				cn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			
-			if( this.cn == null && URL != null )
-				this.cn = DriverManager.getConnection(URL);
+			if( cn == null && URL != null )
+				cn = DriverManager.getConnection(URL);
 		}
 		catch (ClassNotFoundException cnfe){cnfe.printStackTrace();}
 		catch (SQLException sqle)          {sqle.printStackTrace();}
-	}
-	
-	public void closeConnection()
-	{
-		try {
-			this.cn.close();
-		}
-		catch (SQLException e) {e.printStackTrace();}
+		
+		return cn;
 	}
 }
