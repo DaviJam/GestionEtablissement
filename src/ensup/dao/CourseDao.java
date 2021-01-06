@@ -12,7 +12,6 @@ import ensup.business.Course;
 
 public class CourseDao implements ICourseDao
 {
-
 	public List<Course> getAll()
 	{
 		Connection cn = Connect.openConnection();
@@ -42,11 +41,9 @@ public class CourseDao implements ICourseDao
 		
 		return alCourse;
 	}
-
-
+	
 	public Course get( int index )
 	{
-
 		Connection cn = Connect.openConnection();
 		Course cours = null;
 		
@@ -70,23 +67,44 @@ public class CourseDao implements ICourseDao
 		
 		return cours;
 	}
-
-
-
-	public void addCourse( Course course )
+	
+	public int getIndex( String subject, float nbHours )
 	{
-		String subject = course.getCourseSubject();
-		float nbHours = course.getNbHours();
-
+		Connection cn = Connect.openConnection();
+		int index = -1;
+		
+		Statement st = null;
+		ResultSet res = null;
+		try
+		{
+			st = cn.createStatement();
+			res = st.executeQuery("SELECT id FROM Course WHERE subject='"+subject+"', nbHours="+nbHours);
+			while( res.next() )
+				index = res.getInt("id");
+		}
+		catch (SQLException e) {e.printStackTrace();}
+		finally{
+			try {
+				st.close();
+				cn.close();
+			}
+			catch(SQLException sqle) { sqle.printStackTrace(); }
+		}
+		
+		return index;
+	}
+	
+	public int create( Course course )
+	{
 		Connection cn = Connect.openConnection();
 		PreparedStatement pstmt = null;
 		try
 		{
 			pstmt = cn.prepareStatement("INSERT INTO Course (\\\"subject\\\", \\\"nbHours\\\") VALUES ( ?, ?)");
 			
-			int indice = 0;
-			pstmt.setString(indice++, subject);
-			pstmt.setFloat(indice++, nbHours);
+			int index = 0;
+			pstmt.setString(index++, course.getCourseSubject());
+			pstmt.setFloat(index++, course.getNbHours());
 
 			pstmt.execute();
 		}
@@ -98,45 +116,12 @@ public class CourseDao implements ICourseDao
 			}
 			catch(SQLException sqle) { sqle.printStackTrace(); }
 		}
+		
+		return getIndex(course.getCourseSubject(), course.getNbHours());
 	}
 
-	public void delete( Course entity )
+	public int update(Course course)
 	{
-		int indice = entity.getId();
-		if( indice != -1 && idExiste(indice) )
-		{
-			Connection cn = Connect.openConnection();
-			
-			Statement st = null;
-			try
-			{
-				st = cn.createStatement();
-				st.execute("DELETE FROM Course WHERE id="+indice);
-			}
-			catch (SQLException e) {e.printStackTrace();}
-			finally{
-				try {
-					st.close();
-					cn.close();
-				}
-				catch(SQLException sqle) { sqle.printStackTrace(); }
-			}
-		}
-	}
-	
-	public boolean idExiste(int indice)
-	{
-		boolean existe = false;
-		
-		List<Course> alCourse = getAll();
-		for( Course cours : alCourse )
-			if( indice == cours.getId() )
-				existe = true;
-		
-		return existe;
-	}
-
-	public int updateCourse(Course course) {
 		get(course.getId());
 
 		Connection cn = Connect.openConnection();
@@ -155,8 +140,44 @@ public class CourseDao implements ICourseDao
 				throwables.printStackTrace();
 			}
 		}
-		return 0;
+		
+		return course.getId();
 	}
 
-
+	public int delete( Course course )
+	{
+		if( course.getId() != -1 && idExiste(course.getId()) )
+		{
+			Connection cn = Connect.openConnection();
+			
+			Statement st = null;
+			try
+			{
+				st = cn.createStatement();
+				st.execute("DELETE FROM Course WHERE id="+course.getId());
+			}
+			catch (SQLException e) {e.printStackTrace();}
+			finally{
+				try {
+					st.close();
+					cn.close();
+				}
+				catch(SQLException sqle) { sqle.printStackTrace(); }
+			}
+		}
+		
+		return course.getId();
+	}
+	
+	public boolean idExiste(int index)
+	{
+		boolean existe = false;
+		
+		List<Course> alCourse = getAll();
+		for( Course cours : alCourse )
+			if( index == cours.getId() )
+				existe = true;
+		
+		return existe;
+	}
 }
