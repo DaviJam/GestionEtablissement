@@ -11,6 +11,26 @@ public class Person extends Entity{
     private String password;
 
     /**
+     * Gets role.
+     *
+     * @return the role
+     */
+    public Role getRole() {
+        return role;
+    }
+
+    /**
+     * Sets role.
+     *
+     * @param role the role
+     */
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    private Role role;
+
+    /**
      * Instantiates a new Person.
      *
      * @param surname     the surname
