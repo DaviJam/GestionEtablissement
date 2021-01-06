@@ -41,7 +41,7 @@ public class Person extends Entity{
      * @param name        the name
      * @param password    the password
      */
-    public Person(String surname, String mailAddress, String address, int phoneNumber, int id, String name, String password) {
+    public Person(String surname, String mailAddress, String address, String phoneNumber, int id, String name, String password) {
         super(surname, mailAddress, address, phoneNumber);
         this.id = id;
         this.name = name;

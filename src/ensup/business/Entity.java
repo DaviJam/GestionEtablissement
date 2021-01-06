@@ -10,7 +10,7 @@ public class Entity
 	private String surname;
 	private String mailAddress;
 	private String address;
-	private int phoneNumber;
+	private String phoneNumber;
 
 	/**
 	 * Instantiates a new Entity.
@@ -20,7 +20,7 @@ public class Entity
 	 * @param address
 	 * @param phoneNumber
 	 */
-	public Entity(String surname, String mailAddress, String address, int phoneNumber) {
+	public Entity(String surname, String mailAddress, String address, String phoneNumber) {
 		super();
 		this.surname = surname;
 		this.mailAddress = mailAddress;
@@ -36,7 +36,7 @@ public class Entity
 	 */
 	public Entity(String surname, String mailAddress)
 	{
-		this(surname, mailAddress, null, -1);
+		this(surname, mailAddress, null, "-1");
 	}
 
 	/**
@@ -84,14 +84,14 @@ public class Entity
 	/**
 	 * @return the entity phone number
 	 */
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
 	/**
 	 * @param phoneNumber
 	 */
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
