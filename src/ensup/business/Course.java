@@ -81,7 +81,11 @@ public class Course {
     public Course() {
     }
 
-    @Override
+    public Course(String subject, float nbHours) {
+		this(subject, nbHours, -1);
+	}
+
+	@Override
     public String toString() {
         return "Course{" +
                 "courseSubject='" + courseSubject + '\'' +
