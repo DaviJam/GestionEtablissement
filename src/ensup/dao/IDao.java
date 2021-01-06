@@ -16,7 +16,7 @@ public interface IDao<T> {
      * @return the int
      */
     int create(T entity);
-
+    // Todo: delete
     int createCourse(T entity);
 
     /**

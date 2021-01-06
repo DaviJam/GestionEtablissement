@@ -9,20 +9,20 @@ public enum Role
 	MANAGER  (2, "Manager"),
 	TEACHER  (3, "Teacher"),
 	STUDENT  (4, "Student");
-	
+
 	private int    numRole;
 	private String name;
-	
+
 	private Role(int numRole, String name)
 	{
 		this.numRole = numRole;
 		this.name = name;
 	}
-	
+
 	public int    getNum()  { return this.numRole; }
 	public String getName() { return this.name; }
-	
-	public Role getNumByName(String name)
+
+	public Role getRoleByName(String name)
 	{
 		switch(name)
 		{
@@ -32,16 +32,27 @@ public enum Role
 			default: return this.STUDENT;
 		}
 	}
-	
+
+	static public Role getRoleByNum(int num)
+	{
+		switch(num)
+		{
+			case 1: return DIRECTOR;
+			case 2: return MANAGER;
+			case 3: return TEACHER;
+			default: return STUDENT;
+		}
+	}
+
 	public List<Role> getAllRoles()
 	{
 		List<Role> lRole = new ArrayList<Role>();
-		
+
 		lRole.add(this.DIRECTOR);
 		lRole.add(this.MANAGER);
 		lRole.add(this.TEACHER);
 		lRole.add(this.STUDENT);
-		
+
 		return lRole;
 	}
 }

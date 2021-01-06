@@ -16,7 +16,7 @@ public class School extends Entity
      * @param phoneNumber the phone number
      * @param director    the director
      */
-    public School(String surname, String mailAddress, String address, int phoneNumber, Director director) {
+    public School(String surname, String mailAddress, String address, String phoneNumber, Director director) {
         super(surname, mailAddress, address, phoneNumber);
         this.director = director;
     }

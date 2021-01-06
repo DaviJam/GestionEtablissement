@@ -1,9 +1,7 @@
 package ensup.service;
 
-import ensup.business.Person;
-import ensup.business.Role;
-import ensup.business.Student;
-import ensup.business.Teacher;
+import ensup.business.*;
+import ensup.dao.DaoPerson;
 
 import java.util.Date;
 import java.util.List;
@@ -20,22 +18,22 @@ public class ServicePerson implements IEntityService<Person>{
         // Checker le role et faire une instace et l'envoyer dans le DAO
         switch(role){
             case 1: // Director
-                Person director = new Person(surname, mail, address, phone, 0, firstname, password);
-                this.dao.Create(director);
+                Person director = new Director(surname, mail, address, phone, 0, firstname, password);
+                this.dao.create(director);
                 break;
             case 2: // Manager
-                Person manager = new Person(surname, mail, address, phone, 0, firstname, password);
-                this.dao.Create(manager);
+                Person manager = new Manager(surname, mail, address, phone, 0, firstname, password);
+                this.dao.create(manager);
                 break;
             case 3: // Teacher
                 // On instancie Personne pour que dans le DAO il puisse récupérer le matière enseignée
-                Teacher teacher = new Teacher(surname, mail, address, phone, 0, firstname, password, subjectTaught);
-                this.dao.Create(teacher);
+                Person teacher = new Teacher(surname, mail, address, phone, 0, firstname, password, subjectTaught);
+                this.dao.create(teacher);
                 break;
             case 4: // Student
                 // On instancie Personne pour que dans le DAO il puisse récupérer la date de naissance
-                Student student = new Student(String surname, mail, address, phone, 0, firstname,password,dateofbirth);
-                this.dao.Create(student);
+                Person student = new Student(surname, mail, address, phone, 0, firstname,password, dateofbirth);
+                this.dao.create(student);
                 break;
         }
     }
@@ -46,28 +44,29 @@ public class ServicePerson implements IEntityService<Person>{
     //TODO Appel de la fonction Update Personne
         switch(role){
             case 1: // Director
-                Person director = new Person(surname, mail, address, phone, 0, firstname, password);
-                this.dao.Update(director);
+                Person director = new Director(surname, mail, address, phone, 0, firstname, password);
+                this.dao.update(director);
                 break;
             case 2: // Manager
-                Person manager = new Person(surname, mail, address, phone, 0, firstname, password);
-                this.dao.Update(manager);
+                Person manager = new Manager(surname, mail, address, phone, 0, firstname, password);
+                this.dao.update(manager);
                 break;
             case 3: // Teacher
-                Teacher teacher = new Teacher(surname, mail, address, phone, 0, firstname, password, subjectTaught);
-                this.dao.Update(teacher);
+                Person teacher = new Teacher(surname, mail, address, phone, 0, firstname, password, subjectTaught);
+                this.dao.update(teacher);
                 break;
             case 4: // Student
-                Student student = new Student(String surname, mail, address, phone, 0, firstname,password,dateofbirth);
-                this.dao.Update(student);
+                Person student = new Student(surname, mail, address, phone, 0, firstname,password,dateofbirth);
+                this.dao.update(student);
                 break;
         }
 
     }
 
+    // Todo :  il faut passer une méthode
     @Override
-    public void Delete(String mail) {
-        this.dao.Delete(mail);
+    public void Delete(Person person) {
+        this.dao.delete(person);
     }
 
     @Override

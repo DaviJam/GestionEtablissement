@@ -1,6 +1,6 @@
 package ensup.business;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * The type Student.
@@ -10,10 +10,10 @@ import java.sql.Date;
 public class Student extends Person
 {
 	private Date dateOfBirth;
-	
+
 	/**
 	 * Instantiates a new Student
-	 * 
+	 *
 	 * @param surname
 	 * @param mailAddress
 	 * @param address
@@ -23,15 +23,15 @@ public class Student extends Person
 	 * @param password
 	 * @param dateOfBirth
 	 */
-	public Student(String surname, String mailAddress, String address, int phoneNumber, int id, String name, String password, Date dateOfBirth)
+	public Student(String surname, String mailAddress, String address, String phoneNumber, int id, String name, String password, Date dateOfBirth)
 	{
-		super(surname, mailAddress, address, phoneNumber, id, name, password);
+		super(surname, mailAddress, address, phoneNumber, id, name, Role.STUDENT, password);
 		this.dateOfBirth = dateOfBirth;
 	}
-	
+
 	/**
 	 * Instantiates a new Student
-	 * 
+	 *
 	 * @param surname
 	 * @param mailAddress
 	 * @param id
@@ -44,10 +44,10 @@ public class Student extends Person
 		super(surname, mailAddress, id, name, password);
 		this.dateOfBirth = dateOfBirth;
 	}
-	
+
 	/**
 	 * Instantiates a new Student
-	 * 
+	 *
 	 * @param surname
 	 * @param mailAddress
 	 * @param id
@@ -58,6 +58,7 @@ public class Student extends Person
 	{
 		this(surname, mailAddress, id, name, password, null);
 	}
+
 
 	/**
 	 * @return date of the student birth
@@ -72,14 +73,14 @@ public class Student extends Person
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
-	
+
 	@Override
 	public String toString() {
 		String res = super.toString();
 		res = res.replace(super.getClass().getName(), "Student");
 		res = res.substring(0, res.length()-1);
 		res = res + ", dateOfBirth=\" + dateOfBirth + \"]";
-		
+
 		return res;
 	}
 }

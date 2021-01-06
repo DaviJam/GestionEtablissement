@@ -7,22 +7,15 @@ public class Director extends Manager {
     /**
      * Instantiates a new Director.
      *
-     * @param surname     the surname
-     * @param mailAdress  the mail adress
-     * @param adress      the adress
+     * @param lastname    the lastname
+     * @param mailAddress the mail address
+     * @param address     the address
      * @param phoneNumber the phone number
+     * @param id          the id
+     * @param firstname   the firstname
+     * @param password    the password
      */
-    public Director(String surname, String mailAdress, String adress, int phoneNumber) {
-        super(surname, mailAdress, adress, phoneNumber);
-    }
-
-    /**
-     * Instantiates a new Director.
-     *
-     * @param surname    the surname
-     * @param mailAdress the mail adress
-     */
-    public Director(String surname, String mailAdress) {
-        super(surname, mailAdress);
+    public Director(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password) {
+        super(lastname, mailAddress, address, phoneNumber, id, firstname, Role.DIRECTOR, password);
     }
 }
