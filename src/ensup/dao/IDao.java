@@ -20,7 +20,6 @@ public interface IDao<T> {
      * Delete.
      *
      * @param entity the entity
-     * @param role   the role
      */
-    void Delete(T entity, Role role);
+    void Delete(T entity);
 }
