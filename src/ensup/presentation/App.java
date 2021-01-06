@@ -88,6 +88,11 @@ public class App {
             public void actionPerformed(ActionEvent e) {
                 menuPanel.setVisible(false);
                 coursePanel.setVisible(true);
+                CourseService cs = new CourseService();
+                for(Course c : cs.getAll()){
+                    System.out.println(c);
+                    comboBox3.addItem(c.getCourseSubject());
+                }
             }
         });
         studentListBtn.addActionListener(new ActionListener() {
@@ -114,8 +119,10 @@ public class App {
 
                         //Create course with parameters
                         CourseService cs = new CourseService();
-                        Course c = new Course(textField8.getText(), f);
-                        cs.createCourse(c);
+                        cs.create(textField8.getText(), f);
+                        comboBox3.addItem(textField8.getText());
+                        textField8.setText("");
+                        textField9.setText("");
                     } catch (NumberFormatException nfe) {
                         JOptionPane.showMessageDialog(null, "Le nombre d'heure n'est pas un nombre (ex: 1.5)");
                     }
