@@ -126,22 +126,22 @@ public class ServicePerson implements IServiceEntity<PersonDTO>{
             if(person instanceof Student)
             {
                 StudentDTO studentDTO = new StudentDTO();
-                StudentMapper.businessToDto((Student)person);
+                studentDTO = StudentMapper.businessToDto((Student)person);
                 personDTOList.add(studentDTO);
             } else if(person instanceof Manager)
             {
                 ManagerDTO managerDTO = new ManagerDTO();
-                ManagerMapper.businessToDto((Manager)person);
+                managerDTO = ManagerMapper.businessToDto((Manager)person);
                 personDTOList.add(managerDTO);
             }else if(person instanceof Teacher)
             {
                 TeacherDTO teacherDTO = new TeacherDTO();
-                TeacherMapper.businessToDto((Teacher)person);
+                teacherDTO = TeacherMapper.businessToDto((Teacher)person);
                 personDTOList.add(teacherDTO);
             }else if(person instanceof Director)
             {
                 DirectorDTO directorDTO = new DirectorDTO();
-                DirectorMapper.businessToDto((Director)person);
+                directorDTO = DirectorMapper.businessToDto((Director)person);
                 personDTOList.add(directorDTO);
             }
         });
