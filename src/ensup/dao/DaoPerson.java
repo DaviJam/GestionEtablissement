@@ -13,8 +13,8 @@ import static ensup.dao.Connect.openConnection;
 /**
  * The type Dao.
  */
-public class DaoPerson implements IDao<Person>  {
-
+public class DaoPerson implements IDao<Person>
+{
     /**
      * The Cn.
      */
@@ -107,13 +107,7 @@ public class DaoPerson implements IDao<Person>  {
         }
         return 0;
     }
-
-    //ToDo : Delete
-    @Override
-    public int createCourse(Person entity) {
-        return 0;
-    }
-
+    
     @Override
     public int update(Person entity) {
         try {
