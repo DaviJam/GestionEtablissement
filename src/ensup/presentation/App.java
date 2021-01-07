@@ -4,6 +4,7 @@ import ensup.business.Course;
 import ensup.business.Person;
 import ensup.business.Role;
 import ensup.business.Student;
+import ensup.dto.CourseDTO;
 import ensup.service.ServiceConnection;
 import ensup.service.CourseService;
 import ensup.service.ServicePerson;
@@ -78,8 +79,9 @@ public class App {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ServiceConnection sc = new ServiceConnection();
-                System.out.println(textField1.getText());
-                System.out.println(passwordField1.getText());
+                /*System.out.println(textField1.getText());
+                System.out.println(passwordField1.getText());*/
+
                 Person p = sc.checkConnection(textField1.getText(), passwordField1.getText());
                 Role r = p.getRole();
                 if (r.getNum() == 1 || r.getNum() == 2) {
@@ -130,10 +132,10 @@ public class App {
                 //Add item in combobox course
                 CourseService cs = new CourseService();
                 comboBox3.removeAllItems();
-                /*for(Course c : cs.getAll()){
+                for(CourseDTO c : cs.getAll()){
                     System.out.println(c);
                     comboBox3.addItem(new Item(c.getId(), c.getCourseSubject()));
-                }*/
+                }
 
                 //Add item in combobox student
                 ServicePerson ps = new ServicePerson();
@@ -174,7 +176,8 @@ public class App {
 
                         //Create course with parameters
                         CourseService cs = new CourseService();
-                        //cs.create(textField8.getText(), f);
+                        CourseDTO c = new CourseDTO(textField8.getText(), f);
+                        cs.create(c);
                         comboBox3.addItem(textField8.getText());
                         textField8.setText("");
                         textField9.setText("");
@@ -332,7 +335,7 @@ public class App {
         frame.setTitle("Gestion d'établissement");
         frame.setResizable(false);
         frame.setVisible(true);
-
+        frame.getContentPane().setBackground(Color.decode("#343a40"));
     }
 }
 class ItemRenderer extends BasicComboBoxRenderer {
