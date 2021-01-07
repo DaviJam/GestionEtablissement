@@ -62,6 +62,7 @@ public class App {
     private JPanel infoStudentPanel;
     private JTextField hiddenTextField1;
     private JTextField textField16;
+    private JPasswordField passwordField2;
 
     String[] columnNames = {"First Name", "Last Name"};
 
@@ -131,7 +132,7 @@ public class App {
                 comboBox3.removeAllItems();
                 /*for(Course c : cs.getAll()){
                     System.out.println(c);
-                    comboBox3.addItem(c.getCourseSubject());
+                    comboBox3.addItem(new Item(c.getId(), c.getCourseSubject()));
                 }*/
 
                 //Add item in combobox student
@@ -140,7 +141,7 @@ public class App {
                 for(Person p : ps.getAll()){
                     if(p instanceof Student) {
                         System.out.println(p);
-                        comboBox2.addItem(p.getFirstname() + " " + p.getLastname());
+                        comboBox2.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
                     }
                 }
             }
@@ -205,6 +206,7 @@ public class App {
                     textField5.setText(((Student)p).getAddress());
                     textField6.setText(((Student)p).getPhoneNumber());
                     textField7.setText(((Student)p).getDateOfBirth().toString());
+                    passwordField2.setText(((Student)p).getPassword());
                 }
             }
         });
@@ -221,6 +223,72 @@ public class App {
                 textField5.setText("");
                 textField6.setText("");
                 textField7.setText("");
+            }
+        });
+        createStudent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TF10 à TF15
+                if (textField10.getText() == "" || textField11.getText() == "" || textField12.getText() == "" || textField13.getText() == "" || textField14.getText() == "" || textField15.getText() == "" || textField16.getText() == "") {
+                    JOptionPane.showMessageDialog(null, "Un des champs est vide");
+                } else {
+                    //If nb hours is not numeric return msgbox
+                    try {
+                        //Create course with parameters
+                        ServicePerson sp = new ServicePerson();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        Date auj = sdf.parse(textField15.getText());
+                        sp.create(textField11.getText(), textField12.getText(), textField13.getText(), textField14.getText(), textField10.getText(), textField16.getText(), 4, auj ,"");
+                        textField10.setText("");
+                        textField11.setText("");
+                        textField12.setText("");
+                        textField13.setText("");
+                        textField14.setText("");
+                        textField15.setText("");
+                        textField16.setText("");
+                    } catch (NumberFormatException | ParseException nfe) {
+                        JOptionPane.showMessageDialog(null, "Un des paramètres à pas a été renseigné");
+                    }
+                }
+            }
+        });
+        associerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Item item = (Item) comboBox3.getSelectedItem();
+                int idCourse = item.getId();
+                Item item2 = (Item) comboBox2.getSelectedItem();
+                int idStudent = item2.getId();
+
+                ServicePerson ps = new ServicePerson();
+                ps.linkToCourse(idStudent, idCourse);
+            }
+        });
+        modifyStudent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TF2 à TF7
+                if (textField2.getText() == "" || textField3.getText() == "" || textField4.getText() == "" || textField5.getText() == "" || textField6.getText() == "" || textField7.getText() == "" || passwordField2.getText() == "") {
+                    JOptionPane.showMessageDialog(null, "Un des champs est vide");
+                } else {
+                    //If nb hours is not numeric return msgbox
+                    try {
+                        //Create course with parameters
+                        ServicePerson sp = new ServicePerson();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        Date auj = sdf.parse(textField7.getText());
+                        sp.update(textField3.getText(), textField4.getText(), textField5.getText(), textField6.getText(), textField2.getText(), passwordField2.getText(), 4, auj ,"");
+                        textField2.setText("");
+                        textField3.setText("");
+                        textField4.setText("");
+                        textField5.setText("");
+                        textField6.setText("");
+                        textField7.setText("");
+                        passwordField2.setText("");
+                    } catch (NumberFormatException | ParseException nfe) {
+                        JOptionPane.showMessageDialog(null, "Un des paramètres n'a pas été renseigné");
+                    }
+                }
             }
         });
 
@@ -253,33 +321,6 @@ public class App {
                     addStudentPanel.setVisible(false);
                 }
             });
-        createStudent.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TF10 à TF15
-                if (textField10.getText() == "" || textField11.getText() == "" || textField12.getText() == "" || textField13.getText() == "" || textField14.getText() == "" || textField15.getText() == "" || textField16.getText() == "") {
-                    JOptionPane.showMessageDialog(null, "Un des champs est vide");
-                } else {
-                    //If nb hours is not numeric return msgbox
-                    try {
-                        //Create course with parameters
-                        ServicePerson sp = new ServicePerson();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        Date auj = sdf.parse(textField15.getText());
-                        sp.create(textField11.getText(), textField12.getText(), textField13.getText(), textField14.getText(), textField10.getText(), textField16.getText(), 4, auj ,"");
-                        textField10.setText("");
-                        textField11.setText("");
-                        textField12.setText("");
-                        textField13.setText("");
-                        textField14.setText("");
-                        textField15.setText("");
-                        textField16.setText("");
-                    } catch (NumberFormatException | ParseException nfe) {
-                        JOptionPane.showMessageDialog(null, "Un des paramètres à pas a été renseigné");
-                    }
-                }
-            }
-        });
     }
 
 
