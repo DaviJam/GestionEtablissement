@@ -155,31 +155,39 @@ public class DaoCourse implements IDaoCourse
 
 	public int update(Course course)
 	{
-		get(course.getId());
+		Course preCourse = get(course.getId());
+		String update = "";
+		
+		if( course.getCourseSubject() != null && ! course.getCourseSubject().equals(preCourse.getCourseSubject()) )
+			update += "coursesubject='"+course.getCourseSubject()+"'";
+		
+		if( course.getNbHours() != -1 && course.getNbHours() != preCourse.getNbHours() )
+			update += (update != "" ? "," : "")+"nbhours='"+course.getNbHours()+"'";
 
-		Connection cn = Connect.openConnection();
-		Statement st = null;
-
-		try {
-			st = cn.createStatement();
-			st.execute("UPDATE Course SET coursesubject = '" + course.getCourseSubject() + "', nbhours = "  + course.getNbHours() + "");
-		}
-		catch( SQLException sqle) {sqle.printStackTrace();}
-		finally{
+		if( update != "" )
+		{
+			Connection cn = Connect.openConnection();
+			Statement st = null;
 			try {
-				st.close();
-				cn.close();
-			} catch (SQLException throwables) {
-				throwables.printStackTrace();
+				st = cn.createStatement();
+				st.execute("UPDATE Course SET "+update);
+			}
+			catch( SQLException sqle) {sqle.printStackTrace();}
+			finally {
+				try {
+					st.close();
+					cn.close();
+				} catch (SQLException throwables) {
+					throwables.printStackTrace();
+				}
 			}
 		}
-		
 		return course.getId();
 	}
 
 	public int delete( Course course )
 	{
-		if( course.getId() != -1 && idExiste(course.getId()) )
+		if( course.getId() != -1 && indexExist(course.getId()) )
 		{
 			Connection cn = Connect.openConnection();
 			
@@ -202,7 +210,7 @@ public class DaoCourse implements IDaoCourse
 		return course.getId();
 	}
 	
-	public boolean idExiste(int index)
+	public boolean indexExist(int index)
 	{
 		boolean existe = false;
 		
