@@ -9,7 +9,7 @@ public interface IDaoCourse extends IDao<Course>
 	 * 
 	 * @param subject subject of the course
 	 * @param nbhours nbhours of the course 
-	 * @return type of return
+	 * @return index of the course default -1
 	 */
 	public int getIndex( String subject, float nbhours );
 	
@@ -17,7 +17,7 @@ public interface IDaoCourse extends IDao<Course>
 	 * Know if the index exist or not in the table Course
 	 * 
 	 * @param index index of the course
-	 * @return if the index exist or not
+	 * @return if the index exist
 	 */
 	public boolean indexExist(int index);
 	

@@ -92,11 +92,11 @@ public class DaoSchool implements IDaoSchool
 		}
 		catch (SQLException e) {e.printStackTrace();}
 		finally{
-			/*try {
+			try {
 				st.close();
 				cn.close();
 			}
-			catch(SQLException sqle) { sqle.printStackTrace(); }*/
+			catch(SQLException sqle) { sqle.printStackTrace(); }
 		}
 		
 		return index;
@@ -104,10 +104,12 @@ public class DaoSchool implements IDaoSchool
 	
 	public int create( School school )
 	{
+		int res = 1;
 		Connection cn = Connect.openConnection();
 		PreparedStatement pstmt = null;
 		try
 		{
+			//Vérifie qu'il n'y a pas de double
 			if( school.getId() != -1 || getIndex(school.getLastname()) == -1 )
 			{
 				if(school.getId() != -1)
@@ -128,21 +130,23 @@ public class DaoSchool implements IDaoSchool
 				pstmt.execute();
 			}
 		}
-		catch (SQLException e) {e.printStackTrace();}
+		catch (SQLException e) {res = 2; e.printStackTrace();}
 		finally{
 			try {
 				if( pstmt !=  null )
 					pstmt.close();
 				cn.close();
 			}
-			catch(SQLException sqle) { sqle.printStackTrace(); }
+			catch(SQLException sqle) {res = 2; sqle.printStackTrace(); }
+			res = 0;
 		}
 		
-		return 0;
+		return res;
 	}
 
 	public int update(School school)
 	{
+		int res = 1;
 		School preSchool = get(school.getId());
 		String update = "";
 		
@@ -170,21 +174,24 @@ public class DaoSchool implements IDaoSchool
 				st = cn.createStatement();
 				st.execute("UPDATE School SET "+update);
 			}
-			catch( SQLException sqle) {sqle.printStackTrace();}
+			catch( SQLException sqle) {res = 2; sqle.printStackTrace();}
 			finally{
 				try {
 					st.close();
 					cn.close();
 				} catch (SQLException throwables) {
+					res = 2;
 					throwables.printStackTrace();
 				}
+				res = 0;
 			}
 		}
-		return school.getId();
+		return res;
 	}
 
 	public int delete( int index )
 	{
+		int res = 1;
 		if( index != -1 && indexExist(index) )
 		{
 			Connection cn = Connect.openConnection();
@@ -195,17 +202,18 @@ public class DaoSchool implements IDaoSchool
 				st = cn.createStatement();
 				st.execute("DELETE FROM School WHERE id="+index);
 			}
-			catch (SQLException e) {e.printStackTrace();}
+			catch (SQLException e) {res = 2; e.printStackTrace();}
 			finally{
 				try {
 					st.close();
 					cn.close();
 				}
-				catch(SQLException sqle) { sqle.printStackTrace(); }
+				catch(SQLException sqle) {res = 2; sqle.printStackTrace(); }
+				res = 0;
 			}
 		}
 		
-		return index;
+		return res;
 	}
 
 	public int delete( School school )
