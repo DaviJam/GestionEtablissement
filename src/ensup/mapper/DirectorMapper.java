@@ -17,7 +17,7 @@ public class DirectorMapper {
         return directorDTO;
     };
 
-    public Director dtoToBusiness(DirectorDTO directorDTO){
+    public static Director dtoToBusiness(DirectorDTO directorDTO){
         Director director = new Director();
         director.setFirstname(directorDTO.getLastname());
         director.setLastname(directorDTO.getLastname());

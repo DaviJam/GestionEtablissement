@@ -17,7 +17,7 @@ public class ManagerMapper {
         return managerDTO;
     };
 
-    public Manager dtoToBusiness(ManagerDTO managerDto){
+    public static Manager dtoToBusiness(ManagerDTO managerDto){
         Manager manager = new Manager();
         manager.setFirstname(managerDto.getLastname());
         manager.setLastname(managerDto.getLastname());

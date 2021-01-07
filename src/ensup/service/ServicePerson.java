@@ -3,10 +3,7 @@ package ensup.service;
 import ensup.business.*;
 import ensup.dao.DaoPerson;
 import ensup.dto.*;
-import ensup.mapper.DirectorMapper;
-import ensup.mapper.ManagerMapper;
-import ensup.mapper.StudentMapper;
-import ensup.mapper.TeacherMapper;
+import ensup.mapper.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -61,19 +58,23 @@ public class ServicePerson implements IServiceEntity<PersonDTO>{
         int res = 0;
         switch(role){
             case 1: // Director
-                Person director = new Director(surname, mail, address, phone, 0, firstname, password);
-                res = this.dao.update(director);
+                PersonDTO personDTO = new DirectorDTO(surname, mail, address, phone, 0, firstname, password);
+                Person person = DirectorMapper.dtoToBusiness((DirectorDTO)personDTO);
+                res = this.dao.update(person);
                 break;
             case 2: // Manager
-                Person manager = new Manager(surname, mail, address, phone, 0, firstname, password);
+                PersonDTO managerDTO = new ManagerDTO(surname, mail, address, phone, 0, firstname, password);
+                Person manager = ManagerMapper.dtoToBusiness((ManagerDTO)managerDTO);
                 res = this.dao.update(manager);
                 break;
             case 3: // Teacher
-                Person teacher = new Teacher(surname, mail, address, phone, 0, firstname, password, subjectTaught);
+                PersonDTO teacherDTO = new TeacherDTO(surname, mail, address, phone, 0, firstname, password, subjectTaught);
+                Person teacher = TeacherMapper.dtoToBusiness((TeacherDTO)teacherDTO);
                 res = this.dao.update(teacher);
                 break;
             case 4: // Student
-                Person student = new Student(surname, mail, address, phone, 0, firstname,password,dateofbirth);
+                PersonDTO studentDTO = new StudentDTO(surname, mail, address, phone, 0, firstname,password,dateofbirth);
+                Person student = StudentMapper.dtoToBusiness((StudentDTO)studentDTO);
                 res = this.dao.update(student);
                 break;
         }
