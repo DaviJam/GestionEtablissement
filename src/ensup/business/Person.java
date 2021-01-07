@@ -68,7 +68,7 @@ public class Person extends Entity{
     /**
      * Instantiates a new Person.
      *
-     * @param surname     the surname
+     * @param lastname     the lastname
      * @param mailAddress the mail address
      * @param address     the address
      * @param phoneNumber the phone number
@@ -76,16 +76,16 @@ public class Person extends Entity{
      * @param firstname   the firstname
      * @param password    the password
      */
-    public Person(String surname, String mailAddress, String address, String phoneNumber, int id, String firstname, Role role, String password) {
-        super(surname, mailAddress, address, phoneNumber);
+    public Person(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, Role role, String password) {
+        super(lastname, mailAddress, address, phoneNumber);
         this.id = id;
         this.firstname = firstname;
         this.role = role;
         this.password = password;
     }
 
-    public Person(String surname, String mailAddress, String address, String phoneNumber, String firstname, Role role, String password) {
-        super(surname, mailAddress, address, phoneNumber);
+    public Person(String lastname, String mailAddress, String address, String phoneNumber, String firstname, Role role, String password) {
+        super(lastname, mailAddress, address, phoneNumber);
         this.id = id;
         this.firstname = firstname;
         this.role = role;
@@ -95,14 +95,14 @@ public class Person extends Entity{
     /**
      * Instantiates a new Person.
      *
-     * @param surname     the surname
+     * @param lastname     the lastname
      * @param mailAddress the mail address
      * @param id          the id
      * @param firstname   the firstname
      * @param password    the password
      */
-    public Person(String surname, String mailAddress, int id, String firstname, String password) {
-        super(surname, mailAddress);
+    public Person(String lastname, String mailAddress, int id, String firstname, String password) {
+        super(lastname, mailAddress);
         this.id = id;
         this.firstname = firstname;
         this.password = password;

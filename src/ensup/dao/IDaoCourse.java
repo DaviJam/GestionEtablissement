@@ -7,4 +7,7 @@ public interface IDaoCourse extends IDao<Course>
 {
 	public int getIndex( String subject, float nbHours );
 	public boolean idExiste(int index);
+	
+    // Todo: delete
+    int createCourse(Course entity);
 }

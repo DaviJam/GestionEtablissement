@@ -13,8 +13,8 @@ import static ensup.dao.Connect.openConnection;
 /**
  * The type Dao.
  */
-public class DaoPerson implements IDao<Person>  {
-
+public class DaoPerson implements IDao<Person>
+{
     /**
      * The Cn.
      */
@@ -48,10 +48,10 @@ public class DaoPerson implements IDao<Person>  {
             cn = openConnection();
 
             /*
-             * CrÃ©er la requÃªte
+             * CrÃ©er la requete
              */
             String sql_request = "INSERT INTO Person(" +
-                    "firstname, " +
+                    "firstname," +
                     "lastname," +
                     "email," +
                     "address,"+
@@ -60,7 +60,7 @@ public class DaoPerson implements IDao<Person>  {
                     "password,"+
                     "dateofbirth,"+
                     "subjecttaught) "+
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE email=email"; //Does not work
             st = cn.prepareStatement(sql_request);
             st.setString(1, entity.getFirstname());
             st.setString(2, entity.getLastname());
@@ -84,7 +84,6 @@ public class DaoPerson implements IDao<Person>  {
                 st.setString (9, null);
             }
 
-
             /*
              * ExÃ©cuter la requÃªte
              */
@@ -105,15 +104,9 @@ public class DaoPerson implements IDao<Person>  {
         } finally {
 
         }
-        return 0;
+        return res;
     }
-
-    //ToDo : Delete
-    @Override
-    public int createCourse(Person entity) {
-        return 0;
-    }
-
+    
     @Override
     public int update(Person entity) {
         try {
@@ -176,7 +169,7 @@ public class DaoPerson implements IDao<Person>  {
         } finally {
 
         }
-        return 0;
+        return res;
     }
 
     @Override
@@ -242,11 +235,6 @@ public class DaoPerson implements IDao<Person>  {
                     }
                 }
             }
-
-            /*
-             * Afficher le rÃ©sultat
-             */
-            System.out.println(res);
 
             /*
              * Fermer la connexion

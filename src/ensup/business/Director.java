@@ -18,4 +18,8 @@ public class Director extends Manager {
     public Director(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password) {
         super(lastname, mailAddress, address, phoneNumber, id, firstname, Role.DIRECTOR, password);
     }
+
+    public Director(String lastname, String mailAddress, String address, String phoneNumber,  String firstname, String password) {
+        super(lastname, mailAddress, address, phoneNumber, firstname, Role.DIRECTOR, password);
+    }
 }

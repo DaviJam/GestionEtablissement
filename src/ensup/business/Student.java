@@ -11,52 +11,58 @@ public class Student extends Person
 {
 	private Date dateOfBirth;
 
+	public Student(String lastname, String mailAddress, String address, String phoneNumber, String firstname, String password, Date dateOfBirth)
+	{
+		super(lastname, mailAddress, address, phoneNumber, firstname, Role.STUDENT, password);
+		this.dateOfBirth = dateOfBirth;
+	}
+
 	/**
 	 * Instantiates a new Student
 	 *
-	 * @param surname
+	 * @param lastname
 	 * @param mailAddress
 	 * @param address
 	 * @param phoneNumber
 	 * @param id
-	 * @param name
+	 * @param firstname
 	 * @param password
 	 * @param dateOfBirth
 	 */
-	public Student(String surname, String mailAddress, String address, String phoneNumber, int id, String name, String password, Date dateOfBirth)
+	public Student(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password, Date dateOfBirth)
 	{
-		super(surname, mailAddress, address, phoneNumber, id, name, Role.STUDENT, password);
+		super(lastname, mailAddress, address, phoneNumber, id, firstname, Role.STUDENT, password);
 		this.dateOfBirth = dateOfBirth;
 	}
 
 	/**
 	 * Instantiates a new Student
 	 *
-	 * @param surname
+	 * @param lastname
 	 * @param mailAddress
 	 * @param id
-	 * @param name
+	 * @param firstname
 	 * @param password
 	 * @param dateOfBirth
 	 */
-	public Student(String surname, String mailAddress, int id, String name, String password, Date dateOfBirth)
+	public Student(String lastname, String mailAddress, int id, String firstname, String password, Date dateOfBirth)
 	{
-		super(surname, mailAddress, id, name, password);
+		super(lastname, mailAddress, id, firstname, password);
 		this.dateOfBirth = dateOfBirth;
 	}
 
 	/**
 	 * Instantiates a new Student
 	 *
-	 * @param surname
+	 * @param lastname
 	 * @param mailAddress
 	 * @param id
-	 * @param name
+	 * @param firstname
 	 * @param password
 	 */
-	public Student(String surname, String mailAddress, int id, String name, String password)
+	public Student(String lastname, String mailAddress, int id, String firstname, String password)
 	{
-		this(surname, mailAddress, id, name, password, null);
+		this(lastname, mailAddress, id, firstname, password, null);
 	}
 
 
