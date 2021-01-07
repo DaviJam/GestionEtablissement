@@ -96,6 +96,7 @@ public class DaoCourse implements IDaoCourse
 
 	public int createCourse(Course course)
 	{
+		int res = 1;
 		Connection cn = Connect.openConnection();
 		PreparedStatement pstmt = null;
 		try
@@ -105,24 +106,27 @@ public class DaoCourse implements IDaoCourse
 			pstmt.setFloat(2, course.getNbHours());
 			pstmt.execute();
 		}
-		catch (SQLException e) {e.printStackTrace();}
+		catch (SQLException e) {res=2; e.printStackTrace();}
 		finally{
 			try {
 				pstmt.close();
 				cn.close();
 			}
-			catch(SQLException sqle) { sqle.printStackTrace(); }
+			catch(SQLException sqle) {res=2; sqle.printStackTrace(); }
+			res = 0;
 		}
 
-		return 0;
+		return res;
 	}
 	
 	public int create( Course course )
 	{
+		int res = 1;
 		Connection cn = Connect.openConnection();
 		PreparedStatement pstmt = null;
 		try
 		{
+			//Vérifie qu'il n'y a pas de double
 			if( course.getId() != -1 || getIndex(course.getCourseSubject(), course.getNbHours()) == -1 )
 			{
 				if(course.getId() != -1)
@@ -140,21 +144,23 @@ public class DaoCourse implements IDaoCourse
 				pstmt.execute();
 			}
 		}
-		catch (SQLException e) {e.printStackTrace();}
+		catch (SQLException e) {res=2; e.printStackTrace();}
 		finally{
 			try {
 				if( pstmt !=  null )
 					pstmt.close();
 				cn.close();
 			}
-			catch(SQLException sqle) { sqle.printStackTrace(); }
+			catch(SQLException sqle) {res=2; sqle.printStackTrace(); }
+			res = 0;
 		}
 		
-		return getIndex(course.getCourseSubject(), course.getNbHours());
+		return res;
 	}
 
 	public int update(Course course)
 	{
+		int res = 1;
 		Course preCourse = get(course.getId());
 		String update = "";
 		
@@ -172,21 +178,22 @@ public class DaoCourse implements IDaoCourse
 				st = cn.createStatement();
 				st.execute("UPDATE Course SET "+update);
 			}
-			catch( SQLException sqle) {sqle.printStackTrace();}
+			catch( SQLException sqle) {res=2; sqle.printStackTrace();}
 			finally {
 				try {
 					st.close();
 					cn.close();
-				} catch (SQLException throwables) {
-					throwables.printStackTrace();
 				}
+				catch (SQLException throwables) { res=2; throwables.printStackTrace();}
+				res = 0;
 			}
 		}
-		return course.getId();
+		return res;
 	}
 
 	public int delete( int index )
 	{
+		int res = 1;
 		if( index != -1 && indexExist(index) )
 		{
 			Connection cn = Connect.openConnection();
@@ -197,17 +204,18 @@ public class DaoCourse implements IDaoCourse
 				st = cn.createStatement();
 				st.execute("DELETE FROM Course WHERE id="+index);
 			}
-			catch (SQLException e) {e.printStackTrace();}
+			catch (SQLException e) {res = 2; e.printStackTrace();}
 			finally{
 				try {
 					st.close();
 					cn.close();
 				}
-				catch(SQLException sqle) { sqle.printStackTrace(); }
+				catch(SQLException sqle) {res = 2; sqle.printStackTrace(); }
+				res = 0;
 			}
 		}
 		
-		return index;
+		return res;
 	}
 
 	public int delete( Course course )
