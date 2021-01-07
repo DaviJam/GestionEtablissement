@@ -81,10 +81,12 @@ public class App {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ServiceConnection sc = new ServiceConnection();
+                ServicePerson sp = new ServicePerson();
                 /*System.out.println(textField1.getText());
                 System.out.println(passwordField1.getText());*/
 
-                Person p = sc.checkConnection(textField1.getText(), passwordField1.getText());
+                int idConnexion = sc.checkConnection(textField1.getText(), passwordField1.getText());
+                PersonDTO p = sp.get(idConnexion);
                 Role r = p.getRole();
                 if (r.getNum() == 1 || r.getNum() == 2) {
                     connexionPanel.setVisible(false);
