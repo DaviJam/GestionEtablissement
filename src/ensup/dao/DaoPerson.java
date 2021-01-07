@@ -1,15 +1,13 @@
 package ensup.dao;
 
 import ensup.business.*;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import java.io.File;
 import java.sql.*;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 import static ensup.dao.Connect.openConnection;
 
@@ -40,8 +38,6 @@ public class DaoPerson implements IDao<Person>
 // nombre de mises à jour
     int res = 0;
 
-    private Properties info = new Properties();
-
     @Override
     public int create(Person entity) {
         try {
@@ -63,7 +59,7 @@ public class DaoPerson implements IDao<Person>
                     "password,"+
                     "dateofbirth,"+
                     "subjecttaught) "+
-                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE email=email"; //Does not work
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) ";
             st = cn.prepareStatement(sql_request);
             st.setString(1, entity.getFirstname());
             st.setString(2, entity.getLastname());
@@ -108,6 +104,7 @@ public class DaoPerson implements IDao<Person>
             log.info("L'utilisateur " +  entity.getFirstname()  + " à été créer");
 
         } catch (SQLException e) {
+            res = -1;
             e.printStackTrace();
         } finally {
 
@@ -173,7 +170,10 @@ public class DaoPerson implements IDao<Person>
             cn.close();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.toString());
+            res = -1;
+            //e.printStackTrace();
+
         } finally {
 
         }
@@ -247,10 +247,11 @@ public class DaoPerson implements IDao<Person>
             /*
              * Fermer la connexion
              */
-
             cn.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
+            res = -1;
         } finally {
 
         }
@@ -337,6 +338,7 @@ public class DaoPerson implements IDao<Person>
             cn.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            res = -1;
         } finally {
 
         }
@@ -375,6 +377,7 @@ public class DaoPerson implements IDao<Person>
 
         } catch (SQLException e) {
             e.printStackTrace();
+            res = -1;
         } finally {
 
         }
