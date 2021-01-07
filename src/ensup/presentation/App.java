@@ -1,28 +1,21 @@
 package ensup.presentation;
 
-import ensup.business.Course;
-import ensup.business.Person;
 import ensup.business.Role;
-import ensup.business.Student;
 import ensup.dto.CourseDTO;
-import ensup.dao.DaoPerson;
+import ensup.dto.ManagerDTO;
 import ensup.dto.PersonDTO;
 import ensup.dto.StudentDTO;
-import ensup.service.ServiceConnection;
 import ensup.service.CourseService;
+import ensup.service.ServiceConnection;
 import ensup.service.ServicePerson;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.JOptionPane;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -84,18 +77,21 @@ public class App {
                 /*System.out.println(textField1.getText());
                 System.out.println(passwordField1.getText());*/
 
-                Person p = sc.checkConnection(textField1.getText(), passwordField1.getText());
-                Role r = p.getRole();
-                if (r.getNum() == 1 || r.getNum() == 2) {
-                    connexionPanel.setVisible(false);
-                    menuPanel.setVisible(true);
-                    if (r.getNum() == 1) {
-                        studentListBtn.setVisible(true);
-                    } else {
-                        studentListBtn.setVisible(false);
+                int item = sc.checkConnection(textField1.getText(), passwordField1.getText());
+                ServicePerson ps = new ServicePerson();
+                PersonDTO p = ps.get(item);
+                if (p instanceof ManagerDTO) {
+                    Role r = p.getRole();
+                    if (r.getNum() == 1 || r.getNum() == 2) {
+                        connexionPanel.setVisible(false);
+                        menuPanel.setVisible(true);
+                        if (r.getNum() == 1) {
+                            studentListBtn.setVisible(true);
+                        } else {
+                            studentListBtn.setVisible(false);
+                        }
                     }
                 }
-
                 //JOptionPane.showMessageDialog(null, textField1.getText());
             }
         });
@@ -150,14 +146,17 @@ public class App {
                 }
             }
         });
+
+
+
         studentListBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 menuPanel.setVisible(false);
                 studentListPanel.setVisible(true);
                 // TableModel's column names
-                 String[] columnNames = {
-                        "Nom", "Prénom", "Email", "Adresse", "Téléphone", "Date de naissance",
+                String[] columnNames = {
+                        "Nom", "Prénom", "Email", "Adresse", "Téléphone", "Date de naissance", "Action 1", "Action 2",
                 };
                 ServicePerson ps = new ServicePerson();
                 int nbStudent = 0;
@@ -166,62 +165,73 @@ public class App {
                         nbStudent++;
                     }
                 }
-                String[][] data = new String[nbStudent][6];
+
+                Object[][] data = new Object[nbStudent][8];
                 int count = 0;
                 for(PersonDTO p : ps.getAll()){
                     if(p instanceof StudentDTO) {
                         data[count][0] = p.getFirstname();
                         data[count][1] = p.getLastname();
-                        data[count][2] = p.getFirstname();
-                        data[count][3] = p.getFirstname();
-                        data[count][4] = p.getFirstname();
-                        data[count][5] = p.getFirstname();
+                        data[count][2] = p.getMailAddress();
+                        data[count][3] = p.getAddress();
+                        data[count][4] = p.getPhoneNumber();
+                        data[count][5] = ((StudentDTO) p).getDateOfBirth().toString();
+                        JButton modStudentBtnFromList = new JButton("Modifier");
+                        JButton delStudentBtnFromList = new JButton("Supprimer");
+                        data[count][6] = modStudentBtnFromList;
+                        data[count][7] = delStudentBtnFromList;
+                        modStudentBtnFromList.setVisible(true);
+                        delStudentBtnFromList.setVisible(true);
+                        //TODO : Find a way to do this
+                        modStudentBtnFromList.addActionListener(this.modifyStudentAction);
                         count++;
                     }
                 }
                 // TableModel's data
-                 /***Object[][] data = {
-                        { "Liverpool", 3, 3, 0, 0, 7,  },
-                        { "Tottenham", 3, 3, 0, 0, 8,  },
-                        { "Chelsea", 3, 3, 0, 0, 8,  },
-                        { "Watford", 3, 3, 0, 0, 7,  },
-                        { "Manchester City", 3, 2, 1, 0, 9, }
-                };***/
+                /***Object[][] data = {
+                 { "Liverpool", 3, 3, 0, 0, 7,  },
+                 { "Tottenham", 3, 3, 0, 0, 8,  },
+                 { "Chelsea", 3, 3, 0, 0, 8,  },
+                 { "Watford", 3, 3, 0, 0, 7,  },
+                 { "Manchester City", 3, 2, 1, 0, 9, }
+                 };***/
 
                 StudentTableModel modele =new StudentTableModel(data,columnNames);
                 table1.setModel(modele);
+                TableCellRenderer tableRenderer;
+                tableRenderer = table1.getDefaultRenderer(JButton.class);
+                table1.setDefaultRenderer(JButton.class, new JTableButtonRenderer(tableRenderer));
 
 
             }
         });
 
 
+                //User interactions
+                addCourse.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        //TF8 et TF9
+                        if (textField8.getText() == "" || textField9.getText() == "") {
+                            JOptionPane.showMessageDialog(null, "Un des champs est vide");
+                        } else {
+                            //If nb hours is not numeric return msgbox
+                            try {
+                                float f = Float.parseFloat(textField9.getText());
 
-        //User interactions
-        addCourse.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TF8 et TF9
-                if (textField8.getText() == "" || textField9.getText() == "") {
-                    JOptionPane.showMessageDialog(null, "Un des champs est vide");
-                } else {
-                    //If nb hours is not numeric return msgbox
-                    try {
-                        float f = Float.parseFloat(textField9.getText());
-
-                        //Create course with parameters
-                        CourseService cs = new CourseService();
-                        CourseDTO c = new CourseDTO(textField8.getText(), f);
-                        cs.create(c);
-                        comboBox3.addItem(textField8.getText());
-                        textField8.setText("");
-                        textField9.setText("");
-                    } catch (NumberFormatException nfe) {
-                        JOptionPane.showMessageDialog(null, "Le nombre d'heure n'est pas un nombre (ex: 1.5)");
+                                //Create course with parameters
+                                CourseService cs = new CourseService();
+                                CourseDTO c = new CourseDTO(textField8.getText(), f);
+                                cs.create(c);
+                                comboBox3.addItem(textField8.getText());
+                                textField8.setText("");
+                                textField9.setText("");
+                            } catch (NumberFormatException nfe) {
+                                JOptionPane.showMessageDialog(null, "Le nombre d'heure n'est pas un nombre (ex: 1.5)");
+                            }
+                        }
                     }
-                }
-            }
-        });
+                });
 
         comboBox1.addActionListener(new ActionListener() {
             @Override
@@ -234,17 +244,17 @@ public class App {
                 ServicePerson ps = new ServicePerson();
                 PersonDTO p = ps.get(item.getId());
                 if (p instanceof StudentDTO) {
-                    System.out.println(((StudentDTO)p).toString());
+                    System.out.println(p.toString());
 
-                    String s = String.valueOf(((StudentDTO)p).getId());
+                    String s = String.valueOf(p.getId());
                     hiddenTextField1.setText(s);
-                    textField2.setText(((StudentDTO)p).getLastname());
-                    textField3.setText(((StudentDTO)p).getFirstname());
-                    textField4.setText(((StudentDTO)p).getMailAddress());
-                    textField5.setText(((StudentDTO)p).getAddress());
-                    textField6.setText(((StudentDTO)p).getPhoneNumber());
+                    textField2.setText(p.getLastname());
+                    textField3.setText(p.getFirstname());
+                    textField4.setText(p.getMailAddress());
+                    textField5.setText(p.getAddress());
+                    textField6.setText(p.getPhoneNumber());
                     textField7.setText(((StudentDTO)p).getDateOfBirth().toString());
-                    passwordField2.setText(((StudentDTO)p).getPassword());
+                    passwordField2.setText(p.getPassword());
                 }
             }
         });
@@ -302,7 +312,9 @@ public class App {
                 ps.linkToCourse(idStudent, idCourse);
             }
         });
-        modifyStudent.addActionListener(new ActionListener() {
+
+
+        ActionListener modifyStudentAction = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TF2 à TF7
@@ -328,37 +340,39 @@ public class App {
                     }
                 }
             }
-        });
+        };
 
-            //Btn return
-            returnBtn.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    menuPanel.setVisible(true);
-                    studentPanel.setVisible(false);
-                }
-            });
-            returnBtn1.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    menuPanel.setVisible(true);
-                    coursePanel.setVisible(false);
-                }
-            });
-            returnBtn2.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    menuPanel.setVisible(true);
-                    studentListPanel.setVisible(false);
-                }
-            });
-            returnBtn3.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    menuPanel.setVisible(true);
-                    addStudentPanel.setVisible(false);
-                }
-            });
+        modifyStudent.addActionListener(modifyStudentAction);
+
+        //Btn return
+        returnBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                studentPanel.setVisible(false);
+            }
+        });
+        returnBtn1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                coursePanel.setVisible(false);
+            }
+        });
+        returnBtn2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                studentListPanel.setVisible(false);
+            }
+        });
+        returnBtn3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                addStudentPanel.setVisible(false);
+            }
+        });
     }
 
 
@@ -440,3 +454,14 @@ class StudentTableModel extends AbstractTableModel {
     }
 }
 
+class JTableButtonRenderer implements TableCellRenderer {
+    private TableCellRenderer defaultRenderer;
+    public JTableButtonRenderer(TableCellRenderer renderer) {
+        defaultRenderer = renderer;
+    }
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        if(value instanceof Component)
+            return (Component)value;
+        return defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+    }
+}
