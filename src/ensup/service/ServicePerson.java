@@ -72,7 +72,8 @@ public class ServicePerson implements IServiceEntity<Person>{
 
     @Override
     public Person get(int index) {
-        return null;
+        Person person = this.dao.get(index);
+        return person;
     }
 
     @Override
