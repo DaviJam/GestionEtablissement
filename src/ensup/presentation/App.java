@@ -188,7 +188,7 @@ public class App {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ServicePerson ps = new ServicePerson();
-                ps.Delete(Integer.parseInt(hiddenTextField1.getText()));
+                ps.delete(Integer.parseInt(hiddenTextField1.getText()));
 
                 hiddenTextField1.setText("");
                 textField2.setText("");
