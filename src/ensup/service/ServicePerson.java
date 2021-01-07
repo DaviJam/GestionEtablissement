@@ -2,18 +2,33 @@ package ensup.service;
 
 import ensup.business.*;
 import ensup.dao.DaoPerson;
+import ensup.dto.*;
+import ensup.mapper.DirectorMapper;
+import ensup.mapper.ManagerMapper;
+import ensup.mapper.StudentMapper;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ServicePerson implements IServiceEntity<Person>{
+/**
+ * The type Service person.
+ */
+public class ServicePerson implements IServiceEntity<PersonDTO>{
 
-    private DaoPerson dao = new DaoPerson();
+    private DaoPerson dao = null;
+
+    /**
+     * Instantiates a new Service person.
+     */
+    public ServicePerson() {
+        this.dao = new DaoPerson();
+    }
+
 
     // Create Person
     @Override
     public int create(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) {
-        //TODO Appel de la fonction Create Personne
         // Checker le role et faire une instace et l'envoyer dans le DAO
         int check = 0;
         switch(role){
@@ -66,9 +81,9 @@ public class ServicePerson implements IServiceEntity<Person>{
 
     @Override
     public int delete(int index) {
-        Person person = this.get(index);
-        int res = this.dao.delete(person);
-        return res;
+        //Person person = this.get(index);
+        //int res = this.dao.delete(person);
+        return 0;//res;
     }
 
     @Override
@@ -78,31 +93,54 @@ public class ServicePerson implements IServiceEntity<Person>{
     }
 
     @Override
-    public Person get(int index) {
+    public PersonDTO get(int index) {
         Person person = this.dao.get(index);
-        return person;
+        PersonDTO personDTO = new PersonDTO();
+        if(person instanceof Student)
+        {
+            personDTO = StudentMapper.businessToDto((Student)person);
+
+        }else if(person instanceof Manager)
+        {
+
+        }else if(person instanceof Teacher)
+        {
+
+        }else if(person instanceof Director)
+        {
+
+        }
+
+        return personDTO;
     }
 
     @Override
-    public List<Person> getAll() {
-        return this.dao.getAll();
+    public List<PersonDTO> getAll() {
+        List<PersonDTO> personDTOList = new ArrayList<PersonDTO>();
+
+        this.dao.getAll().forEach(person -> {
+            if(person instanceof Student)
+            {
+                StudentDTO studentDTO = new StudentDTO();
+                StudentMapper.businessToDto((Student)person);
+                personDTOList.add(studentDTO);
+            } else if(person instanceof Manager)
+            {
+                ManagerDTO managerDTO = new ManagerDTO();
+                ManagerMapper.businessToDto((Manager)person);
+                personDTOList.add(managerDTO);
+            }else if(person instanceof Teacher)
+            {
+                TeacherDTO teacherDTO = new TeacherDTO();
+//                TeacherMapper.businessToDto((Teacher)person);
+                personDTOList.add(teacherDTO);
+            }else if(person instanceof Director)
+            {
+                DirectorDTO directorDTO = new DirectorDTO();
+                DirectorMapper.businessToDto((Director)person);
+                personDTOList.add(directorDTO);
+            }
+        });
+        return personDTOList;
     }
-
-	@Override
-	public int create(Person entity) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int update(Person entity) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int delete(Person entity) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }

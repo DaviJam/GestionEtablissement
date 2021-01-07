@@ -4,7 +4,7 @@ import ensup.business.Manager;
 import ensup.dto.ManagerDTO;
 
 public class ManagerMapper {
-    public ManagerDTO businessToDto(Manager manager){
+    public static ManagerDTO businessToDto(Manager manager){
         ManagerDTO managerDTO = new ManagerDTO();
         managerDTO.setFirstname(manager.getLastname());
         managerDTO.setLastname(manager.getLastname());

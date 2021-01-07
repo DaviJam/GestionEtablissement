@@ -4,7 +4,7 @@ import ensup.business.Director;
 import ensup.dto.DirectorDTO;
 
 public class DirectorMapper {
-    public DirectorDTO businessToDto(Director director){
+    public static DirectorDTO businessToDto(Director director){
         DirectorDTO directorDTO = new DirectorDTO();
         directorDTO.setFirstname(director.getLastname());
         directorDTO.setLastname(director.getLastname());

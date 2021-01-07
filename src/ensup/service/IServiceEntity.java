@@ -2,7 +2,7 @@ package ensup.service;
 
 import java.util.Date;
 
-public interface IServiceEntity<Person> extends IService<Person>
+public interface IServiceEntity<PersonDTO> extends IService<PersonDTO>
 {
     /**
      * @param surname
