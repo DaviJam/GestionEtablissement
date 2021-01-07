@@ -22,11 +22,12 @@ public class TestDtoCourse
         courseservice.create(coursebrice2);
         // Update
         CourseDTO course123 = courseservice.get(62);
-        course123.setCourseSubject("TEST FINAL");
+        course123.setCourseSubject("TEST FINAL 2");
         course123.setNbHours(420);
         courseservice.update(course123);
+        System.out.println("\n"+courseservice.get(62));
         // Delete
-        CourseDTO course70 = courseservice.get(63);
-        courseservice.delete(course70);
+        //CourseDTO course70 = courseservice.get(63);
+        //courseservice.delete(course70);
     }
 }

@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import ensup.business.Director;
 import ensup.business.School;
 
 public class SchoolDao implements ISchoolDao
@@ -26,8 +25,7 @@ public class SchoolDao implements ISchoolDao
 			res = st.executeQuery("SELECT * FROM School");
 			while( res.next() )
 			{
-				Director director = (Director)(new DaoPerson()).get(res.getInt("director"));
-				School school = new School(res.getInt("id"),res.getString("surname"),res.getString("email"),res.getString("address"),res.getString("phone"),director);
+				School school = new School(res.getInt("id"),res.getString("surname"),res.getString("email"),res.getString("address"),res.getString("phone"),res.getInt("director"));
 				
 				alSchool.add(school);
 			}
@@ -56,10 +54,8 @@ public class SchoolDao implements ISchoolDao
 			st = cn.createStatement();
 			res = st.executeQuery("SELECT * FROM School WHERE id="+index);
 			while( res.next() )
-			{
-				Director director = (Director)(new DaoPerson()).get(res.getInt("director"));
-				school = new School(res.getInt("id"),res.getString("surname"),res.getString("email"),res.getString("address"),res.getString("phone"),director);
-			}
+				school = new School(res.getInt("id"),res.getString("surname"),res.getString("email"),res.getString("address"),res.getString("phone"),res.getInt("director"));
+			
 		}
 		catch (SQLException e) {e.printStackTrace();}
 		finally{
@@ -124,7 +120,7 @@ public class SchoolDao implements ISchoolDao
 				pstmt.setString(index++, school.getMailAddress());
 				pstmt.setString(index++, school.getAddress());
 				pstmt.setString(index++, school.getPhoneNumber());
-				pstmt.setInt(index++, school.getDirector().getId());
+				pstmt.setInt(index++, school.getDirector());
 				
 				pstmt.execute();
 			}
@@ -161,8 +157,8 @@ public class SchoolDao implements ISchoolDao
 		if( school.getPhoneNumber() != null && ! school.getPhoneNumber().equals(preSchool.getPhoneNumber()) )
 			update += (update != "" ? "," : "")+"phone='"+school.getPhoneNumber()+"'";
 		
-		if( school.getDirector().getId() != -1 && school.getDirector().getId() != preSchool.getDirector().getId() )
-			update += (update != "" ? "," : "")+"director="+school.getDirector().getId();
+		if( school.getDirector() != -1 && school.getDirector() != preSchool.getDirector() )
+			update += (update != "" ? "," : "")+"director="+school.getDirector();
 
 		if( update != "" )
 		{

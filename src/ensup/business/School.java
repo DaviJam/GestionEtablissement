@@ -6,7 +6,7 @@ package ensup.business;
 public class School extends Entity
 {
 	private int id;
-    private Director director;
+    private int director;
 
     /**
      * Instantiates a new School.
@@ -17,16 +17,20 @@ public class School extends Entity
      * @param phoneNumber the phone number
      * @param director    the director
      */
-    public School(int id, String surname, String mailAddress, String address, String phoneNumber, Director director) {
+    public School(int id, String surname, String mailAddress, String address, String phoneNumber, int director) {
         super(surname, mailAddress, address, phoneNumber);
         this.id = id;
         this.director = director;
     }
     
-    public School(String surname, String mailAddress, String address, String phoneNumber, Director director) {
-        super(surname, mailAddress, address, phoneNumber);
-        this.id = -1;
-        this.director = director;
+    public School(String surname, String mailAddress, String address, String phoneNumber, int director)
+    {
+        this(-1, surname, mailAddress, address, phoneNumber, director);
+    }
+    
+    public School()
+    {
+        this(-1, null, null, null, null, -1);
     }
 
     /**
@@ -36,12 +40,12 @@ public class School extends Entity
      * @param mailAddress the mail address
      * @param director    the director
      */
-    public School(int id, String surname, String mailAddress, Director director) {
+    public School(int id, String surname, String mailAddress, int director) {
         super(surname, mailAddress);
         this.id = id;
         this.director = director;
     }
-    public School(String surname, String mailAddress, Director director) {
+    public School(String surname, String mailAddress, int director) {
         super(surname, mailAddress);
         this.id = -1;
         this.director = director;
@@ -56,7 +60,7 @@ public class School extends Entity
      *
      * @return the director
      */
-    public Director getDirector() {
+    public int getDirector() {
         return director;
     }
 
@@ -65,7 +69,7 @@ public class School extends Entity
      *
      * @param director the director
      */
-    public void setDirector(Director director) {
+    public void setDirector(int director) {
         this.director = director;
     }
     
@@ -76,7 +80,7 @@ public class School extends Entity
 		res = res.replaceAll("Entity", "School");
 		res = res.substring(0, res.length()-1);
 		res = res + ", id=" + id;
-		res = res + ", director=" + director.getId() + "]";
+		res = res + ", director=" + director + "]";
 
 		return res;
 	}

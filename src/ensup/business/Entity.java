@@ -50,6 +50,15 @@ public class Entity
 	}
 
 	/**
+	 * Sets lastname.
+	 *
+	 * @param lastname the lastname
+	 */
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	/**
 	 * Gets mail address.
 	 *
 	 * @return the mail address

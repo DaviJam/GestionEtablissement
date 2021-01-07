@@ -32,14 +32,7 @@ public class TestDaoSchool
 	{
 		System.out.println("\nTest Create");
 		
-		System.out.println("\n> creation director");
-		DaoPerson pers = new DaoPerson();
-		//pers.create(new Director("Pivert", "pivert@gmail.com", "...", "0000", "toctoc", "pivert"));
-		pers.getAll().forEach(personnes->{System.out.println("Personne: "+((Person)personnes).getId()+" role="+((Person)personnes).getRole().getName());});
-		//System.out.println(pers.getAll());
-		
-		System.out.println("\n> creation school");
-		this.dao.create(new School("Ensup", "ensup@gmail.com", "...", "0000", (Director)pers.get(34)));
+		this.dao.create(new School("Ensup", "ensup@gmail.com", "...", "0000", 34));
 	}
 	
 	public void testGet()
