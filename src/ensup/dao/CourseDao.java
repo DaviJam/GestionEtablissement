@@ -1,17 +1,14 @@
 package ensup.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import ensup.business.Course;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import ensup.business.Course;
-
 public class CourseDao implements ICourseDao
 {
+	@Override
 	public List<Course> getAll()
 	{
 		Connection cn = Connect.openConnection();
@@ -41,8 +38,8 @@ public class CourseDao implements ICourseDao
 		
 		return allCourse;
 	}
-	
-	
+
+	@Override
 	public Course get( int index )
 	{
 		Connection cn = Connect.openConnection();
@@ -68,7 +65,8 @@ public class CourseDao implements ICourseDao
 
 		return cours;
 	}
-	
+
+	@Override
 	public int getIndex( String coursesubject, float nbhours )
 	{
 		Connection cn = Connect.openConnection();
@@ -94,7 +92,8 @@ public class CourseDao implements ICourseDao
 		
 		return index;
 	}
-	
+
+	@Override
 	public int create( Course course )
 	{
 		int res = 1;
@@ -134,6 +133,7 @@ public class CourseDao implements ICourseDao
 		return res;
 	}
 
+	@Override
 	public int update(Course course)
 	{
 		int res = 1;
@@ -166,7 +166,8 @@ public class CourseDao implements ICourseDao
 		}
 		return res;
 	}
-	
+
+	@Override
 	public int delete( int index )
 	{
 		int res = 1;
@@ -194,11 +195,12 @@ public class CourseDao implements ICourseDao
 		return res;
 	}
 
+	@Override
 	public int delete( Course course )
 	{
 		return delete(course.getId());
 	}
-	
+	@Override
 	public boolean indexExist(int index)
 	{
 		boolean existe = false;

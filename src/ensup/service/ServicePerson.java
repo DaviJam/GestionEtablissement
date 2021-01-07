@@ -87,9 +87,8 @@ public class ServicePerson implements IServiceEntity<PersonDTO>{
 
     @Override
     public int delete(int index) {
-        //Person person = this.get(index);
-        //int res = this.dao.delete(person);
-        return 0;//res;
+        int res = this.dao.delete(index);
+        return res;
     }
 
     @Override
@@ -105,16 +104,15 @@ public class ServicePerson implements IServiceEntity<PersonDTO>{
         if(person instanceof Student)
         {
             personDTO = StudentMapper.businessToDto((Student)person);
-
         }else if(person instanceof Manager)
         {
-
+            personDTO = ManagerMapper.businessToDto((Manager)person);
         }else if(person instanceof Teacher)
         {
-
+            personDTO = TeacherMapper.businessToDto((Teacher)person);
         }else if(person instanceof Director)
         {
-
+            personDTO = DirectorMapper.businessToDto((Director)person);
         }
 
         return personDTO;

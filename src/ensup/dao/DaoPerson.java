@@ -1,10 +1,7 @@
 package ensup.dao;
 
 import ensup.business.*;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
-import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +35,14 @@ public class DaoPerson implements IDao<Person>
 // nombre de mises à jour
     int res = 0;
 
-    Logger log = Logger.getLogger(DaoPerson.class.getName());
-    File propertiesFile = new File( "Properties/dao.properties");
+
+    /**
+     * Instantiates a new Dao person.
+     */
+    public DaoPerson()
+    {
+
+    }
 
     /**
      * Create person. Person could be of type Teacher, Director, Student or Manager
@@ -110,8 +113,10 @@ public class DaoPerson implements IDao<Person>
             /**
              * Log to file
              */
-            PropertyConfigurator.configure(propertiesFile.toString());
-            log.info("L'utilisateur " +  entity.getFirstname()  + " à été créer");
+//            File propertiesFileDao = new File( "Properties/log4j.properties");
+//            PropertyConfigurator.configure(propertiesFileDao.toString());
+//            Logger log = Logger.getLogger(DaoPerson.class.getName());
+//            log.info("L'utilisateur " + entity.getLastname() +" "+entity.getFirstname() + " " + entity.getMailAddress() + " a été créé.");
 
         } catch (SQLException e) {
             res = -1;
@@ -375,11 +380,11 @@ public class DaoPerson implements IDao<Person>
     /**
      * Delete person.
      *
-     * @param entity The person object
+     * @param index index of the person in the database
      * @return List of Person, if an exception was catched, returns -1
      */
     @Override
-    public int delete(Person entity) {
+    public int delete(int index) {
         try {
             /*
              * CrÃ©er la connexion
@@ -391,7 +396,7 @@ public class DaoPerson implements IDao<Person>
              */
             String sql_request = "DELETE FROM Person WHERE id = ?";
             st = cn.prepareStatement(sql_request);
-            st.setInt(1, entity.getId());
+            st.setInt(1, index);
 
             /*
              * ExÃ©cuter la requÃªte

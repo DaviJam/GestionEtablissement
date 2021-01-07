@@ -23,7 +23,7 @@ public interface IDao<T>
      * @return the class of type T
      */
     T get(int index);
-    
+
     /**
      * Create an T in the database.
      *
@@ -46,5 +46,17 @@ public interface IDao<T>
      * @param entity T to be deleted
      * @return type of the result
      */
-    int delete(T entity);
+    default int delete(T entity)
+    {
+        //TODO : to delete
+        return 0;
+    }
+
+    /**
+     * Delete int.
+     *
+     * @param index the index
+     * @return the int
+     */
+    int delete(int index);
 }

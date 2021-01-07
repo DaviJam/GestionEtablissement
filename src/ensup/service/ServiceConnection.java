@@ -1,6 +1,5 @@
 package ensup.service;
 
-import ensup.business.Person;
 import ensup.dao.DaoLogin;
 import ensup.dao.DaoPerson;
 
@@ -9,9 +8,8 @@ public class ServiceConnection implements IServiceConnection{
     private DaoPerson daopers = new DaoPerson();
 
     @Override
-    public Person checkConnection(String mail, String mdp) {
+    public int checkConnection(String mail, String mdp) {
         int index = this.dao.checkPassword(mail, mdp); // Récupération du MDP et comparaison avec le mdp saisi
-        Person person = this.daopers.get(index); // On créer une personne et on le renvoit a la vue
-        return person;
+        return index;
     }
 }
