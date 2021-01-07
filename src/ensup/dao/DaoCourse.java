@@ -115,7 +115,6 @@ public class DaoCourse implements IDaoCourse
 		}
 
 		return 0;
-
 	}
 	
 	public int create( Course course )
@@ -186,9 +185,9 @@ public class DaoCourse implements IDaoCourse
 		return course.getId();
 	}
 
-	public int delete( Course course )
+	public int delete( int index )
 	{
-		if( course.getId() != -1 && indexExist(course.getId()) )
+		if( index != -1 && indexExist(index) )
 		{
 			Connection cn = Connect.openConnection();
 			
@@ -196,7 +195,7 @@ public class DaoCourse implements IDaoCourse
 			try
 			{
 				st = cn.createStatement();
-				st.execute("DELETE FROM Course WHERE id="+course.getId());
+				st.execute("DELETE FROM Course WHERE id="+index);
 			}
 			catch (SQLException e) {e.printStackTrace();}
 			finally{
@@ -208,7 +207,12 @@ public class DaoCourse implements IDaoCourse
 			}
 		}
 		
-		return course.getId();
+		return index;
+	}
+
+	public int delete( Course course )
+	{
+		return delete(course.getId());
 	}
 	
 	public boolean indexExist(int index)

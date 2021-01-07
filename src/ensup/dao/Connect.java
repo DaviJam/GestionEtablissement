@@ -11,6 +11,11 @@ public class Connect
 	private static final String USERNAME = "web";
 	private static final String PASSWORD = "Ensup2020*";
 	
+	/**
+	 * Open an connention with the information in the class
+	 * 
+	 * @return an connection open
+	 */
 	public static Connection openConnection()
 	{
 		Connection cn = null;

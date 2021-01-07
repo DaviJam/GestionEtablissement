@@ -3,6 +3,7 @@ package ensup.presentation;
 import ensup.business.Course;
 import ensup.business.Person;
 import ensup.business.Student;
+import ensup.service.ServiceConnection;
 import ensup.service.ServiceCourse;
 import ensup.service.ServicePerson;
 
@@ -15,7 +16,7 @@ import java.awt.event.ActionListener;
 public class App {
     private JPanel mainPanel;
     private JPanel connexionPanel;
-    private JButton button1;
+    private JButton connexionBtn;
     private JPanel menuPanel;
     private JPanel studentPanel;
     private JPanel coursePanel;
@@ -66,11 +67,16 @@ public class App {
 
     public App() {
         //Vue connexion
-        button1.addActionListener(new ActionListener() {
+        connexionBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                connexionPanel.setVisible(false);
-                menuPanel.setVisible(true);
+                ServiceConnection sc = new ServiceConnection();
+                boolean isConnect = sc.getConnection(textField1.getText(), passwordField1.getText());
+                if (isConnect) {
+                    connexionPanel.setVisible(false);
+                    menuPanel.setVisible(true);
+                }
+
                 //JOptionPane.showMessageDialog(null, textField1.getText());
             }
         });

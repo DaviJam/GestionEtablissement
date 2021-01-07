@@ -8,10 +8,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import ensup.business.Course;
 import ensup.business.Director;
 import ensup.business.School;
 
-public class DaoSchool implements IDao<School>
+public class DaoSchool implements IDaoSchool
 {
 	public List<School> getAll()
 	{
@@ -182,9 +183,9 @@ public class DaoSchool implements IDao<School>
 		return school.getId();
 	}
 
-	public int delete( School school )
+	public int delete( int index )
 	{
-		if( school.getId() != -1 && indexExist(school.getId()) )
+		if( index != -1 && indexExist(index) )
 		{
 			Connection cn = Connect.openConnection();
 			
@@ -192,7 +193,7 @@ public class DaoSchool implements IDao<School>
 			try
 			{
 				st = cn.createStatement();
-				st.execute("DELETE FROM School WHERE id="+school.getId());
+				st.execute("DELETE FROM School WHERE id="+index);
 			}
 			catch (SQLException e) {e.printStackTrace();}
 			finally{
@@ -204,7 +205,12 @@ public class DaoSchool implements IDao<School>
 			}
 		}
 		
-		return school.getId();
+		return index;
+	}
+
+	public int delete( School school )
+	{
+		return delete(school.getId());
 	}
 	
 	public boolean indexExist(int index)

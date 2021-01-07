@@ -10,41 +10,41 @@ import java.util.List;
 public interface IDao<T> {
 
     /**
-     * Create.
+     * Create an T in the database.
      *
-     * @param entity the entity
-     * @return the int
+     * @param entity T to be created
+     * @return type of the result
      */
     int create(T entity);
 
     /**
-     * Update.
+     * Update an T of the database.
      *
-     * @param entity the entity
-     * @return the int
+     * @param entity T to be updated
+     * @return type of the result
      */
     int update(T entity);
 
     /**
-     * Get.
+     * Get an T in the database.
      *
-     * @param index the index
+     * @param index index of the T to be get
      * @return the class of type T
      */
     T get(int index);
 
     /**
-     * Get all list.
+     * list all T of the database.
      *
-     * @return the list
+     * @return list of all T
      */
     List<T> getAll();
 
     /**
-     * delete.
+     * delete an T in the database.
      *
-     * @param entity the entity
-     * @return the int
+     * @param entity T to be deleted
+     * @return type of the result
      */
     int delete(T entity);
 }
