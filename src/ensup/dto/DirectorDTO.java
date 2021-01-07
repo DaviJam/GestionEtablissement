@@ -1,9 +1,11 @@
-package ensup.business;
+package ensup.dto;
+
+import ensup.business.Role;
 
 /**
- * The type Director.
+ * The type Director dto.
  */
-public class Director extends Manager {
+public class DirectorDTO extends ManagerDTO{
     /**
      * Instantiates a new Director.
      *
@@ -15,12 +17,12 @@ public class Director extends Manager {
      * @param firstname   the firstname
      * @param password    the password
      */
-    public Director(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password) {
+    public DirectorDTO(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password) {
         super(lastname, mailAddress, address, phoneNumber, id, firstname, Role.DIRECTOR, password);
     }
 
     /**
-     * Instantiates a new Director.
+     * Instantiates a new Director dto.
      *
      * @param lastname    the lastname
      * @param mailAddress the mail address
@@ -29,22 +31,21 @@ public class Director extends Manager {
      * @param firstname   the firstname
      * @param password    the password
      */
-    public Director(String lastname, String mailAddress, String address, String phoneNumber,  String firstname, String password) {
+    public DirectorDTO(String lastname, String mailAddress, String address, String phoneNumber,  String firstname, String password) {
         super(lastname, mailAddress, address, phoneNumber, firstname, Role.DIRECTOR, password);
     }
 
     /**
-     * Instantiates a new Director.
+     * Instantiates a new Director dto.
      */
-    public Director() {
-
+    public DirectorDTO() {
     }
 
     @Override
-	public String toString() {
-		String res = super.toString();
-		res = res.replace("Manager", "Director");
+    public String toString() {
+        String res = super.toString();
+        res = res.replace("Manager", "Director");
 
-		return res;
-	}
+        return res;
+    }
 }

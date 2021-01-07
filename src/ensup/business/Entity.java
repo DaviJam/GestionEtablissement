@@ -15,7 +15,7 @@ public class Entity
 	/**
 	 * Instantiates a new Entity.
 	 *
-	 * @param lastname     the lastname
+	 * @param lastname    the lastname
 	 * @param mailAddress the mail address
 	 * @param address     the address
 	 * @param phoneNumber the phone number
@@ -28,16 +28,21 @@ public class Entity
 		this.phoneNumber = phoneNumber;
 	}
 
-
 	/**
 	 * Instantiates a new Entity.
 	 *
-	 * @param lastname     the lastname
+	 * @param lastname    the lastname
 	 * @param mailAddress the mail address
 	 */
 	public Entity(String lastname, String mailAddress)
 	{
 		this(lastname, mailAddress, null, null);
+	}
+
+	/**
+	 * Instantiates a new Entity.
+	 */
+	public Entity() {
 	}
 
 	/**
@@ -112,6 +117,12 @@ public class Entity
 		this.phoneNumber = phoneNumber;
 	}
 
+	/**
+	 * Is equal to boolean.
+	 *
+	 * @param entity the entity
+	 * @return the boolean
+	 */
 	public boolean isEqualTo(Entity entity)
 	{
 		boolean res = false;

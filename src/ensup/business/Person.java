@@ -12,6 +12,13 @@ public class Person extends Entity{
     private Role role;
 
     /**
+     * Instantiates a new Person.
+     */
+    public Person() {
+
+    }
+
+    /**
      * Gets role.
      *
      * @return the role
@@ -68,12 +75,13 @@ public class Person extends Entity{
     /**
      * Instantiates a new Person.
      *
-     * @param lastname     the lastname
+     * @param lastname    the lastname
      * @param mailAddress the mail address
      * @param address     the address
      * @param phoneNumber the phone number
      * @param id          the id
      * @param firstname   the firstname
+     * @param role        the role
      * @param password    the password
      */
     public Person(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, Role role, String password) {
@@ -84,6 +92,17 @@ public class Person extends Entity{
         this.password = password;
     }
 
+    /**
+     * Instantiates a new Person.
+     *
+     * @param lastname    the lastname
+     * @param mailAddress the mail address
+     * @param address     the address
+     * @param phoneNumber the phone number
+     * @param firstname   the firstname
+     * @param role        the role
+     * @param password    the password
+     */
     public Person(String lastname, String mailAddress, String address, String phoneNumber, String firstname, Role role, String password) {
         super(lastname, mailAddress, address, phoneNumber);
         this.id = id;
@@ -95,7 +114,7 @@ public class Person extends Entity{
     /**
      * Instantiates a new Person.
      *
-     * @param lastname     the lastname
+     * @param lastname    the lastname
      * @param mailAddress the mail address
      * @param id          the id
      * @param firstname   the firstname

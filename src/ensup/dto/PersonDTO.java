@@ -1,9 +1,8 @@
 package ensup.dto;
 
-import ensup.business.Entity;
 import ensup.business.Role;
 
-public class PersonDTO extends Entity {
+public class PersonDTO extends EntityDTO {
     private int id;
     private String firstname;
     private String password;
