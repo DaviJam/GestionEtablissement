@@ -2,7 +2,6 @@ package ensup.presentation;
 
 import ensup.business.Role;
 import ensup.dto.CourseDTO;
-import ensup.dto.ManagerDTO;
 import ensup.dto.PersonDTO;
 import ensup.dto.StudentDTO;
 import ensup.service.CourseService;
@@ -74,24 +73,23 @@ public class App {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ServiceConnection sc = new ServiceConnection();
+                ServicePerson sp = new ServicePerson();
                 /*System.out.println(textField1.getText());
                 System.out.println(passwordField1.getText());*/
 
-                int item = sc.checkConnection(textField1.getText(), passwordField1.getText());
-                ServicePerson ps = new ServicePerson();
-                PersonDTO p = ps.get(item);
-                if (p instanceof ManagerDTO) {
-                    Role r = p.getRole();
-                    if (r.getNum() == 1 || r.getNum() == 2) {
-                        connexionPanel.setVisible(false);
-                        menuPanel.setVisible(true);
-                        if (r.getNum() == 1) {
-                            studentListBtn.setVisible(true);
-                        } else {
-                            studentListBtn.setVisible(false);
-                        }
+                int idConnexion = sc.checkConnection(textField1.getText(), passwordField1.getText());
+                PersonDTO p = sp.get(idConnexion);
+                Role r = p.getRole();
+                if (r.getNum() == 1 || r.getNum() == 2) {
+                    connexionPanel.setVisible(false);
+                    menuPanel.setVisible(true);
+                    if (r.getNum() == 1) {
+                        studentListBtn.setVisible(true);
+                    } else {
+                        studentListBtn.setVisible(false);
                     }
                 }
+
                 //JOptionPane.showMessageDialog(null, textField1.getText());
             }
         });
@@ -188,13 +186,13 @@ public class App {
                     }
                 }
                 // TableModel's data
-                /***Object[][] data = {
-                 { "Liverpool", 3, 3, 0, 0, 7,  },
-                 { "Tottenham", 3, 3, 0, 0, 8,  },
-                 { "Chelsea", 3, 3, 0, 0, 8,  },
-                 { "Watford", 3, 3, 0, 0, 7,  },
-                 { "Manchester City", 3, 2, 1, 0, 9, }
-                 };***/
+                 /***Object[][] data = {
+                        { "Liverpool", 3, 3, 0, 0, 7,  },
+                        { "Tottenham", 3, 3, 0, 0, 8,  },
+                        { "Chelsea", 3, 3, 0, 0, 8,  },
+                        { "Watford", 3, 3, 0, 0, 7,  },
+                        { "Manchester City", 3, 2, 1, 0, 9, }
+                };***/
 
                 StudentTableModel modele =new StudentTableModel(data,columnNames);
                 table1.setModel(modele);
@@ -207,31 +205,32 @@ public class App {
         });
 
 
-                //User interactions
-                addCourse.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        //TF8 et TF9
-                        if (textField8.getText() == "" || textField9.getText() == "") {
-                            JOptionPane.showMessageDialog(null, "Un des champs est vide");
-                        } else {
-                            //If nb hours is not numeric return msgbox
-                            try {
-                                float f = Float.parseFloat(textField9.getText());
 
-                                //Create course with parameters
-                                CourseService cs = new CourseService();
-                                CourseDTO c = new CourseDTO(textField8.getText(), f);
-                                cs.create(c);
-                                comboBox3.addItem(textField8.getText());
-                                textField8.setText("");
-                                textField9.setText("");
-                            } catch (NumberFormatException nfe) {
-                                JOptionPane.showMessageDialog(null, "Le nombre d'heure n'est pas un nombre (ex: 1.5)");
-                            }
-                        }
+        //User interactions
+        addCourse.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TF8 et TF9
+                if (textField8.getText() == "" || textField9.getText() == "") {
+                    JOptionPane.showMessageDialog(null, "Un des champs est vide");
+                } else {
+                    //If nb hours is not numeric return msgbox
+                    try {
+                        float f = Float.parseFloat(textField9.getText());
+
+                        //Create course with parameters
+                        CourseService cs = new CourseService();
+                        CourseDTO c = new CourseDTO(textField8.getText(), f);
+                        cs.create(c);
+                        comboBox3.addItem(textField8.getText());
+                        textField8.setText("");
+                        textField9.setText("");
+                    } catch (NumberFormatException nfe) {
+                        JOptionPane.showMessageDialog(null, "Le nombre d'heure n'est pas un nombre (ex: 1.5)");
                     }
-                });
+                }
+            }
+        });
 
         comboBox1.addActionListener(new ActionListener() {
             @Override
@@ -344,35 +343,35 @@ public class App {
 
         modifyStudent.addActionListener(modifyStudentAction);
 
-        //Btn return
-        returnBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                menuPanel.setVisible(true);
-                studentPanel.setVisible(false);
-            }
-        });
-        returnBtn1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                menuPanel.setVisible(true);
-                coursePanel.setVisible(false);
-            }
-        });
-        returnBtn2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                menuPanel.setVisible(true);
-                studentListPanel.setVisible(false);
-            }
-        });
-        returnBtn3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                menuPanel.setVisible(true);
-                addStudentPanel.setVisible(false);
-            }
-        });
+            //Btn return
+            returnBtn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    menuPanel.setVisible(true);
+                    studentPanel.setVisible(false);
+                }
+            });
+            returnBtn1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    menuPanel.setVisible(true);
+                    coursePanel.setVisible(false);
+                }
+            });
+            returnBtn2.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    menuPanel.setVisible(true);
+                    studentListPanel.setVisible(false);
+                }
+            });
+            returnBtn3.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    menuPanel.setVisible(true);
+                    addStudentPanel.setVisible(false);
+                }
+            });
     }
 
 
