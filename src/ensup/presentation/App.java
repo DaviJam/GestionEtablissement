@@ -1,7 +1,10 @@
 package ensup.presentation;
 
 import ensup.business.Course;
+import ensup.business.Person;
+import ensup.business.Student;
 import ensup.service.ServiceCourse;
+import ensup.service.ServicePerson;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -88,12 +91,23 @@ public class App {
             public void actionPerformed(ActionEvent e) {
                 menuPanel.setVisible(false);
                 coursePanel.setVisible(true);
-                ServiceCourse cs = new ServiceCourse();
 
+                //Add item in combobox course
+                ServiceCourse cs = new ServiceCourse();
                 comboBox3.removeAllItems();
                 for(Course c : cs.getAll()){
                     System.out.println(c);
                     comboBox3.addItem(c.getCourseSubject());
+                }
+
+                //Add item in combobox student
+                ServicePerson ps = new ServicePerson();
+                comboBox2.removeAllItems();
+                for(Person p : ps.getAll()){
+                    if(p instanceof Student) {
+                        System.out.println(p);
+                        comboBox2.addItem(p.getFirstname() + " " + p.getLastname());
+                    }
                 }
             }
         });
