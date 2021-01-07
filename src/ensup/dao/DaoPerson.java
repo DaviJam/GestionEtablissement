@@ -214,7 +214,7 @@ public class DaoPerson implements IDao<Person>
                 String phone = rs.getString("phone");
                 int role = rs.getInt("role");
                 String password = rs.getString("password");
-                Object datofbirth = rs.getObject("datofbirth");
+                Object dateofbirth = rs.getObject("dateofbirth");
                 Object subjecttaught = rs.getObject("subjecttaught");
 
                 if(rs.getInt("role") == Role.DIRECTOR.getNum())
@@ -236,8 +236,8 @@ public class DaoPerson implements IDao<Person>
                 }
                 else if(rs.getInt("role") == Role.STUDENT.getNum())
                 {
-                    if(datofbirth != null) {
-                        p1 = new Student(lastname, email, address, phone, id, firstName, password, (Date)datofbirth);
+                    if(dateofbirth != null) {
+                        p1 = new Student(lastname, email, address, phone, id, firstName, password, (Date)dateofbirth);
                     } else {
                         p1 = new Student(lastname, email, address, phone, id, firstName, password, null);
                     }
@@ -357,6 +357,44 @@ public class DaoPerson implements IDao<Person>
              * CrÃ©er la requÃªte
              */
             String sql_request = "DELETE FROM Person WHERE id = ?";
+            st = cn.prepareStatement(sql_request);
+            st.setInt(1, entity.getId());
+
+            /*
+             * ExÃ©cuter la requÃªte
+             */
+            res = st.executeUpdate();
+
+            /*
+             * Afficher le rÃ©sultat
+             */
+            System.out.println(res);
+
+            /*
+             * Fermer la connexion
+             */
+            cn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            res = -1;
+        } finally {
+
+        }
+        return 0;
+    }
+
+    public int LinkToCourse(Person entity, Course course) {
+        try {
+            /*
+             * CrÃ©er la connexion
+             */
+            cn = openConnection();
+
+            /*
+             * CrÃ©er la requÃªte
+             */
+            String sql_request = "INSERT INTO Course_Person WHERE id Person WHERE id = ?";
             st = cn.prepareStatement(sql_request);
             st.setInt(1, entity.getId());
 
