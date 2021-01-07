@@ -5,6 +5,9 @@ import ensup.business.Person;
 import ensup.business.Role;
 import ensup.business.Student;
 import ensup.dto.CourseDTO;
+import ensup.dao.DaoPerson;
+import ensup.dto.PersonDTO;
+import ensup.dto.StudentDTO;
 import ensup.service.ServiceConnection;
 import ensup.service.CourseService;
 import ensup.service.ServicePerson;
@@ -14,6 +17,12 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -51,7 +60,6 @@ public class App {
     private JComboBox comboBox3;
     private JButton associerButton;
     private JButton returnBtn2;
-    private JTable table1;
     private JButton returnBtn3;
     private JTextField textField10;
     private JTextField textField11;
@@ -64,13 +72,7 @@ public class App {
     private JTextField hiddenTextField1;
     private JTextField textField16;
     private JPasswordField passwordField2;
-
-    String[] columnNames = {"First Name", "Last Name"};
-
-    String[][] data = {
-            {"Steven", "Morvan"},
-            {"Thomas", "Dasilva"}
-    };
+    private JTable table1;
 
 
     public App() {
@@ -115,8 +117,8 @@ public class App {
                 //Add item in combobox student
                 ServicePerson ps = new ServicePerson();
                 comboBox1.removeAllItems();
-                for(Person p : ps.getAll()){
-                    if(p instanceof Student) {
+                for(PersonDTO p : ps.getAll()){
+                    if(p instanceof StudentDTO) {
                         System.out.println(p);
                         comboBox1.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
                     }
@@ -140,8 +142,8 @@ public class App {
                 //Add item in combobox student
                 ServicePerson ps = new ServicePerson();
                 comboBox2.removeAllItems();
-                for(Person p : ps.getAll()){
-                    if(p instanceof Student) {
+                for(PersonDTO p : ps.getAll()){
+                    if(p instanceof StudentDTO) {
                         System.out.println(p);
                         comboBox2.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
                     }
@@ -153,9 +155,42 @@ public class App {
             public void actionPerformed(ActionEvent e) {
                 menuPanel.setVisible(false);
                 studentListPanel.setVisible(true);
-                table1 = new JTable(data, columnNames);
+                // TableModel's column names
+                 String[] columnNames = {
+                        "Nom", "Prénom", "Email", "Adresse", "Téléphone", "Date de naissance",
+                };
+                ServicePerson ps = new ServicePerson();
+                int nbStudent = 0;
+                for(PersonDTO p : ps.getAll()){
+                    if(p instanceof StudentDTO) {
+                        nbStudent++;
+                    }
+                }
+                String[][] data = new String[nbStudent][6];
+                int count = 0;
+                for(PersonDTO p : ps.getAll()){
+                    if(p instanceof StudentDTO) {
+                        data[count][0] = p.getFirstname();
+                        data[count][1] = p.getLastname();
+                        data[count][2] = p.getFirstname();
+                        data[count][3] = p.getFirstname();
+                        data[count][4] = p.getFirstname();
+                        data[count][5] = p.getFirstname();
+                        count++;
+                    }
+                }
+                // TableModel's data
+                 /***Object[][] data = {
+                        { "Liverpool", 3, 3, 0, 0, 7,  },
+                        { "Tottenham", 3, 3, 0, 0, 8,  },
+                        { "Chelsea", 3, 3, 0, 0, 8,  },
+                        { "Watford", 3, 3, 0, 0, 7,  },
+                        { "Manchester City", 3, 2, 1, 0, 9, }
+                };***/
 
-                table1.setFillsViewportHeight(true);
+                StudentTableModel modele =new StudentTableModel(data,columnNames);
+                table1.setModel(modele);
+
 
             }
         });
@@ -197,19 +232,19 @@ public class App {
 
                 //On affiche les informations utilisateurs
                 ServicePerson ps = new ServicePerson();
-                Person p = ps.get(item.getId());
-                if (p instanceof Student) {
-                    System.out.println(((Student)p).toString());
+                PersonDTO p = ps.get(item.getId());
+                if (p instanceof StudentDTO) {
+                    System.out.println(((StudentDTO)p).toString());
 
-                    String s = String.valueOf(((Student)p).getId());
+                    String s = String.valueOf(((StudentDTO)p).getId());
                     hiddenTextField1.setText(s);
-                    textField2.setText(((Student)p).getLastname());
-                    textField3.setText(((Student)p).getFirstname());
-                    textField4.setText(((Student)p).getMailAddress());
-                    textField5.setText(((Student)p).getAddress());
-                    textField6.setText(((Student)p).getPhoneNumber());
-                    textField7.setText(((Student)p).getDateOfBirth().toString());
-                    passwordField2.setText(((Student)p).getPassword());
+                    textField2.setText(((StudentDTO)p).getLastname());
+                    textField3.setText(((StudentDTO)p).getFirstname());
+                    textField4.setText(((StudentDTO)p).getMailAddress());
+                    textField5.setText(((StudentDTO)p).getAddress());
+                    textField6.setText(((StudentDTO)p).getPhoneNumber());
+                    textField7.setText(((StudentDTO)p).getDateOfBirth().toString());
+                    passwordField2.setText(((StudentDTO)p).getPassword());
                 }
             }
         });
@@ -355,3 +390,53 @@ class ItemRenderer extends BasicComboBoxRenderer {
         return this;
     }
 }
+
+class StudentTableModel extends AbstractTableModel {
+    private Object[][] data;
+    private String[] columnNames;
+
+
+    public StudentTableModel(Object[][] data, String[] columnNames) {
+        this.data = data;
+        this.columnNames = columnNames;
+    }
+
+    /**
+     * Returns the number of rows in the table model.
+     */
+    public int getRowCount() {
+        return data.length;
+    }
+
+    /**
+     * Returns the number of columns in the table model.
+     */
+    public int getColumnCount() {
+        return columnNames.length;
+    }
+
+    /**
+     * Returns the column name for the column index.
+     */
+    @Override
+    public String getColumnName(int column) {
+        return columnNames[column];
+    }
+
+    /**
+     * Returns data type of the column specified by its index.
+     */
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        return getValueAt(0, columnIndex).getClass();
+    }
+
+    /**
+     * Returns the value of a table model at the specified
+     * row index and column index.
+     */
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        return data[rowIndex][columnIndex];
+    }
+}
+
