@@ -38,7 +38,7 @@ public class DaoLogin {
      * @return the password
      */
     public int checkPassword(String mail, String password) {
-        int count = 0;
+        int id = 0;
         try {
             /*
              * Crer la connexion
@@ -51,7 +51,7 @@ public class DaoLogin {
             /*
              * CrÃ©er la requÃªte
              */
-            String sql_request = "SELECT COUNT(email) AS nb FROM Person WHERE email = ? AND password = ? AND (role = 1 OR role = 2)";
+            String sql_request = "SELECT id FROM Person WHERE email = ? AND password = ? AND (role = 1 OR role = 2)";
             st = cn.prepareStatement(sql_request);
             st.setString(1, mail);
             st.setString(2, password);
@@ -63,12 +63,12 @@ public class DaoLogin {
 
 
             if (rs.next()) {
-                count = rs.getInt("nb");
+                id = rs.getInt("id");
             }
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return count;
+        return id;
     }
 }

@@ -2,6 +2,7 @@ package ensup.presentation;
 
 import ensup.business.Course;
 import ensup.business.Person;
+import ensup.business.Role;
 import ensup.business.Student;
 import ensup.service.ServiceConnection;
 import ensup.service.ServiceCourse;
@@ -78,10 +79,16 @@ public class App {
                 ServiceConnection sc = new ServiceConnection();
                 System.out.println(textField1.getText());
                 System.out.println(passwordField1.getText());
-                boolean isConnect = sc.checkConnection(textField1.getText(), passwordField1.getText());
-                if (isConnect) {
+                Person p = sc.checkConnection(textField1.getText(), passwordField1.getText());
+                Role r = p.getRole();
+                if (r.getNum() == 1 || r.getNum() == 2) {
                     connexionPanel.setVisible(false);
                     menuPanel.setVisible(true);
+                    if (r.getNum() == 1) {
+                        studentListBtn.setVisible(true);
+                    } else {
+                        studentListBtn.setVisible(false);
+                    }
                 }
 
                 //JOptionPane.showMessageDialog(null, textField1.getText());
