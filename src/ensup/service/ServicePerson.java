@@ -72,8 +72,9 @@ public class ServicePerson implements IServiceEntity<Person>{
     }
 
     @Override
-    public void LinkToCourse(int idEtudiant, int idCourse) {
-        
+    public int LinkToCourse(int idEtudiant, int idCourse) {
+        int res = this.dao.LinkToCourse(idEtudiant, idCourse);
+        return res;
     }
 
     @Override
