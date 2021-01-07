@@ -2,11 +2,14 @@ package ensup.dao;
 
 import ensup.business.*;
 
+import java.io.File;
 import java.sql.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import static ensup.dao.Connect.openConnection;
 
@@ -98,6 +101,11 @@ public class DaoPerson implements IDao<Person>
              * Fermer la connexion
              */
             cn.close();
+
+            Logger log = Logger.getLogger(DaoPerson.class.getName());
+            File propertiesFile = new File( "Properties/log4j.properties");
+            PropertyConfigurator.configure(propertiesFile.toString());
+            log.info("L'utilisateur " +  entity.getFirstname()  + " à été créer");
 
         } catch (SQLException e) {
             e.printStackTrace();
