@@ -384,7 +384,7 @@ public class DaoPerson implements IDao<Person>
         return 0;
     }
 
-    public int LinkToCourse(Person entity, Course course) {
+    public int LinkToCourse(int entity, int course) {
         try {
             /*
              * CrÃ©er la connexion
@@ -394,9 +394,10 @@ public class DaoPerson implements IDao<Person>
             /*
              * CrÃ©er la requÃªte
              */
-            String sql_request = "INSERT INTO Course_Person WHERE id Person WHERE id = ?";
+            String sql_request = "INSERT INTO Course_Person(idPerson, idCourse) VALUES (?, ?)";
             st = cn.prepareStatement(sql_request);
-            st.setInt(1, entity.getId());
+            st.setInt(1, entity);
+            st.setInt(2, course);
 
             /*
              * ExÃ©cuter la requÃªte
