@@ -1,7 +1,7 @@
 package ensup.presentation;
 
 import ensup.business.Course;
-import ensup.service.CourseService;
+import ensup.service.ServiceCourse;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -88,7 +88,7 @@ public class App {
             public void actionPerformed(ActionEvent e) {
                 menuPanel.setVisible(false);
                 coursePanel.setVisible(true);
-                CourseService cs = new CourseService();
+                ServiceCourse cs = new ServiceCourse();
                 for(Course c : cs.getAll()){
                     System.out.println(c);
                     comboBox3.addItem(c.getCourseSubject());
@@ -118,7 +118,7 @@ public class App {
                         float f = Float.parseFloat(textField9.getText());
 
                         //Create course with parameters
-                        CourseService cs = new CourseService();
+                        ServiceCourse cs = new ServiceCourse();
                         cs.create(textField8.getText(), f);
                         comboBox3.addItem(textField8.getText());
                         textField8.setText("");

@@ -10,7 +10,7 @@ import java.util.List;
 
 import ensup.business.Course;
 
-public class CourseDao implements ICourseDao
+public class DaoCourse implements IDaoCourse
 {
 	public List<Course> getAll()
 	{
@@ -124,20 +124,22 @@ public class CourseDao implements ICourseDao
 		PreparedStatement pstmt = null;
 		try
 		{
-			if( course.getId() != -1 )
-				pstmt = cn.prepareStatement("INSERT INTO Course (id, coursesubject, nbhours) VALUES ( ?, ?, ? )");
-			else
-				pstmt = cn.prepareStatement("INSERT INTO Course (coursesubject, nbhours) VALUES ( ?, ? )");
+			if( course.getId() != -1 || getIndex(course.getCourseSubject(), course.getNbHours()) == -1 )
+			{
+				if(course.getId() != -1)
+					pstmt = cn.prepareStatement("INSERT INTO Course (id, coursesubject, nbhours) VALUES ( ?, ?, ? )");
+				else
+					pstmt = cn.prepareStatement("INSERT INTO Course (coursesubject, nbhours) VALUES ( ?, ? )");
 			
-			int index = 1;
-			
-			if( pstmt.getParameterMetaData().getParameterCount() == 3 )
-				pstmt.setInt(index++, course.getId());
-			
-			pstmt.setString(index++, course.getCourseSubject());
-			pstmt.setFloat(index++, course.getNbHours());
-
-			pstmt.execute();
+				int index = 1;
+				if(pstmt.getParameterMetaData().getParameterCount() == 3)
+					pstmt.setInt(index++, course.getId());
+				
+				pstmt.setString(index++, course.getCourseSubject());
+				pstmt.setFloat(index++, course.getNbHours());
+				
+				pstmt.execute();
+			}
 		}
 		catch (SQLException e) {e.printStackTrace();}
 		finally{

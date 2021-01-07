@@ -3,19 +3,18 @@ package ensup.service;
 import java.util.List;
 
 import ensup.business.Course;
-import ensup.dao.CourseDao;
-import ensup.dao.ICourseDao;
+import ensup.dao.DaoCourse;
 
-public class CourseService implements ICourseService
+public class ServiceCourse implements IServiceCourse
 {
-	private CourseDao dao;
+	private DaoCourse dao;
 
 	
-	public CourseService()
+	public ServiceCourse()
 	{
-		this.dao = new CourseDao();
+		this.dao = new DaoCourse();
 	}
-
+	
 	public Course get(int index)
 	{
 		return this.dao.get(index);
@@ -47,5 +46,10 @@ public class CourseService implements ICourseService
 	public void delete(Course cours)
 	{
 		this.dao.delete(cours);
+	}
+	
+	public int getIndex( String coursesubject, float nbhours )
+	{
+		return this.dao.getIndex(coursesubject, nbhours);
 	}
 }

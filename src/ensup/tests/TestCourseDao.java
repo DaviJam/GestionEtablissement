@@ -1,19 +1,18 @@
 package ensup.tests;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ensup.business.Course;
-import ensup.dao.CourseDao;
+import ensup.dao.DaoCourse;
 
 public class TestCourseDao
 {
-	private CourseDao dao;
+	private DaoCourse dao;
 	
 	public TestCourseDao()
 	{
 		System.out.println("Constructor TestCourseDao");
-		dao = new CourseDao();
+		dao = new DaoCourse();
 	}
 	
 	public void testGetAll()

@@ -6,7 +6,7 @@ import ensup.dao.DaoPerson;
 import java.util.Date;
 import java.util.List;
 
-public class ServicePerson implements IEntityService<Person>{
+public class ServicePerson implements IServiceEntity<Person>{
 
     private DaoPerson dao = new DaoPerson();
     // Create Person
