@@ -65,9 +65,15 @@ public class ServicePerson implements IServiceEntity<Person>{
     }
 
     @Override
-    public int Delete(Person person) {
+    public int Delete(int index) {
+        Person person = this.get(index);
         int res = this.dao.delete(person);
         return res;
+    }
+
+    @Override
+    public void LinkToCourse(int idEtudiant, int idCourse) {
+        
     }
 
     @Override
@@ -85,4 +91,6 @@ public class ServicePerson implements IServiceEntity<Person>{
     public int createCourse(Person entity) {
         return 0;
     }
+
+
 }
