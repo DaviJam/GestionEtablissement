@@ -12,6 +12,9 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class App {
     private JPanel mainPanel;
@@ -57,6 +60,7 @@ public class App {
     private JButton createStudent;
     private JPanel infoStudentPanel;
     private JTextField hiddenTextField1;
+    private JTextField textField16;
 
     String[] columnNames = {"First Name",
             "Last Name",
@@ -70,12 +74,12 @@ public class App {
         connexionBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ServiceConnection sc = new ServiceConnection();
+               /*** ServiceConnection sc = new ServiceConnection();
                 boolean isConnect = sc.getConnection(textField1.getText(), passwordField1.getText());
-                if (isConnect) {
+                if (isConnect) {***/
                     connexionPanel.setVisible(false);
                     menuPanel.setVisible(true);
-                }
+                //}
 
                 //JOptionPane.showMessageDialog(null, textField1.getText());
             }
@@ -235,6 +239,33 @@ public class App {
                     addStudentPanel.setVisible(false);
                 }
             });
+        createStudent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TF10 à TF15
+                if (textField10.getText() == "" || textField11.getText() == "" || textField12.getText() == "" || textField13.getText() == "" || textField14.getText() == "" || textField15.getText() == "" || textField16.getText() == "") {
+                    JOptionPane.showMessageDialog(null, "Un des champs est vide");
+                } else {
+                    //If nb hours is not numeric return msgbox
+                    try {
+                        //Create course with parameters
+                        ServicePerson sp = new ServicePerson();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        Date auj = sdf.parse(textField15.getText());
+                        sp.create(textField11.getText(), textField12.getText(), textField13.getText(), textField14.getText(), textField10.getText(), textField16.getText(), 4, auj ,"");
+                        textField10.setText("");
+                        textField11.setText("");
+                        textField12.setText("");
+                        textField13.setText("");
+                        textField14.setText("");
+                        textField15.setText("");
+                        textField16.setText("");
+                    } catch (NumberFormatException | ParseException nfe) {
+                        JOptionPane.showMessageDialog(null, "Un des paramètres à pas a été renseigné");
+                    }
+                }
+            }
+        });
     }
 
 
