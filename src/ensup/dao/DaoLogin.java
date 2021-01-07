@@ -7,31 +7,38 @@ import java.sql.SQLException;
 
 import static ensup.dao.Connect.openConnection;
 
+/**
+ * The type Dao login.
+ */
 public class DaoLogin {
     /**
-     * The Cn.
+     * The Connection.
      */
-    // initialisation des variables java permettant de dialoguer avec la bdd
-    // connecter a la base de données
     Connection cn = null;
+
     /**
-     * The St.
+     * The Prepared Statement.
      */
-    // executer la requete
     PreparedStatement st = null;
+
     /**
-     * The Rs.
+     * The Result Set.
      */
-    // récupérer le résultat
     ResultSet rs = null;
+
     /**
-     * The Res.
+     * The update, create and remove result.
      */
-// nombre de mises à jour
     int res = 0;
 
-    public String getPassword(String mail) {
-        String mdp = null;
+    /**
+     * Gets password.
+     *
+     * @param mail the mail
+     * @return the password
+     */
+    public int checkPassword(String mail, String password) {
+        int count = 0;
         try {
             /*
              * CrÃ©er la connexion
@@ -41,9 +48,10 @@ public class DaoLogin {
             /*
              * CrÃ©er la requÃªte
              */
-            String sql_request = "SELECT password FROM Person WHERE email = ?";
+            String sql_request = "SELECT COUNT(email) AS nb FROM Person WHERE email = ? , password = ?";
             st = cn.prepareStatement(sql_request);
             st.setString(1, mail);
+            st.setString(1, password);
 
             /*
              * ExÃ©cuter la requÃªte
@@ -52,12 +60,12 @@ public class DaoLogin {
 
 
             if (rs.next()) {
-                mdp = rs.getString("password");
+                count = rs.getInt("nb");
             }
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return mdp;
+        return count;
     }
 }
