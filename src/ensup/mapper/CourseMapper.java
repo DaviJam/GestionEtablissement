@@ -3,8 +3,9 @@ package ensup.mapper;
 import ensup.business.Course;
 import ensup.dto.CourseDTO;
 
-public class CourseMapper {
-    public CourseDTO businessToDto(Course course){
+public class CourseMapper
+{
+    public static CourseDTO businessToDto(Course course){
 
         CourseDTO newCourseDto = new CourseDTO();
 
@@ -15,7 +16,7 @@ public class CourseMapper {
         return newCourseDto;
     };
 
-    public Course dtoToBusiness(CourseDTO coursedto){
+    public static Course dtoToBusiness(CourseDTO coursedto){
 
         Course newCourse = new Course();
 
@@ -25,6 +26,4 @@ public class CourseMapper {
 
         return newCourse;
     };
-
-
 }

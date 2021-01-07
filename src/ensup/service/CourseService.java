@@ -12,44 +12,34 @@ public class CourseService implements ICourseService
 {
 	private CourseDao dao;
 
-	private CourseMapper mapper = new CourseMapper();
-
 	public CourseService()
 	{
 		this.dao = new CourseDao();
 	}
 
-	public List<CourseDTO> getAll() {
-
-		List<Course> listCourse = this.dao.getAll();
-		List<CourseDTO> listCourseDto = new ArrayList<>();
-		CourseDTO cdto = new CourseDTO();
-
-		for (Course c: this.dao.getAll()) {
-			cdto = mapper.businessToDto(c);
-			listCourseDto.add(cdto);
-		}
-
+	public List<CourseDTO> getAll()
+	{
+		List<CourseDTO> listCourseDto = new ArrayList<CourseDTO>();
+		
+		for (Course c: this.dao.getAll())
+			listCourseDto.add(CourseMapper.businessToDto(c));
+		
 		return listCourseDto;
 	}
 
 	public CourseDTO get(int index)
 	{
-		Course course = this.dao.get(index);
-		CourseDTO courseDTO = mapper.businessToDto(course);
-
-		return courseDTO;
+		return CourseMapper.businessToDto(this.dao.get(index));
 	}
 
-	public int create(CourseDTO courseDto) {
-
-		Course entity = this.mapper.dtoToBusiness(courseDto);
-		return this.dao.create(entity);
+	public int create(CourseDTO courseDto)
+	{
+		return this.dao.create(CourseMapper.dtoToBusiness(courseDto));
 	}
 
-	public int update(CourseDTO courseDto) {
-
-		Course course = this.mapper.dtoToBusiness(courseDto);
+	public int update(CourseDTO courseDto)
+	{
+		Course course = CourseMapper.dtoToBusiness(courseDto);
 		course.setId(courseDto.getId());
 
 		return this.dao.update(course);
@@ -57,10 +47,9 @@ public class CourseService implements ICourseService
 
 	public int delete(CourseDTO courseDto)
 	{
-		Course entity = this.mapper.dtoToBusiness(courseDto);
-		return this.dao.delete(entity);
+		return delete(courseDto.getId());
 	}
-
+	
 	public int delete(int index)
 	{
 		return this.dao.delete(index);
