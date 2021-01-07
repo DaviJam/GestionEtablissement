@@ -39,8 +39,7 @@ public class DaoPerson implements IDao<Person>
     int res = 0;
 
     Logger log = Logger.getLogger(DaoPerson.class.getName());
-    File propertiesFile = new File( "Properties/Dao.properties");
-            PropertyConfigurator.configure(propertiesFile.toString());
+    File propertiesFile = new File( "Properties/dao.properties");
 
     /**
      * Create person. Person could be of type Teacher, Director, Student or Manager
@@ -108,7 +107,10 @@ public class DaoPerson implements IDao<Person>
              */
             cn.close();
 
-
+            /**
+             * Log to file
+             */
+            PropertyConfigurator.configure(propertiesFile.toString());
             log.info("L'utilisateur " +  entity.getFirstname()  + " à été créer");
 
         } catch (SQLException e) {
