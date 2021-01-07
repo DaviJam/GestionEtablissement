@@ -12,7 +12,7 @@ import ensup.business.Course;
 import ensup.business.Director;
 import ensup.business.School;
 
-public class DaoSchool implements IDao<School>
+public class DaoSchool implements IDaoSchool
 {
 	public List<School> getAll()
 	{

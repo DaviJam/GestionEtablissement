@@ -115,7 +115,6 @@ public class DaoCourse implements IDaoCourse
 		}
 
 		return 0;
-
 	}
 	
 	public int create( Course course )
