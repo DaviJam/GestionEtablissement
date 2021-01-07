@@ -11,6 +11,8 @@ public class Student extends Person
 {
 	private Date dateOfBirth;
 
+	public Student(){ }
+
 	public Student(String lastname, String mailAddress, String address, String phoneNumber, String firstname, String password, Date dateOfBirth)
 	{
 		super(lastname, mailAddress, address, phoneNumber, firstname, Role.STUDENT, password);
