@@ -30,6 +30,10 @@ public class Teacher extends Person{
         this.subjectTaught = subjectTaught;
     }
 
+    public Teacher() {
+
+    }
+
     /**
      * Get subject taught string.
      *
