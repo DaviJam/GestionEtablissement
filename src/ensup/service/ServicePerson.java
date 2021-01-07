@@ -31,21 +31,25 @@ public class ServicePerson implements IServiceEntity<PersonDTO>{
         int check = 0;
         switch(role){
             case 1: // Director
-                Person director = new Director(surname, mail, address, phone, 0, firstname, password);
+                PersonDTO directorDTO = new DirectorDTO(surname, mail, address, phone, 0, firstname, password);
+                Person director = DirectorMapper.dtoToBusiness((DirectorDTO)directorDTO);
                 check = this.dao.create(director);
                 break;
             case 2: // Manager
-                Person manager = new Manager(surname, mail, address, phone, 0, firstname, password);
+                PersonDTO managerDTO = new ManagerDTO(surname, mail, address, phone, 0, firstname, password);
+                Person manager = ManagerMapper.dtoToBusiness((ManagerDTO)managerDTO);
                 check = this.dao.create(manager);
                 break;
             case 3: // Teacher
                 // On instancie Personne pour que dans le DAO il puisse récupérer le matière enseignée
-                Person teacher = new Teacher(surname, mail, address, phone, 0, firstname, password, subjectTaught);
+                PersonDTO teacherDTO = new TeacherDTO(surname, mail, address, phone, 0, firstname, password, subjectTaught);
+                Person teacher = TeacherMapper.dtoToBusiness((TeacherDTO)teacherDTO);
                 check = this.dao.create(teacher);
                 break;
             case 4: // Student
                 // On instancie Personne pour que dans le DAO il puisse récupérer la date de naissance
-                Person student = new Student(surname, mail, address, phone, 0, firstname,password, dateofbirth);
+                PersonDTO studentDTO = new StudentDTO(surname, mail, address, phone, 0, firstname,password, dateofbirth);
+                Person student = StudentMapper.dtoToBusiness((StudentDTO)studentDTO);
                 check = this.dao.create(student);
                 break;
         }
@@ -58,9 +62,9 @@ public class ServicePerson implements IServiceEntity<PersonDTO>{
         int res = 0;
         switch(role){
             case 1: // Director
-                PersonDTO personDTO = new DirectorDTO(surname, mail, address, phone, 0, firstname, password);
-                Person person = DirectorMapper.dtoToBusiness((DirectorDTO)personDTO);
-                res = this.dao.update(person);
+                PersonDTO directorDTO = new DirectorDTO(surname, mail, address, phone, 0, firstname, password);
+                Person director = DirectorMapper.dtoToBusiness((DirectorDTO)directorDTO);
+                res = this.dao.update(director);
                 break;
             case 2: // Manager
                 PersonDTO managerDTO = new ManagerDTO(surname, mail, address, phone, 0, firstname, password);
