@@ -5,11 +5,11 @@ import java.util.List;
 import ensup.business.Course;
 import ensup.dao.DaoCourse;
 
-public class TestCourseDao
+public class TestDaoCourse
 {
 	private DaoCourse dao;
 	
-	public TestCourseDao()
+	public TestDaoCourse()
 	{
 		System.out.println("Constructor TestCourseDao");
 		dao = new DaoCourse();
@@ -81,7 +81,7 @@ public class TestCourseDao
 	{
 		System.out.println("START TEST");
 		
-		TestCourseDao tcd = new TestCourseDao();
+		TestDaoCourse tcd = new TestDaoCourse();
 		
 		tcd.testGetAll();
 		

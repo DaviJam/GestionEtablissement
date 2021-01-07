@@ -43,4 +43,12 @@ public class Manager extends Person{
     public Manager(String lastname, String mailAddress, int id, String firstname, String password) {
         super(lastname, mailAddress, id, firstname, password);
     }
+    
+    @Override
+	public String toString() {
+		String res = super.toString();
+		res = res.replace("Person", "Manager");
+
+		return res;
+	}
 }

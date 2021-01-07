@@ -47,4 +47,14 @@ public class Teacher extends Person{
     public void setSubjectTaught(String subjectTaught){
         this.subjectTaught = subjectTaught;
     }
+
+	@Override
+	public String toString() {
+		String res = super.toString();
+		res = res.replace("Person", "Teacher");
+		res = res.substring(0, res.length()-1);
+		res = res + ", subjectTaught=\" + subjectTaught + \"]";
+
+		return res;
+	}
 }

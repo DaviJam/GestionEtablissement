@@ -114,7 +114,7 @@ public class Entity
 
 	@Override
 	public String toString() {
-		return "Unity [lastname=" + lastname + ", mailAddress=" + mailAddress + ", address=" + address + ", phoneNumber="
+		return "Entity [lastname=" + lastname + ", mailAddress=" + mailAddress + ", address=" + address + ", phoneNumber="
 				+ phoneNumber + "]";
 	}
 }

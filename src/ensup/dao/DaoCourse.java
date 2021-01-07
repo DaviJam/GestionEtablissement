@@ -144,7 +144,8 @@ public class DaoCourse implements IDaoCourse
 		catch (SQLException e) {e.printStackTrace();}
 		finally{
 			try {
-				pstmt.close();
+				if( pstmt !=  null )
+					pstmt.close();
 				cn.close();
 			}
 			catch(SQLException sqle) { sqle.printStackTrace(); }

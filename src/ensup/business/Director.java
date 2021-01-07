@@ -22,4 +22,12 @@ public class Director extends Manager {
     public Director(String lastname, String mailAddress, String address, String phoneNumber,  String firstname, String password) {
         super(lastname, mailAddress, address, phoneNumber, firstname, Role.DIRECTOR, password);
     }
+    
+    @Override
+	public String toString() {
+		String res = super.toString();
+		res = res.replace("Manager", "Director");
+
+		return res;
+	}
 }

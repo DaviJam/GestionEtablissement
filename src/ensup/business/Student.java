@@ -83,7 +83,7 @@ public class Student extends Person
 	@Override
 	public String toString() {
 		String res = super.toString();
-		res = res.replace(super.getClass().getName(), "Student");
+		res = res.replace("Person", "Student");
 		res = res.substring(0, res.length()-1);
 		res = res + ", dateOfBirth=\" + dateOfBirth + \"]";
 

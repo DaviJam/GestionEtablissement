@@ -5,6 +5,7 @@ package ensup.business;
  */
 public class School extends Entity
 {
+	private int id;
     private Director director;
 
     /**
@@ -16,8 +17,15 @@ public class School extends Entity
      * @param phoneNumber the phone number
      * @param director    the director
      */
+    public School(int id, String surname, String mailAddress, String address, String phoneNumber, Director director) {
+        super(surname, mailAddress, address, phoneNumber);
+        this.id = id;
+        this.director = director;
+    }
+    
     public School(String surname, String mailAddress, String address, String phoneNumber, Director director) {
         super(surname, mailAddress, address, phoneNumber);
+        this.id = -1;
         this.director = director;
     }
 
@@ -28,10 +36,20 @@ public class School extends Entity
      * @param mailAddress the mail address
      * @param director    the director
      */
-    public School(String surname, String mailAddress, Director director) {
+    public School(int id, String surname, String mailAddress, Director director) {
         super(surname, mailAddress);
+        this.id = id;
         this.director = director;
     }
+    public School(String surname, String mailAddress, Director director) {
+        super(surname, mailAddress);
+        this.id = -1;
+        this.director = director;
+    }
+    
+    public int getId() { return this.id; }
+    
+    public void setId(int id) { this.id = id; }
 
     /**
      * Gets director.
@@ -50,4 +68,16 @@ public class School extends Entity
     public void setDirector(Director director) {
         this.director = director;
     }
+    
+    @Override
+	public String toString()
+	{
+		String res = super.toString();
+		res = res.replaceAll("Entity", "School");
+		res = res.substring(0, res.length()-1);
+		res = res + ", id=" + id;
+		res = res + ", director=" + director.getId() + "]";
+
+		return res;
+	}
 }
