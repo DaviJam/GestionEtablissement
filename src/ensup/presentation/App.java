@@ -62,11 +62,12 @@ public class App {
     private JTextField hiddenTextField1;
     private JTextField textField16;
 
-    String[] columnNames = {"First Name",
-            "Last Name",
-            "Sport",
-            "# of Years",
-            "Vegetarian"};
+    String[] columnNames = {"First Name", "Last Name"};
+
+    String[][] data = {
+            {"Steven", "Morvan"},
+            {"Thomas", "Dasilva"}
+    };
 
 
     public App() {
@@ -74,12 +75,14 @@ public class App {
         connexionBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               /*** ServiceConnection sc = new ServiceConnection();
-                boolean isConnect = sc.getConnection(textField1.getText(), passwordField1.getText());
-                if (isConnect) {***/
+                ServiceConnection sc = new ServiceConnection();
+                System.out.println(textField1.getText());
+                System.out.println(passwordField1.getText());
+                boolean isConnect = sc.checkConnection(textField1.getText(), passwordField1.getText());
+                if (isConnect) {
                     connexionPanel.setVisible(false);
                     menuPanel.setVisible(true);
-                //}
+                }
 
                 //JOptionPane.showMessageDialog(null, textField1.getText());
             }
@@ -140,6 +143,10 @@ public class App {
             public void actionPerformed(ActionEvent e) {
                 menuPanel.setVisible(false);
                 studentListPanel.setVisible(true);
+                table1 = new JTable(data, columnNames);
+
+                table1.setFillsViewportHeight(true);
+
             }
         });
 
@@ -274,6 +281,8 @@ public class App {
         frame.setContentPane(new App().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1080, 720);
+        frame.setTitle("Gestion d'établissement");
+        frame.setResizable(false);
         frame.setVisible(true);
 
     }

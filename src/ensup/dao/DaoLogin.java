@@ -41,17 +41,20 @@ public class DaoLogin {
         int count = 0;
         try {
             /*
-             * CrÃ©er la connexion
+             * Crer la connexion
              */
+            System.out.println(mail);
+            System.out.println(password);
+
             cn = openConnection();
 
             /*
              * CrÃ©er la requÃªte
              */
-            String sql_request = "SELECT COUNT(email) AS nb FROM Person WHERE email = ? , password = ?";
+            String sql_request = "SELECT COUNT(email) AS nb FROM Person WHERE email = ? AND password = ? AND (role = 1 OR role = 2)";
             st = cn.prepareStatement(sql_request);
             st.setString(1, mail);
-            st.setString(1, password);
+            st.setString(2, password);
 
             /*
              * ExÃ©cuter la requÃªte
