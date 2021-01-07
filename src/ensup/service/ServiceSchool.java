@@ -5,15 +5,15 @@ import java.util.List;
 import ensup.business.Director;
 import ensup.business.School;
 import ensup.dao.DaoPerson;
-import ensup.dao.DaoSchool;
+import ensup.dao.SchoolDao;
 
 public class ServiceSchool implements IServiceSchool
 {
-	private DaoSchool dao;
+	private SchoolDao dao;
 	
 	public ServiceSchool()
 	{
-		this.dao = new DaoSchool();
+		this.dao = new SchoolDao();
 	}
 	
 	public School get(int index)
@@ -50,5 +50,23 @@ public class ServiceSchool implements IServiceSchool
 	public int getIndex( String surname )
 	{
 		return this.dao.getIndex(surname);
+	}
+
+	@Override
+	public int create(School entity) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int update(School entity) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int delete(School entity) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

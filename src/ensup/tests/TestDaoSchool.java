@@ -6,16 +6,16 @@ import ensup.business.Director;
 import ensup.business.Person;
 import ensup.business.School;
 import ensup.dao.DaoPerson;
-import ensup.dao.DaoSchool;
+import ensup.dao.SchoolDao;
 
 public class TestDaoSchool
 {
-	private DaoSchool dao;
+	private SchoolDao dao;
 	
 	public TestDaoSchool()
 	{
 		System.out.println("Constructor TestSchoolDao");
-		dao = new DaoSchool();
+		dao = new SchoolDao();
 	}
 	
 	public void testGetAll()

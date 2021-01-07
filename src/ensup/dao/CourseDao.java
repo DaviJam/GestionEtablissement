@@ -10,9 +10,169 @@ import java.util.List;
 
 import ensup.business.Course;
 
-public class DaoCourse implements IDaoCourse
+public class CourseDao implements ICourseDao
 {
 	public List<Course> getAll()
+	{
+		Connection cn = Connect.openConnection();
+		List<Course> allCourse = new ArrayList<Course>();
+		
+		Statement st = null;
+		ResultSet res = null;
+		try
+		{
+			st = cn.createStatement();
+			res = st.executeQuery("SELECT * FROM Course");
+			while( res.next() )
+			{
+				Course cours = new Course(res.getString("coursesubject"),res.getFloat("nbhours"),res.getInt("id"));
+				
+				allCourse.add(cours);
+			}
+		}
+		catch (SQLException e) {e.printStackTrace();}
+		finally{
+			try {
+				st.close();
+				cn.close();
+			}
+			catch(SQLException sqle) { sqle.printStackTrace(); }
+		}
+		
+		return allCourse;
+	}
+
+	// OK
+	public Course get( int index )
+	{
+		Connection cn = Connect.openConnection();
+		Course cours = null;
+
+		Statement st = null;
+		ResultSet res = null;
+		try
+		{
+			st = cn.createStatement();
+			res = st.executeQuery("SELECT * FROM Course WHERE id="+index);
+			while( res.next() )
+				cours = new Course(res.getString("coursesubject"),res.getFloat("nbhours"),res.getInt("id"));
+		}
+		catch (SQLException e) {e.printStackTrace();}
+		finally{
+			try {
+				st.close();
+				cn.close();
+			}
+			catch(SQLException sqle) { sqle.printStackTrace(); }
+		}
+
+		return cours;
+	}
+
+	// OK
+	public int create( Course course )
+	{
+		Connection cn = Connect.openConnection();
+		PreparedStatement pstmt = null;
+		try
+		{
+			pstmt = cn.prepareStatement("INSERT INTO Course (coursesubject, nbhours) VALUES ( ?, ?)");
+			pstmt.setString(1, course.getCourseSubject());
+			pstmt.setFloat(2, course.getNbHours());
+			pstmt.execute();
+		}
+		catch (SQLException e) {e.printStackTrace();}
+		finally{
+			try {
+				pstmt.close();
+				cn.close();
+			}
+			catch(SQLException sqle) { sqle.printStackTrace(); }
+		}
+
+		return 0;
+	}
+
+	public int update(Course course) {
+		get(course.getId());
+
+		Connection cn = Connect.openConnection();
+		Statement st = null;
+
+		try {
+			st = cn.createStatement();
+			st.execute("UPDATE Course SET coursesubject = '" + course.getCourseSubject() + "', nbhours = "  + course.getNbHours() + " WHERE id = " + course.getId() + "");
+		}
+		catch( SQLException sqle) {sqle.printStackTrace();}
+		finally{
+			try {
+				st.close();
+				cn.close();
+			} catch (SQLException throwables) {
+				throwables.printStackTrace();
+			}
+		}
+
+		return course.getId();
+	}
+
+//	public int update(Course course)
+//	{
+//		Course preCourse = get(course.getId());
+//		String update = "";
+//
+//		if( course.getCourseSubject() != null && ! course.getCourseSubject().equals(preCourse.getCourseSubject()) )
+//			update += "coursesubject='"+course.getCourseSubject()+"'";
+//
+//		if( course.getNbHours() != -1 && course.getNbHours() != preCourse.getNbHours() )
+//			update += (update != "" ? "," : "")+"nbhours='"+course.getNbHours()+"'";
+//
+//		if( update != "" )
+//		{
+//			Connection cn = Connect.openConnection();
+//			Statement st = null;
+//			try {
+//				st = cn.createStatement();
+//				st.execute("UPDATE Course SET "+update);
+//			}
+//			catch( SQLException sqle) {sqle.printStackTrace();}
+//			finally {
+//				try {
+//					st.close();
+//					cn.close();
+//				} catch (SQLException throwables) {
+//					throwables.printStackTrace();
+//				}
+//			}
+//		}
+//		return course.getId();
+//	}
+
+	public int delete( Course course )
+	{
+		if( course.getId() != -1 && indexExist(course.getId()) )
+		{
+			Connection cn = Connect.openConnection();
+
+			Statement st = null;
+			try
+			{
+				st = cn.createStatement();
+				st.execute("DELETE FROM Course WHERE id="+course.getId());
+			}
+			catch (SQLException e) {e.printStackTrace();}
+			finally{
+				try {
+					st.close();
+					cn.close();
+				}
+				catch(SQLException sqle) { sqle.printStackTrace(); }
+			}
+		}
+
+		return 0;
+	}
+	/*public List<Course> getAll()
 	{
 		Connection cn = Connect.openConnection();
 		List<Course> alCourse = new ArrayList<Course>();
@@ -66,7 +226,7 @@ public class DaoCourse implements IDaoCourse
 		}
 		
 		return cours;
-	}
+	}*/
 	
 	public int getIndex( String coursesubject, float nbhours )
 	{
@@ -93,33 +253,8 @@ public class DaoCourse implements IDaoCourse
 		
 		return index;
 	}
-
-	public int createCourse(Course course)
-	{
-		int res = 1;
-		Connection cn = Connect.openConnection();
-		PreparedStatement pstmt = null;
-		try
-		{
-			pstmt = cn.prepareStatement("INSERT INTO Course (coursesubject, nbhours) VALUES ( ?, ?)");
-			pstmt.setString(1, course.getCourseSubject());
-			pstmt.setFloat(2, course.getNbHours());
-			pstmt.execute();
-		}
-		catch (SQLException e) {res=2; e.printStackTrace();}
-		finally{
-			try {
-				pstmt.close();
-				cn.close();
-			}
-			catch(SQLException sqle) {res=2; sqle.printStackTrace(); }
-			res = 0;
-		}
-
-		return res;
-	}
 	
-	public int create( Course course )
+	/*public int create( Course course )
 	{
 		int res = 1;
 		Connection cn = Connect.openConnection();
@@ -189,7 +324,7 @@ public class DaoCourse implements IDaoCourse
 			}
 		}
 		return res;
-	}
+	}*/
 
 	public int delete( int index )
 	{
@@ -218,10 +353,10 @@ public class DaoCourse implements IDaoCourse
 		return res;
 	}
 
-	public int delete( Course course )
+	/*public int delete( Course course )
 	{
 		return delete(course.getId());
-	}
+	}*/
 	
 	public boolean indexExist(int index)
 	{

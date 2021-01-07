@@ -1,8 +1,8 @@
 package ensup;
 
 import ensup.business.Course;
-import ensup.service.ServiceCourse;
-import ensup.service.IServiceCourse;
+import ensup.service.CourseService;
+import ensup.service.ICourseService;
 
 import ensup.presentation.App;
 

@@ -2,7 +2,7 @@ package ensup.dao;
 
 import ensup.business.School;
 
-public interface IDaoSchool extends IDao<School>
+public interface ISchoolDao extends IDao<School>
 {
 	/**
 	 * Get the index of the school by this name

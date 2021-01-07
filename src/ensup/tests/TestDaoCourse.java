@@ -3,16 +3,16 @@ package ensup.tests;
 import java.util.List;
 
 import ensup.business.Course;
-import ensup.dao.DaoCourse;
+import ensup.dao.CourseDao;
 
 public class TestDaoCourse
 {
-	private DaoCourse dao;
+	private CourseDao dao;
 	
 	public TestDaoCourse()
 	{
 		System.out.println("Constructor TestCourseDao");
-		dao = new DaoCourse();
+		dao = new CourseDao();
 	}
 	
 	public void testGetAll()

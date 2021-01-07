@@ -2,7 +2,7 @@ package ensup.dao;
 
 import ensup.business.Course;
 
-public interface IDaoCourse extends IDao<Course>
+public interface ICourseDao extends IDao<Course>
 {
 	/**
 	 * Get the index of the course by this subject and this nbhours
@@ -20,7 +20,4 @@ public interface IDaoCourse extends IDao<Course>
 	 * @return if the index exist
 	 */
 	public boolean indexExist(int index);
-	
-    // Todo: delete
-    int createCourse(Course entity);
 }

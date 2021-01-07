@@ -5,7 +5,7 @@ import ensup.business.Person;
 import ensup.business.Role;
 import ensup.business.Student;
 import ensup.service.ServiceConnection;
-import ensup.service.ServiceCourse;
+import ensup.service.CourseService;
 import ensup.service.ServicePerson;
 
 import javax.swing.*;
@@ -127,12 +127,12 @@ public class App {
                 coursePanel.setVisible(true);
 
                 //Add item in combobox course
-                ServiceCourse cs = new ServiceCourse();
+                CourseService cs = new CourseService();
                 comboBox3.removeAllItems();
-                for(Course c : cs.getAll()){
+                /*for(Course c : cs.getAll()){
                     System.out.println(c);
                     comboBox3.addItem(c.getCourseSubject());
-                }
+                }*/
 
                 //Add item in combobox student
                 ServicePerson ps = new ServicePerson();
@@ -172,8 +172,8 @@ public class App {
                         float f = Float.parseFloat(textField9.getText());
 
                         //Create course with parameters
-                        ServiceCourse cs = new ServiceCourse();
-                        cs.create(textField8.getText(), f);
+                        CourseService cs = new CourseService();
+                        //cs.create(textField8.getText(), f);
                         comboBox3.addItem(textField8.getText());
                         textField8.setText("");
                         textField9.setText("");

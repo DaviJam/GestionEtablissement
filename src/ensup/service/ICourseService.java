@@ -1,11 +1,9 @@
 package ensup.service;	
 
-import ensup.business.Course;
+import ensup.dto.CourseDTO;
 
-public interface IServiceCourse extends IService<Course>
+public interface ICourseService extends IService<CourseDTO>
 {
-    int createCourse(Course course);
-    
     /**
      * Create an course in the database.
      *
@@ -13,7 +11,7 @@ public interface IServiceCourse extends IService<Course>
      * @param nbHours nbHours of the course
      * @return type of the result
      */
-    int create(String subject, float nbHours);
+    //int create(String subject, float nbHours);
     
     /**
      * Update an course of the database.
@@ -22,7 +20,7 @@ public interface IServiceCourse extends IService<Course>
      * @param nbHours nbhours of the course
      * @return type of the result
      */
-    int update(String subject, float nbhours);
+    //int update(String subject, float nbhours);
     
     /**
 	 * Get the index of the course with the subject and the nbhours in the parameters
@@ -31,5 +29,5 @@ public interface IServiceCourse extends IService<Course>
 	 * @param nbhours nbhours of the course 
 	 * @return type of return
 	 */
-    public int getIndex( String subject, float nbhours );
+    //public int getIndex( String subject, float nbhours );*/
 }

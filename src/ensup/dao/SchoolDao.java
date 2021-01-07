@@ -8,11 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import ensup.business.Course;
 import ensup.business.Director;
 import ensup.business.School;
 
-public class DaoSchool implements IDaoSchool
+public class SchoolDao implements ISchoolDao
 {
 	public List<School> getAll()
 	{

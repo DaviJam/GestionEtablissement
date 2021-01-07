@@ -7,8 +7,23 @@ import java.util.List;
  *
  * @param <T> the type parameter
  */
-public interface IDao<T> {
+public interface IDao<T>
+{
+    /**
+     * list all T of the database.
+     *
+     * @return list of all T
+     */
+    List<T> getAll();
 
+    /**
+     * Get an T in the database.
+     *
+     * @param index index of the T to be get
+     * @return the class of type T
+     */
+    T get(int index);
+    
     /**
      * Create an T in the database.
      *
@@ -24,21 +39,6 @@ public interface IDao<T> {
      * @return type of the result
      */
     int update(T entity);
-
-    /**
-     * Get an T in the database.
-     *
-     * @param index index of the T to be get
-     * @return the class of type T
-     */
-    T get(int index);
-
-    /**
-     * list all T of the database.
-     *
-     * @return list of all T
-     */
-    List<T> getAll();
 
     /**
      * delete an T in the database.

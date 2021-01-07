@@ -87,4 +87,22 @@ public class ServicePerson implements IServiceEntity<Person>{
     public List<Person> getAll() {
         return this.dao.getAll();
     }
+
+	@Override
+	public int create(Person entity) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int update(Person entity) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int delete(Person entity) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

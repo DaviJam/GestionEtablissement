@@ -5,6 +5,13 @@ import java.util.List;
 
 public interface IService<T>
 {
+    /**
+     * list all T of the database.
+     *
+     * @return list of all T
+     */
+    List<T> getAll();
+    
 	/**
      * Get an T in the database.
      *
@@ -13,12 +20,18 @@ public interface IService<T>
      */
     T get(int index);
     
+
     /**
-     * list all T of the database.
-     *
-     * @return list of all T
+     * @param entity
+     * @return type of result
      */
-    List<T> getAll();
+    int create(T entity);
+    
+    /**
+     * @param entity
+     * @return type of result
+     */
+    int update(T entity);
     
     /**
      * delete an T in the database.
@@ -26,5 +39,6 @@ public interface IService<T>
      * @param index index of the T to be deleted
      * @return type of the result
      */
+    int delete(T entity);
     int delete(int index);
 }
