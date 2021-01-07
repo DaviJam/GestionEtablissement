@@ -8,7 +8,6 @@ import ensup.dao.DaoCourse;
 public class ServiceCourse implements IServiceCourse
 {
 	private DaoCourse dao;
-
 	
 	public ServiceCourse()
 	{
@@ -29,23 +28,23 @@ public class ServiceCourse implements IServiceCourse
 		return this.dao.createCourse(entity);
 	}
 
-	public void create(String subject, float nbHours)
+	public int create(String subject, float nbHours)
 	{
 		Course cours = new Course(subject, nbHours);
 		
-		this.dao.create( cours );
+		return this.dao.create( cours );
 	}
 	
-	public void update(String subject, float nbHours)
+	public int update(String subject, float nbHours)
 	{
 		Course cours = new Course(subject, nbHours);
 		
-		this.dao.update( cours );
+		return this.dao.update( cours );
 	}
 
-	public void delete(Course cours)
+	public int delete(int index)
 	{
-		this.dao.delete(cours);
+		return this.dao.delete(index);
 	}
 	
 	public int getIndex( String coursesubject, float nbhours )

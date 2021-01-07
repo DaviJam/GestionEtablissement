@@ -12,7 +12,7 @@ public class ServicePerson implements IServiceEntity<Person>{
 
     // Create Person
     @Override
-    public int Create(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) {
+    public int create(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) {
         //TODO Appel de la fonction Create Personne
         // Checker le role et faire une instace et l'envoyer dans le DAO
         int check = 0;
@@ -41,7 +41,7 @@ public class ServicePerson implements IServiceEntity<Person>{
 
     // Update Person
     @Override
-    public int Update(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) {
+    public int update(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) {
         int res = 0;
         switch(role){
             case 1: // Director
@@ -65,14 +65,14 @@ public class ServicePerson implements IServiceEntity<Person>{
     }
 
     @Override
-    public int Delete(int index) {
+    public int delete(int index) {
         Person person = this.get(index);
         int res = this.dao.delete(person);
         return res;
     }
 
     @Override
-    public void LinkToCourse(int idEtudiant, int idCourse) {
+    public void linkToCourse(int idEtudiant, int idCourse) {
         
     }
 
@@ -86,11 +86,4 @@ public class ServicePerson implements IServiceEntity<Person>{
     public List<Person> getAll() {
         return this.dao.getAll();
     }
-
-    @Override
-    public int createCourse(Person entity) {
-        return 0;
-    }
-
-
 }

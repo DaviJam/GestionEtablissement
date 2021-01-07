@@ -7,5 +7,5 @@ public interface IService<T>
 {
     T get(int index);
     List<T> getAll();
-    int createCourse(T entity);
+    int delete(int index);
 }
