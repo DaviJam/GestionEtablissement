@@ -6,6 +6,7 @@ import ensup.dto.*;
 import ensup.mapper.DirectorMapper;
 import ensup.mapper.ManagerMapper;
 import ensup.mapper.StudentMapper;
+import ensup.mapper.TeacherMapper;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -132,7 +133,7 @@ public class ServicePerson implements IServiceEntity<PersonDTO>{
             }else if(person instanceof Teacher)
             {
                 TeacherDTO teacherDTO = new TeacherDTO();
-//                TeacherMapper.businessToDto((Teacher)person);
+                TeacherMapper.businessToDto((Teacher)person);
                 personDTOList.add(teacherDTO);
             }else if(person instanceof Director)
             {
