@@ -89,6 +89,8 @@ public class App {
                 menuPanel.setVisible(false);
                 coursePanel.setVisible(true);
                 ServiceCourse cs = new ServiceCourse();
+
+                comboBox3.removeAllItems();
                 for(Course c : cs.getAll()){
                     System.out.println(c);
                     comboBox3.addItem(c.getCourseSubject());
