@@ -5,7 +5,7 @@ import ensup.business.Course;
 public interface IDaoCourse extends IDao<Course>
 {
 	/**
-	 * Get the index of the course with the subject and the nbhours in the parameters
+	 * Get the index of the course by this subject and this nbhours
 	 * 
 	 * @param subject subject of the course
 	 * @param nbhours nbhours of the course 

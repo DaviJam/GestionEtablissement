@@ -5,9 +5,9 @@ import ensup.business.School;
 public interface IDaoSchool extends IDao<School>
 {
 	/**
-	 * Get the index of the school with this surname
+	 * Get the index of the school by this name
 	 * 
-	 * @param surname surname of the School
+	 * @param surname name of the School
 	 * @return type of return
 	 */
 	public int getIndex( String surname );
