@@ -7,6 +7,8 @@ import ensup.service.ServiceCourse;
 import ensup.service.ServicePerson;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicComboBoxRenderer;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -52,6 +54,8 @@ public class App {
     private JTextField textField14;
     private JTextField textField15;
     private JButton createStudent;
+    private JPanel infoStudentPanel;
+    private JTextField hiddenTextField1;
 
     String[] columnNames = {"First Name",
             "Last Name",
@@ -84,6 +88,16 @@ public class App {
             public void actionPerformed(ActionEvent e) {
                 menuPanel.setVisible(false);
                 studentPanel.setVisible(true);
+
+                //Add item in combobox student
+                ServicePerson ps = new ServicePerson();
+                comboBox1.removeAllItems();
+                for(Person p : ps.getAll()){
+                    if(p instanceof Student) {
+                        System.out.println(p);
+                        comboBox1.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
+                    }
+                }
             }
         });
         CourseBtn.addActionListener(new ActionListener() {
@@ -146,6 +160,46 @@ public class App {
             }
         });
 
+        comboBox1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JComboBox c = (JComboBox) e.getSource();
+                Item item = (Item) c.getSelectedItem();
+                System.out.println(item.getId() + " : " + item.getDescription());
+
+                //On affiche les informations utilisateurs
+                ServicePerson ps = new ServicePerson();
+                Person p = ps.get(item.getId());
+                if (p instanceof Student) {
+                    System.out.println(((Student)p).toString());
+
+                    String s = String.valueOf(((Student)p).getId());
+                    hiddenTextField1.setText(s);
+                    textField2.setText(((Student)p).getLastname());
+                    textField3.setText(((Student)p).getFirstname());
+                    textField4.setText(((Student)p).getMailAddress());
+                    textField5.setText(((Student)p).getAddress());
+                    textField6.setText(((Student)p).getPhoneNumber());
+                    textField7.setText(((Student)p).getDateOfBirth().toString());
+                }
+            }
+        });
+        deleteStudent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ServicePerson ps = new ServicePerson();
+                ps.Delete(Integer.parseInt(hiddenTextField1.getText()));
+
+                hiddenTextField1.setText("");
+                textField2.setText("");
+                textField3.setText("");
+                textField4.setText("");
+                textField5.setText("");
+                textField6.setText("");
+                textField7.setText("");
+            }
+        });
+
             //Btn return
             returnBtn.addActionListener(new ActionListener() {
                 @Override
@@ -177,6 +231,7 @@ public class App {
             });
     }
 
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("App");
         frame.setContentPane(new App().mainPanel);
@@ -184,5 +239,22 @@ public class App {
         frame.setSize(1080, 720);
         frame.setVisible(true);
 
+    }
+}
+class ItemRenderer extends BasicComboBoxRenderer {
+    @Override
+    public Component getListCellRendererComponent(JList list, Object value,
+                                                  int index, boolean isSelected, boolean cellHasFocus) {
+        super.getListCellRendererComponent(list, value, index, isSelected,
+                cellHasFocus);
+        if (value != null) {
+            Item item = (Item) value;
+            setText(item.getDescription().toUpperCase());
+        }
+        if (index == -1) {
+            Item item = (Item) value;
+            setText("" + item.getId());
+        }
+        return this;
     }
 }
