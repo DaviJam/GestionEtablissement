@@ -19,18 +19,18 @@ public class DaoPerson implements IDao<Person>
     /**
      * The Cn.
      */
-    // initialisation des variables java permettant de dialoguer avec la bdd
+// initialisation des variables java permettant de dialoguer avec la bdd
     // connecter a la base de données
     Connection cn = null;
     /**
      * The St.
      */
-    // executer la requete
+// executer la requete
     PreparedStatement st = null;
     /**
      * The Rs.
      */
-    // récupérer le résultat
+// récupérer le résultat
     ResultSet rs = null;
     /**
      * The Res.
@@ -38,6 +38,16 @@ public class DaoPerson implements IDao<Person>
 // nombre de mises à jour
     int res = 0;
 
+    Logger log = Logger.getLogger(DaoPerson.class.getName());
+    File propertiesFile = new File( "Properties/Dao.properties");
+            PropertyConfigurator.configure(propertiesFile.toString());
+
+    /**
+     * Create person. Person could be of type Teacher, Director, Student or Manager
+     *
+     * @param entity the person object
+     * @return Result of the request, if an exception was catched, returns -1
+     */
     @Override
     public int create(Person entity) {
         try {
@@ -98,9 +108,7 @@ public class DaoPerson implements IDao<Person>
              */
             cn.close();
 
-            Logger log = Logger.getLogger(DaoPerson.class.getName());
-            File propertiesFile = new File( "Properties/log4j.properties");
-            PropertyConfigurator.configure(propertiesFile.toString());
+
             log.info("L'utilisateur " +  entity.getFirstname()  + " à été créer");
 
         } catch (SQLException e) {
@@ -111,7 +119,13 @@ public class DaoPerson implements IDao<Person>
         }
         return res;
     }
-    
+
+    /**
+     * Update person. Person could be of type Teacher, Director, Student or Manager
+     *
+     * @param entity the person object
+     * @return Result of the request, if an exception was catched, returns -1
+     */
     @Override
     public int update(Person entity) {
         try {
@@ -180,6 +194,12 @@ public class DaoPerson implements IDao<Person>
         return res;
     }
 
+    /**
+     * Get person.
+     *
+     * @param index the person index in the database
+     * @return Result of the request, if an exception was catched, returns -1
+     */
     @Override
     public Person get(int index) {
         Person p1 = null;
@@ -258,6 +278,11 @@ public class DaoPerson implements IDao<Person>
         return p1;
     }
 
+    /**
+     * Get all person.
+     *
+     * @return List of Person, if an exception was catched, returns -1
+     */
     @Override
     public List<Person> getAll() {
         List<Person> listPerson = new ArrayList<Person>();
@@ -345,6 +370,12 @@ public class DaoPerson implements IDao<Person>
         return listPerson;
     }
 
+    /**
+     * Delete person.
+     *
+     * @param entity The person object
+     * @return List of Person, if an exception was catched, returns -1
+     */
     @Override
     public int delete(Person entity) {
         try {
@@ -384,6 +415,13 @@ public class DaoPerson implements IDao<Person>
         return 0;
     }
 
+    /**
+     * Link to course int.
+     *
+     * @param entity the entity
+     * @param course the course
+     * @return Result of the request
+     */
     public int LinkToCourse(int entity, int course) {
         try {
             /*
