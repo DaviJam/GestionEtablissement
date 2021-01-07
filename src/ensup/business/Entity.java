@@ -103,6 +103,15 @@ public class Entity
 		this.phoneNumber = phoneNumber;
 	}
 
+	public boolean isEqualTo(Entity entity)
+	{
+		boolean res = false;
+		if( this.getMailAddress() == entity.getMailAddress()) {
+			res = true;
+		}
+		return res;
+	}
+
 	@Override
 	public String toString() {
 		return "Unity [lastname=" + lastname + ", mailAddress=" + mailAddress + ", address=" + address + ", phoneNumber="

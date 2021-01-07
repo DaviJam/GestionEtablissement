@@ -20,11 +20,17 @@ public class Manager extends Person{
         super(lastname, mailAddress, address, phoneNumber, id, firstname, role, password);
     }
 
+    public Manager(String lastname, String mailAddress, String address, String phoneNumber, String firstname, Role role, String password) {
+        super(lastname, mailAddress, address, phoneNumber, firstname, role, password);
+    }
 
     public Manager(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password) {
         super(lastname, mailAddress, address, phoneNumber, id, firstname, Role.MANAGER, password);
     }
 
+    public Manager(String lastname, String mailAddress, String address, String phoneNumber, String firstname, String password) {
+        super(lastname, mailAddress, address, phoneNumber, firstname, Role.MANAGER, password);
+    }
     /**
      * Instantiates a new Manager.
      *
