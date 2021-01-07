@@ -30,7 +30,7 @@ public class DaoLogin {
 // nombre de mises à jour
     int res = 0;
 
-    String getPassword(String mail) {
+    public String getPassword(String mail) {
         String mdp = null;
         try {
             /*
