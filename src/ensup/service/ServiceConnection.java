@@ -1,17 +1,15 @@
 package ensup.service;
 
+import ensup.dao.DaoLogin;
+
 public class ServiceConnection implements IServiceConnection{
+    private DaoLogin dao = new DaoLogin();
 
     @Override
-    public int GetConnection(String mail, String mdp) {
-        return 0;
+    public boolean GetConnection(String mail, String mdp) {
+        String password = this.dao.getPassword(mail); // Récupération du MDP et comparaison avec le mdp saisi
+        return password.equals(mdp);
     }
-
-    @Override
-    public void UpdatePassword(String mail, String mdp) {
-
-    }
-    //TODO Get quand il s'identifie, Update quand il veut changer son MDP, MDP oublié
 
 
 
