@@ -6,7 +6,7 @@ import ensup.business.Role;
 public interface IDaoCourse extends IDao<Course>
 {
 	public int getIndex( String subject, float nbHours );
-	public boolean idExiste(int index);
+	public boolean indexExist(int index);
 	
     // Todo: delete
     int createCourse(Course entity);
