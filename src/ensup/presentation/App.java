@@ -185,10 +185,11 @@ public class App {
                         data[count][2] = p.getMailAddress();
                         data[count][3] = p.getAddress();
                         data[count][4] = p.getPhoneNumber();
-                        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         try {
                             Date dob = sdf.parse(((StudentDTO) p).getDateOfBirth().toString());
-                            data[count][5] = dob;
+                            String strDate = sdf.format(dob);
+                            data[count][5] = strDate;
                         } catch (ParseException parseException) {
                             parseException.printStackTrace();
                         }
@@ -334,7 +335,15 @@ public class App {
                         textField4.setText(p.getMailAddress());
                         textField5.setText(p.getAddress());
                         textField6.setText(p.getPhoneNumber());
-                        textField7.setText(((StudentDTO) p).getDateOfBirth().toString());
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        try {
+                            Date date = sdf.parse(((StudentDTO) p).getDateOfBirth().toString());
+                            String strDate = sdf.format(date);
+                            textField7.setText(strDate);
+                        } catch (ParseException parseException) {
+                            parseException.printStackTrace();
+                        }
+
                         passwordField2.setText(p.getPassword());
                     }
                 }
@@ -368,7 +377,7 @@ public class App {
                     try {
                         //Create course with parameters
                         PersonService sp = new PersonService();
-                        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         Date auj = sdf.parse(textField15.getText());
                         sp.create(textField11.getText(), textField12.getText(), textField13.getText(), textField14.getText(), textField10.getText(), textField16.getText(), 4, auj ,"");
                         textField10.setText("");
@@ -409,7 +418,7 @@ public class App {
                     try {
                         //Create course with parameters
                         PersonService sp = new PersonService();
-                        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         Date auj = sdf.parse(textField7.getText());
                         sp.update(textField3.getText(), textField4.getText(), textField5.getText(), textField6.getText(), textField2.getText(), passwordField2.getText(), 4, auj ,"");
                         JOptionPane.showMessageDialog(null, "Les informations de l'étudiant ont bien été modifié");
