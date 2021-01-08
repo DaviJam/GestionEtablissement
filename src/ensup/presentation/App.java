@@ -119,6 +119,7 @@ public class App {
 
                 //Add item in combobox student
                 ServicePerson ps = new ServicePerson();
+                comboBox1.removeAll();
                 comboBox1.removeAllItems();
                 for(PersonDTO p : ps.getAll()){
                     if(p instanceof StudentDTO) {
@@ -136,6 +137,7 @@ public class App {
 
                 //Add item in combobox course
                 CourseService cs = new CourseService();
+                comboBox3.removeAll();
                 comboBox3.removeAllItems();
                 for(CourseDTO c : cs.getAll()){
                     System.out.println(c);
@@ -144,6 +146,8 @@ public class App {
 
                 //Add item in combobox student
                 ServicePerson ps = new ServicePerson();
+
+                comboBox2.removeAll();
                 comboBox2.removeAllItems();
                 for(PersonDTO p : ps.getAll()){
                     if(p instanceof StudentDTO) {
@@ -312,24 +316,28 @@ public class App {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JComboBox c = (JComboBox) e.getSource();
+
                 Item item = (Item) c.getSelectedItem();
-                System.out.println(item.getId() + " : " + item.getDescription());
 
-                //On affiche les informations utilisateurs
-                ServicePerson ps = new ServicePerson();
-                PersonDTO p = ps.get(item.getId());
-                if (p instanceof StudentDTO) {
-                    System.out.println(p.toString());
+                if (item != null) {
+                    System.out.println(item.getId() + " : " + item.getDescription());
 
-                    String s = String.valueOf(p.getId());
-                    hiddenTextField1.setText(s);
-                    textField2.setText(p.getLastname());
-                    textField3.setText(p.getFirstname());
-                    textField4.setText(p.getMailAddress());
-                    textField5.setText(p.getAddress());
-                    textField6.setText(p.getPhoneNumber());
-                    textField7.setText(((StudentDTO)p).getDateOfBirth().toString());
-                    passwordField2.setText(p.getPassword());
+                    //On affiche les informations utilisateurs
+                    ServicePerson ps = new ServicePerson();
+                    PersonDTO p = ps.get(item.getId());
+                    if (p instanceof StudentDTO) {
+                        System.out.println(p.toString());
+
+                        String s = String.valueOf(p.getId());
+                        hiddenTextField1.setText(s);
+                        textField2.setText(p.getLastname());
+                        textField3.setText(p.getFirstname());
+                        textField4.setText(p.getMailAddress());
+                        textField5.setText(p.getAddress());
+                        textField6.setText(p.getPhoneNumber());
+                        textField7.setText(((StudentDTO) p).getDateOfBirth().toString());
+                        passwordField2.setText(p.getPassword());
+                    }
                 }
             }
         });
