@@ -9,15 +9,22 @@ import ensup.service.ServiceConnection;
 import ensup.service.ServicePerson;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+
+import static java.lang.Integer.parseInt;
 
 public class App {
     private JPanel mainPanel;
@@ -65,6 +72,8 @@ public class App {
     private JTextField textField16;
     private JPasswordField passwordField2;
     private JTable table1;
+    private JButton modStudentBtnFromList;
+    private JButton delStudentBtnFromList;
 
 
     public App() {
@@ -154,7 +163,7 @@ public class App {
                 studentListPanel.setVisible(true);
                 // TableModel's column names
                 String[] columnNames = {
-                        "Nom", "Prénom", "Email", "Adresse", "Téléphone", "Date de naissance", "Action 1", "Action 2",
+                        "Nom", "Prénom", "Email", "Adresse", "Téléphone", "Date de naissance", "Action1", "Action2"
                 };
                 ServicePerson ps = new ServicePerson();
                 int nbStudent = 0;
@@ -174,33 +183,100 @@ public class App {
                         data[count][3] = p.getAddress();
                         data[count][4] = p.getPhoneNumber();
                         data[count][5] = ((StudentDTO) p).getDateOfBirth().toString();
-                        JButton modStudentBtnFromList = new JButton("Modifier");
-                        JButton delStudentBtnFromList = new JButton("Supprimer");
+                        modStudentBtnFromList = new JButton("Modifier");
+                        delStudentBtnFromList = new JButton("Supprimer");
                         data[count][6] = modStudentBtnFromList;
                         data[count][7] = delStudentBtnFromList;
-                        modStudentBtnFromList.setVisible(true);
-                        delStudentBtnFromList.setVisible(true);
-                        //TODO : Find a way to do this
-                        modStudentBtnFromList.addActionListener(this.modifyStudentAction);
+
+                            //TODO : Find a way to do this
+
                         count++;
                     }
                 }
-                // TableModel's data
-                 /***Object[][] data = {
-                        { "Liverpool", 3, 3, 0, 0, 7,  },
-                        { "Tottenham", 3, 3, 0, 0, 8,  },
-                        { "Chelsea", 3, 3, 0, 0, 8,  },
-                        { "Watford", 3, 3, 0, 0, 7,  },
-                        { "Manchester City", 3, 2, 1, 0, 9, }
-                };***/
+
 
                 StudentTableModel modele =new StudentTableModel(data,columnNames);
                 table1.setModel(modele);
+
                 TableCellRenderer tableRenderer;
                 tableRenderer = table1.getDefaultRenderer(JButton.class);
                 table1.setDefaultRenderer(JButton.class, new JTableButtonRenderer(tableRenderer));
 
 
+
+                // Action qui récupérer tous les click sur la table
+                ListSelectionModel cellSelectionModel = table1.getSelectionModel();
+                cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+
+                cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
+                    public void valueChanged(ListSelectionEvent e) {
+                        System.out.println(e);
+                        // Permet d'écouter l'action que sur le click
+                        if (e.getValueIsAdjusting() == true) {
+                            System.out.println("e");
+                            String columnsSelect = null;
+                            int rowSelect = 0;
+                            String personSelect = null;
+
+                            //On récupérer toutes les ligne et colonnes
+                            int[] selectedRow = table1.getSelectedRows();
+                            int[] selectedColumns = table1.getSelectedColumns();
+
+
+                            //On parcours chaque ligne et chaque colonnes
+                            for (int i = 0; i < selectedRow.length; i++) {
+                                for (int j = 0; j < selectedColumns.length; j++) {
+                                    //On récupére la colonne séléctionner
+                                    columnsSelect = table1.getColumnName(selectedColumns[j]);
+                                    //On récupére la ligne séléctionner
+                                    rowSelect = selectedRow[i];
+                                }
+                            }
+
+                            // Bouton Modifier séléctionner
+                            if(columnsSelect == "Action1"){
+                                //Permet de récupérer l'email de l'utilisateur
+
+                                personSelect = (String) modele.getValueAt(rowSelect, 2);
+
+                                studentPanel.setVisible(true);
+                                studentListPanel.setVisible(false);
+
+                                //Add item in combobox student
+                                ServicePerson ps = new ServicePerson();
+                                comboBox1.removeAllItems();
+                                for(PersonDTO p : ps.getAll()){
+                                    //On filtre toutes les Personne de type Student et on regarde si sont email corresponds a celui de la ligne sélectionner
+                                    if(p instanceof StudentDTO && personSelect.equals(p.getMailAddress())) {
+                                        comboBox1.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
+                                    }
+                                }
+
+
+                            }
+                            else if(columnsSelect == "Action2") {
+                                //Permet de récupérer l'email de l'utilisateur
+                                personSelect = (String) modele.getValueAt(rowSelect, 2);
+
+                                //On recherche l'objet de la personne séléctionner
+                                ServicePerson ps = new ServicePerson();
+                                for(PersonDTO p : ps.getAll()){
+                                    //On filtre toutes les Personne de type Student et on regarde si sont email corresponds a celui de la ligne sélectionner
+                                    if(p instanceof StudentDTO && personSelect.equals(p.getMailAddress())) {
+                                       ps.delete(p.getId());
+                                       System.out.println("La personne " + p.getFirstname() + "à été supprimée");
+                                       ((DefaultTableModel) table1.getModel()).removeRow(rowSelect);
+                                       modele.fireTableRowsDeleted(rowSelect, rowSelect);
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+
+                });
             }
         });
 
@@ -261,7 +337,7 @@ public class App {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ServicePerson ps = new ServicePerson();
-                ps.delete(Integer.parseInt(hiddenTextField1.getText()));
+                ps.delete(parseInt(hiddenTextField1.getText()));
 
                 hiddenTextField1.setText("");
                 textField2.setText("");
@@ -407,6 +483,7 @@ class ItemRenderer extends BasicComboBoxRenderer {
 class StudentTableModel extends AbstractTableModel {
     private Object[][] data;
     private String[] columnNames;
+    private int rowIndex;
 
 
     public StudentTableModel(Object[][] data, String[] columnNames) {
@@ -444,14 +521,15 @@ class StudentTableModel extends AbstractTableModel {
         return getValueAt(0, columnIndex).getClass();
     }
 
-    /**
-     * Returns the value of a table model at the specified
-     * row index and column index.
-     */
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         return data[rowIndex][columnIndex];
     }
+
+
+
 }
+
 
 class JTableButtonRenderer implements TableCellRenderer {
     private TableCellRenderer defaultRenderer;
@@ -464,3 +542,5 @@ class JTableButtonRenderer implements TableCellRenderer {
         return defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
     }
 }
+
+
