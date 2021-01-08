@@ -74,6 +74,7 @@ public class App {
     private JPasswordField passwordField2;
     private JTable table1;
     private JScrollPane scrollPane1;
+    private JButton logoutBtn;
 
 
     /**
@@ -101,6 +102,15 @@ public class App {
                 }
 
                 //JOptionPane.showMessageDialog(null, textField1.getText());
+            }
+        });
+        logoutBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(false);
+                connexionPanel.setVisible(true);
+                textField1.setText("");
+                passwordField1.setText("");
             }
         });
 
@@ -377,7 +387,7 @@ public class App {
                     try {
                         //Create course with parameters
                         PersonService sp = new PersonService();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                         Date auj = sdf.parse(textField15.getText());
                         sp.create(textField11.getText(), textField12.getText(), textField13.getText(), textField14.getText(), textField10.getText(), textField16.getText(), 4, auj ,"");
                         textField10.setText("");
@@ -418,7 +428,7 @@ public class App {
                     try {
                         //Create course with parameters
                         PersonService sp = new PersonService();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                         Date auj = sdf.parse(textField7.getText());
                         sp.update(textField3.getText(), textField4.getText(), textField5.getText(), textField6.getText(), textField2.getText(), passwordField2.getText(), 4, auj ,"");
                         JOptionPane.showMessageDialog(null, "Les informations de l'étudiant ont bien été modifié");

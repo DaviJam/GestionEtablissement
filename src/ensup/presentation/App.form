@@ -119,11 +119,12 @@
         </constraints>
         <properties>
           <background color="-14207162"/>
-          <visible value="false"/>
+          <foreground color="-13354432"/>
+          <visible value="true"/>
         </properties>
         <border type="none"/>
         <children>
-          <grid id="59f49" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="59f49" layout-manager="GridLayoutManager" row-count="7" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="16" left="16" bottom="16" right="16"/>
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
@@ -202,6 +203,27 @@
                   <text value="Menu"/>
                 </properties>
               </component>
+              <component id="8429f" class="javax.swing.JButton" binding="logoutBtn">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-460294"/>
+                  <borderPainted value="false"/>
+                  <contentAreaFilled value="false"/>
+                  <font name="Segoe UI Semibold" size="14"/>
+                  <foreground color="-13354432"/>
+                  <opaque value="true"/>
+                  <text value="Déconnexion"/>
+                </properties>
+              </component>
+              <vspacer id="d3c6e">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="1" use-parent-layout="false">
+                    <minimum-size width="-1" height="8"/>
+                  </grid>
+                </constraints>
+              </vspacer>
             </children>
           </grid>
         </children>
@@ -757,7 +779,7 @@
         </constraints>
         <properties>
           <background color="-14207162"/>
-          <visible value="true"/>
+          <visible value="false"/>
         </properties>
         <border type="none"/>
         <children>
