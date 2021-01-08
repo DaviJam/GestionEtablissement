@@ -1,7 +1,7 @@
 package ensup.tests;
 
 import ensup.business.*;
-import ensup.dao.DaoPerson;
+import ensup.dao.PersonDao;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,13 +13,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * The type Test dao person.
  */
 public class TestDaoPerson {
-    private DaoPerson _dao;
+    private PersonDao _dao;
 
     /**
      * Instantiates a new Test dao person.
      */
     public TestDaoPerson() {
-        this._dao = new DaoPerson();
+        this._dao = new PersonDao();
     }
 
     /**

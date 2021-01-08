@@ -10,7 +10,7 @@ import static ensup.dao.Connect.openConnection;
 /**
  * The type Dao login.
  */
-public class DaoLogin {
+public class LoginDao {
     /**
      * The Connection.
      */

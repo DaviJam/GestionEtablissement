@@ -11,8 +11,7 @@ import ensup.mapper.SchoolMapper;
 /**
  * The type School service.
  */
-public class SchoolService implements ISchoolService
-{
+public class SchoolService implements IService<SchoolDTO> {
 	private SchoolDao dao;
 
 	/**

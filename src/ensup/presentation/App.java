@@ -5,8 +5,8 @@ import ensup.dto.CourseDTO;
 import ensup.dto.PersonDTO;
 import ensup.dto.StudentDTO;
 import ensup.service.CourseService;
-import ensup.service.ServiceConnection;
-import ensup.service.ServicePerson;
+import ensup.service.ConnectionService;
+import ensup.service.PersonService;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -14,15 +14,12 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import static java.lang.Integer.parseInt;
@@ -87,8 +84,8 @@ public class App {
         connexionBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ServiceConnection sc = new ServiceConnection();
-                ServicePerson sp = new ServicePerson();
+                ConnectionService sc = new ConnectionService();
+                PersonService sp = new PersonService();
 
                 int idConnexion = sc.checkConnection(textField1.getText(), passwordField1.getText());
                 PersonDTO p = sp.get(idConnexion);
@@ -122,7 +119,7 @@ public class App {
                 studentPanel.setVisible(true);
 
                 //Add item in combobox student
-                ServicePerson ps = new ServicePerson();
+                PersonService ps = new PersonService();
                 comboBox1.removeAll();
                 comboBox1.removeAllItems();
                 for(PersonDTO p : ps.getAll()){
@@ -147,7 +144,7 @@ public class App {
                 }
 
                 //Add item in combobox student
-                ServicePerson ps = new ServicePerson();
+                PersonService ps = new PersonService();
 
                 comboBox2.removeAll();
                 comboBox2.removeAllItems();
@@ -171,7 +168,7 @@ public class App {
                 String[] columnNames = {
                         "Nom", "Prénom", "Email", "Adresse", "Téléphone", "Date de naissance", "Action1"
                 };
-                ServicePerson ps = new ServicePerson();
+                PersonService ps = new PersonService();
                 int nbStudent = 0;
                 for(PersonDTO p : ps.getAll()){
                     if(p instanceof StudentDTO) {
@@ -267,7 +264,7 @@ public class App {
                                 studentListPanel.setVisible(false);
 
                                 //Add item in combobox student
-                                ServicePerson ps = new ServicePerson();
+                                PersonService ps = new PersonService();
                                 comboBox1.removeAllItems();
                                 for(PersonDTO p : ps.getAll()){
                                     //On filtre toutes les Personne de type Student et on regarde si sont email corresponds a celui de la ligne sélectionner
@@ -327,7 +324,7 @@ public class App {
 
                 if (item != null) {
                     //On affiche les informations utilisateurs
-                    ServicePerson ps = new ServicePerson();
+                    PersonService ps = new PersonService();
                     PersonDTO p = ps.get(item.getId());
                     if (p instanceof StudentDTO) {
                         String s = String.valueOf(p.getId());
@@ -346,7 +343,7 @@ public class App {
         deleteStudent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ServicePerson ps = new ServicePerson();
+                PersonService ps = new PersonService();
                 ps.delete(parseInt(hiddenTextField1.getText()));
 
                 hiddenTextField1.setText("");
@@ -370,7 +367,7 @@ public class App {
                     //If nb hours is not numeric return msgbox
                     try {
                         //Create course with parameters
-                        ServicePerson sp = new ServicePerson();
+                        PersonService sp = new PersonService();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         Date auj = sdf.parse(textField15.getText());
                         sp.create(textField11.getText(), textField12.getText(), textField13.getText(), textField14.getText(), textField10.getText(), textField16.getText(), 4, auj ,"");
@@ -395,7 +392,7 @@ public class App {
                 Item item2 = (Item) comboBox2.getSelectedItem();
                 int idStudent = item2.getId();
 
-                ServicePerson ps = new ServicePerson();
+                PersonService ps = new PersonService();
                 ps.linkToCourse(idStudent, idCourse);
             }
         });
@@ -411,7 +408,7 @@ public class App {
                     //If nb hours is not numeric return msgbox
                     try {
                         //Create course with parameters
-                        ServicePerson sp = new ServicePerson();
+                        PersonService sp = new PersonService();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         Date auj = sdf.parse(textField7.getText());
                         sp.update(textField3.getText(), textField4.getText(), textField5.getText(), textField6.getText(), textField2.getText(), passwordField2.getText(), 4, auj ,"");

@@ -1,5 +1,27 @@
 # GestionEtablissement
-Logiciel de gestion d'établissement scolaire
+
+##Fonctionalités
+Ce logiciel permet de gérer un etablissement scolaire. Il est actuellement possible de :
+
+* Gérer les cours de l'école;
+* Gérer les étudiants;
+* Associer un cours à un étudiant;
+* Accéder à la liste des étudiants (pour le directeur uniquement)
+
+##Installation
+
+Pré-requis: avoir installé Java en local sur son ordinateur
+
+* Aller dans le projet Github : https://github.com/DaviJam/GestionEtablissement.
+* Cliquer sur le bouton vert "code" puis télécharger le fichier zip.
+* Dans Windows extraire le fichier zip.
+* Se rendre dans le dossier "rendu" du projet.
+* Double-cliquer le fichier GestionEtablissement.jar.
+* L'application s'ouvre. 
+
+Deux choix sont alors possibles.
+* Accéder à l'application avec le compte Directeur
+* Accéder à l'application avec le compte Responsable
 
 ##Convention de nommage
 1. <b/>Package:</b>
@@ -31,3 +53,7 @@ Logiciel de gestion d'établissement scolaire
     <br/>Examples:
     * interface IRasterDelegate;
     * interface IStoring;
+
+
+
+

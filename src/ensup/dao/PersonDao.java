@@ -14,7 +14,7 @@ import static ensup.dao.Connect.openConnection;
 /**
  * The type Dao.
  */
-public class DaoPerson implements IDao<Person>
+public class PersonDao implements IDao<Person>
 {
     /**
      * The Cn.
@@ -42,7 +42,7 @@ public class DaoPerson implements IDao<Person>
     /**
      * Instantiates a new Dao person.
      */
-    public DaoPerson()
+    public PersonDao()
     {
 
     }
@@ -113,7 +113,7 @@ public class DaoPerson implements IDao<Person>
              */
                 File propertiesFileDao = new File( "Properties/log4j.properties");
                 PropertyConfigurator.configure(propertiesFileDao.toString());
-                Logger log = Logger.getLogger(DaoPerson.class.getName());
+                Logger log = Logger.getLogger(PersonDao.class.getName());
                 log.info("L'utilisateur " + entity.getLastname() +" "+entity.getFirstname() + " " + entity.getMailAddress() + " a été créé.");
 
         } catch (SQLException e) {

@@ -2,10 +2,7 @@ package ensup.tests;
 
 import java.util.List;
 
-import ensup.business.Director;
-import ensup.business.Person;
 import ensup.business.School;
-import ensup.dao.DaoPerson;
 import ensup.dao.SchoolDao;
 
 /**
