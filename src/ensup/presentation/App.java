@@ -72,8 +72,8 @@ public class App {
     private JTextField textField16;
     private JPasswordField passwordField2;
     private JTable table1;
-    private JButton modStudentBtnFromList;
-    private JButton delStudentBtnFromList;
+    private JScrollPane scrollPane1;
+
 
 
     public App() {
@@ -166,6 +166,7 @@ public class App {
                 menuPanel.setVisible(false);
                 studentListPanel.setVisible(true);
                 // TableModel's column names
+                //todo sur de garde le bouton supprimer car créer des bugs
                 String[] columnNames = {
                         "Nom", "Prénom", "Email", "Adresse", "Téléphone", "Date de naissance", "Action1", "Action2"
                 };
@@ -186,13 +187,22 @@ public class App {
                         data[count][2] = p.getMailAddress();
                         data[count][3] = p.getAddress();
                         data[count][4] = p.getPhoneNumber();
-                        data[count][5] = ((StudentDTO) p).getDateOfBirth().toString();
-                        modStudentBtnFromList = new JButton("Modifier");
-                        delStudentBtnFromList = new JButton("Supprimer");
-                        data[count][6] = modStudentBtnFromList;
-                        data[count][7] = delStudentBtnFromList;
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                        try {
+                            Date dob = sdf.parse(((StudentDTO) p).getDateOfBirth().toString());
+                            data[count][5] = dob;
+                        } catch (ParseException parseException) {
+                            parseException.printStackTrace();
+                        }
 
-                            //TODO : Find a way to do this
+
+                        //todo sur de garde le bouton supprimer car créer des bugs
+                         JButton modStudentBtnFromList = new JButton("Modifier");
+                        JButton delStudentBtnFromList = new JButton("Supprimer");
+                        data[count][6] = "Modifier";
+                        data[count][7] = "Supprimer";
+
+                        //TODO : Find a way to do this
 
                         count++;
                     }
@@ -201,10 +211,19 @@ public class App {
 
                 StudentTableModel modele =new StudentTableModel(data,columnNames);
                 table1.setModel(modele);
+                table1.getTableHeader().setEnabled(false);
+
 
                 TableCellRenderer tableRenderer;
                 tableRenderer = table1.getDefaultRenderer(JButton.class);
                 table1.setDefaultRenderer(JButton.class, new JTableButtonRenderer(tableRenderer));
+                //Design grid tableau
+                table1.setRowHeight(30);
+                //Design header tableau
+                table1.getTableHeader().setBackground(new Color(46, 64, 83));
+                table1.getTableHeader().setFont(new Font("Segoe UI ",0, 16));
+                table1.getTableHeader().setForeground(new Color(255, 255,255));
+                table1.getTableHeader().setSize(70, 45);
 
 
 
@@ -252,8 +271,11 @@ public class App {
                                 comboBox1.removeAllItems();
                                 for(PersonDTO p : ps.getAll()){
                                     //On filtre toutes les Personne de type Student et on regarde si sont email corresponds a celui de la ligne sélectionner
-                                    if(p instanceof StudentDTO && personSelect.equals(p.getMailAddress())) {
+                                    if(p instanceof StudentDTO ) {
                                         comboBox1.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
+                                        if(p.getMailAddress().equals(personSelect)){
+                                            comboBox1.setSelectedItem(p.getId());
+                                        }
                                     }
                                 }
 
@@ -268,10 +290,11 @@ public class App {
                                 for(PersonDTO p : ps.getAll()){
                                     //On filtre toutes les Personne de type Student et on regarde si sont email corresponds a celui de la ligne sélectionner
                                     if(p instanceof StudentDTO && personSelect.equals(p.getMailAddress())) {
-                                       ps.delete(p.getId());
+                                       //ps.delete(p.getId());
                                        System.out.println("La personne " + p.getFirstname() + "à été supprimée");
+
                                        ((DefaultTableModel) table1.getModel()).removeRow(rowSelect);
-                                       modele.fireTableRowsDeleted(rowSelect, rowSelect);
+                                        modele.fireTableRowsDeleted(rowSelect, rowSelect);
                                     }
                                 }
 
