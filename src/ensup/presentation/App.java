@@ -13,6 +13,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
@@ -168,7 +169,7 @@ public class App {
                 // TableModel's column names
                 //todo sur de garde le bouton supprimer car créer des bugs
                 String[] columnNames = {
-                        "Nom", "Prénom", "Email", "Adresse", "Téléphone", "Date de naissance", "Action1", "Action2"
+                        "Nom", "Prénom", "Email", "Adresse", "Téléphone", "Date de naissance", "Action1"
                 };
                 ServicePerson ps = new ServicePerson();
                 int nbStudent = 0;
@@ -178,7 +179,7 @@ public class App {
                     }
                 }
 
-                Object[][] data = new Object[nbStudent][8];
+                Object[][] data = new Object[nbStudent][7];
                 int count = 0;
                 for(PersonDTO p : ps.getAll()){
                     if(p instanceof StudentDTO) {
@@ -196,13 +197,8 @@ public class App {
                         }
 
 
-                        //todo sur de garde le bouton supprimer car créer des bugs
-                         JButton modStudentBtnFromList = new JButton("Modifier");
-                        JButton delStudentBtnFromList = new JButton("Supprimer");
-                        data[count][6] = "Modifier";
-                        data[count][7] = "Supprimer";
+                        data[count][6] = "Gérer l'étudiant";
 
-                        //TODO : Find a way to do this
 
                         count++;
                     }
@@ -224,6 +220,12 @@ public class App {
                 table1.getTableHeader().setFont(new Font("Segoe UI ",0, 16));
                 table1.getTableHeader().setForeground(new Color(255, 255,255));
                 table1.getTableHeader().setSize(70, 45);
+
+                table1.getColumn("Action1").setCellRenderer( new DefaultTableCellRenderer() {
+                    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) { setText(value.toString()); setBackground(new Color(255, 193 ,7));
+                    return this;
+                    }
+                });
 
 
 
@@ -272,31 +274,14 @@ public class App {
                                 for(PersonDTO p : ps.getAll()){
                                     //On filtre toutes les Personne de type Student et on regarde si sont email corresponds a celui de la ligne sélectionner
                                     if(p instanceof StudentDTO ) {
-                                        comboBox1.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
+                                        Item i = new Item(p.getId(), p.getFirstname() + " " + p.getLastname());
+                                        comboBox1.addItem(i);
                                         if(p.getMailAddress().equals(personSelect)){
-                                            comboBox1.setSelectedItem(p.getId());
+                                            comboBox1.setSelectedItem(i);
                                         }
                                     }
                                 }
 
-
-                            }
-                            else if(columnsSelect == "Action2") {
-                                //Permet de récupérer l'email de l'utilisateur
-                                personSelect = (String) modele.getValueAt(rowSelect, 2);
-
-                                //On recherche l'objet de la personne séléctionner
-                                ServicePerson ps = new ServicePerson();
-                                for(PersonDTO p : ps.getAll()){
-                                    //On filtre toutes les Personne de type Student et on regarde si sont email corresponds a celui de la ligne sélectionner
-                                    if(p instanceof StudentDTO && personSelect.equals(p.getMailAddress())) {
-                                       //ps.delete(p.getId());
-                                       System.out.println("La personne " + p.getFirstname() + "à été supprimée");
-
-                                       ((DefaultTableModel) table1.getModel()).removeRow(rowSelect);
-                                        modele.fireTableRowsDeleted(rowSelect, rowSelect);
-                                    }
-                                }
 
                             }
 
@@ -487,6 +472,7 @@ public class App {
         frame.setContentPane(new App().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1080, 720);
+        frame.setLocationRelativeTo(null);
         frame.setTitle("Gestion d'établissement");
         frame.setResizable(false);
         frame.setVisible(true);
