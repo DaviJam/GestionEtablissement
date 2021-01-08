@@ -1,21 +1,21 @@
-package ensup.business;
+package ensup.dto;
+
+import ensup.business.Role;
 
 /**
- * The type Person.
- *
- * @author Allan
+ * The type Person dto.
  */
-public class Person extends Entity{
+public class PersonDTO extends EntityDTO {
     private int id;
     private String firstname;
     private String password;
     private Role role;
 
     /**
-     * Instantiates a new Person.
+     * Instantiates a new Person dto.
      */
-    public Person() {
-
+    public PersonDTO() {
+        super();
     }
 
     /**
@@ -84,7 +84,7 @@ public class Person extends Entity{
      * @param role        the role
      * @param password    the password
      */
-    public Person(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, Role role, String password) {
+    public PersonDTO(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, Role role, String password) {
         super(lastname, mailAddress, address, phoneNumber);
         this.id = id;
         this.firstname = firstname;
@@ -93,7 +93,7 @@ public class Person extends Entity{
     }
 
     /**
-     * Instantiates a new Person.
+     * Instantiates a new Person dto.
      *
      * @param lastname    the lastname
      * @param mailAddress the mail address
@@ -103,7 +103,7 @@ public class Person extends Entity{
      * @param role        the role
      * @param password    the password
      */
-    public Person(String lastname, String mailAddress, String address, String phoneNumber, String firstname, Role role, String password) {
+    public PersonDTO(String lastname, String mailAddress, String address, String phoneNumber, String firstname, Role role, String password) {
         super(lastname, mailAddress, address, phoneNumber);
         this.id = id;
         this.firstname = firstname;
@@ -120,7 +120,7 @@ public class Person extends Entity{
      * @param firstname   the firstname
      * @param password    the password
      */
-    public Person(String lastname, String mailAddress, int id, String firstname, String password) {
+    public PersonDTO(String lastname, String mailAddress, int id, String firstname, String password) {
         super(lastname, mailAddress);
         this.id = id;
         this.firstname = firstname;

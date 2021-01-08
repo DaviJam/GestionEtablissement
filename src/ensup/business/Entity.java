@@ -2,72 +2,88 @@ package ensup.business;
 
 /**
  * The type Entity
- * 
+ *
  * @author amelie
  */
 public class Entity
 {
-	private String surname;
+	private String lastname;
 	private String mailAddress;
 	private String address;
-	private int phoneNumber;
+	private String phoneNumber;
 
 	/**
 	 * Instantiates a new Entity.
-	 * 
-	 * @param surname
-	 * @param mailAddress
-	 * @param address
-	 * @param phoneNumber
+	 *
+	 * @param lastname    the lastname
+	 * @param mailAddress the mail address
+	 * @param address     the address
+	 * @param phoneNumber the phone number
 	 */
-	public Entity(String surname, String mailAddress, String address, int phoneNumber) {
+	public Entity(String lastname, String mailAddress, String address, String phoneNumber) {
 		super();
-		this.surname = surname;
+		this.lastname = lastname;
 		this.mailAddress = mailAddress;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 	}
-	
+
 	/**
 	 * Instantiates a new Entity.
-	 * 
-	 * @param surname
-	 * @param mailAddress
+	 *
+	 * @param lastname    the lastname
+	 * @param mailAddress the mail address
 	 */
-	public Entity(String surname, String mailAddress)
+	public Entity(String lastname, String mailAddress)
 	{
-		this(surname, mailAddress, null, -1);
+		this(lastname, mailAddress, null, null);
 	}
 
 	/**
-	 * @return The surname
+	 * Instantiates a new Entity.
 	 */
-	public String getSurname() {
-		return surname;
+	public Entity() {
 	}
 
 	/**
-	 * @param surname
+	 * Gets lastname.
+	 *
+	 * @return The lastname
 	 */
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public String getLastname() {
+		return lastname;
 	}
 
 	/**
-	 * @return the address mail
+	 * Sets lastname.
+	 *
+	 * @param lastname the lastname
 	 */
-	public String mailAddress() {
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	/**
+	 * Gets mail address.
+	 *
+	 * @return the mail address
+	 */
+	public String getMailAddress() {
 		return mailAddress;
 	}
 
 	/**
-	 * @param mailAddress
+	 * Sets mail address.
+	 *
+	 * @param mailAddress the mail address
 	 */
 	public void setMailAddress(String mailAddress) {
 		this.mailAddress = mailAddress;
 	}
 
 	/**
+	 * Gets address.
+	 *
 	 * @return the entity address
 	 */
 	public String getAddress() {
@@ -75,29 +91,50 @@ public class Entity
 	}
 
 	/**
-	 * @param address
+	 * Sets address.
+	 *
+	 * @param address the address
 	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
 	/**
+	 * Gets phone number.
+	 *
 	 * @return the entity phone number
 	 */
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
 	/**
-	 * @param phoneNumber
+	 * Sets phone number.
+	 *
+	 * @param phoneNumber the phone number
 	 */
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	/**
+	 * Is equal to boolean.
+	 *
+	 * @param entity the entity
+	 * @return the boolean
+	 */
+	public boolean isEqualTo(Entity entity)
+	{
+		boolean res = false;
+		if( this.getMailAddress() == entity.getMailAddress()) {
+			res = true;
+		}
+		return res;
 	}
 
 	@Override
 	public String toString() {
-		return "Unity [surname=" + surname + ", mailAddress=" + mailAddress + ", address=" + address + ", phoneNumber="
+		return "Entity [lastname=" + lastname + ", mailAddress=" + mailAddress + ", address=" + address + ", phoneNumber="
 				+ phoneNumber + "]";
 	}
 }

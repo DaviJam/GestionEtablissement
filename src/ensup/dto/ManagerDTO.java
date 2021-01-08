@@ -1,10 +1,11 @@
-package ensup.business;
+package ensup.dto;
+
+import ensup.business.Role;
 
 /**
- * The type Director.
- * Is responsible
+ * The type Manager dto.
  */
-public class Manager extends Person{
+public class ManagerDTO extends PersonDTO {
     /**
      * Instantiates a new Manager.
      *
@@ -17,12 +18,12 @@ public class Manager extends Person{
      * @param role        the role
      * @param password    the password
      */
-    public Manager(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, Role role, String password) {
+    public ManagerDTO(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, Role role, String password) {
         super(lastname, mailAddress, address, phoneNumber, id, firstname, role, password);
     }
 
     /**
-     * Instantiates a new Manager.
+     * Instantiates a new Manager dto.
      *
      * @param lastname    the lastname
      * @param mailAddress the mail address
@@ -32,12 +33,12 @@ public class Manager extends Person{
      * @param role        the role
      * @param password    the password
      */
-    public Manager(String lastname, String mailAddress, String address, String phoneNumber, String firstname, Role role, String password) {
+    public ManagerDTO(String lastname, String mailAddress, String address, String phoneNumber, String firstname, Role role, String password) {
         super(lastname, mailAddress, address, phoneNumber, firstname, role, password);
     }
 
     /**
-     * Instantiates a new Manager.
+     * Instantiates a new Manager dto.
      *
      * @param lastname    the lastname
      * @param mailAddress the mail address
@@ -47,12 +48,12 @@ public class Manager extends Person{
      * @param firstname   the firstname
      * @param password    the password
      */
-    public Manager(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password) {
+    public ManagerDTO(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password) {
         super(lastname, mailAddress, address, phoneNumber, id, firstname, Role.MANAGER, password);
     }
 
     /**
-     * Instantiates a new Manager.
+     * Instantiates a new Manager dto.
      *
      * @param lastname    the lastname
      * @param mailAddress the mail address
@@ -61,12 +62,12 @@ public class Manager extends Person{
      * @param firstname   the firstname
      * @param password    the password
      */
-    public Manager(String lastname, String mailAddress, String address, String phoneNumber, String firstname, String password) {
+    public ManagerDTO(String lastname, String mailAddress, String address, String phoneNumber, String firstname, String password) {
         super(lastname, mailAddress, address, phoneNumber, firstname, Role.MANAGER, password);
     }
 
     /**
-     * Instantiates a new Manager.
+     * Instantiates a new ManagerDTO.
      *
      * @param lastname    the lastname
      * @param mailAddress the mail address
@@ -74,22 +75,22 @@ public class Manager extends Person{
      * @param firstname   the firstname
      * @param password    the password
      */
-    public Manager(String lastname, String mailAddress, int id, String firstname, String password) {
+    public ManagerDTO(String lastname, String mailAddress, int id, String firstname, String password) {
         super(lastname, mailAddress, id, firstname, password);
     }
 
     /**
-     * Instantiates a new Manager.
+     * Instantiates a new Manager dto.
      */
-    public Manager() {
+    public ManagerDTO() {
 
     }
 
     @Override
-	public String toString() {
-		String res = super.toString();
-		res = res.replace("Person", "Manager");
+    public String toString() {
+        String res = super.toString();
+        res = res.replace("Person", "ManagerDTO");
 
-		return res;
-	}
+        return res;
+    }
 }

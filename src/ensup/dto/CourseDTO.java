@@ -1,9 +1,10 @@
-package ensup.business;
+package ensup.dto;
 
 /**
- * The type Course.
+ * The type Course dto.
  */
-public class Course {
+public class CourseDTO {
+
     private String courseSubject;
     private float nbHours;
     private int id;
@@ -63,43 +64,41 @@ public class Course {
     }
 
     /**
-     * Instantiates a new Course.
+     * Instantiates a new Course dto.
+     */
+    public CourseDTO() {
+    }
+
+    /**
+     * Instantiates a new Course dto.
      *
      * @param courseSubject the course subject
      * @param nbHours       the nb hours
      * @param id            the id
      */
-    public Course(String courseSubject, float nbHours, int id) {
+    public CourseDTO(String courseSubject, float nbHours, int id) {
         this.courseSubject = courseSubject;
         this.nbHours = nbHours;
         this.id = id;
     }
 
     /**
-     * Instantiates a new Course.
+     * Instantiates a new Course dto.
+     *
+     * @param courseSubject the course subject
+     * @param nbHours       the nb hours
      */
-    public Course() {
-    	this(null, -1, -1);
+    public CourseDTO(String courseSubject, float nbHours) {
+        this.courseSubject = courseSubject;
+        this.nbHours = nbHours;
     }
 
-    /**
-     * Instantiates a new Course.
-     *
-     * @param subject the subject
-     * @param nbHours the nb hours
-     */
-    public Course(String subject, float nbHours) {
-		this(subject, nbHours, -1);
-	}
-
-	@Override
+    @Override
     public String toString() {
-        return "Course{" +
+        return "CourseDTO{" +
                 "courseSubject='" + courseSubject + '\'' +
                 ", nbHours=" + nbHours +
                 ", id=" + id +
                 '}';
     }
-
-
 }

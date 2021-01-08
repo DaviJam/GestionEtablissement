@@ -1,6 +1,6 @@
 package ensup.business;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * The type Student.
@@ -10,56 +10,81 @@ import java.sql.Date;
 public class Student extends Person
 {
 	private Date dateOfBirth;
-	
+
 	/**
-	 * Instantiates a new Student
-	 * 
-	 * @param surname
-	 * @param mailAddress
-	 * @param address
-	 * @param phoneNumber
-	 * @param id
-	 * @param name
-	 * @param password
-	 * @param dateOfBirth
+	 * Instantiates a new Student.
 	 */
-	public Student(String surname, String mailAddress, String address, int phoneNumber, int id, String name, String password, Date dateOfBirth)
+	public Student(){ }
+
+	/**
+	 * Instantiates a new Student.
+	 *
+	 * @param lastname    the lastname
+	 * @param mailAddress the mail address
+	 * @param address     the address
+	 * @param phoneNumber the phone number
+	 * @param firstname   the firstname
+	 * @param password    the password
+	 * @param dateOfBirth the date of birth
+	 */
+	public Student(String lastname, String mailAddress, String address, String phoneNumber, String firstname, String password, Date dateOfBirth)
 	{
-		super(surname, mailAddress, address, phoneNumber, id, name, password);
+		super(lastname, mailAddress, address, phoneNumber, firstname, Role.STUDENT, password);
 		this.dateOfBirth = dateOfBirth;
-	}
-	
-	/**
-	 * Instantiates a new Student
-	 * 
-	 * @param surname
-	 * @param mailAddress
-	 * @param id
-	 * @param name
-	 * @param password
-	 * @param dateOfBirth
-	 */
-	public Student(String surname, String mailAddress, int id, String name, String password, Date dateOfBirth)
-	{
-		super(surname, mailAddress, id, name, password);
-		this.dateOfBirth = dateOfBirth;
-	}
-	
-	/**
-	 * Instantiates a new Student
-	 * 
-	 * @param surname
-	 * @param mailAddress
-	 * @param id
-	 * @param name
-	 * @param password
-	 */
-	public Student(String surname, String mailAddress, int id, String name, String password)
-	{
-		this(surname, mailAddress, id, name, password, null);
 	}
 
 	/**
+	 * Instantiates a new Student
+	 *
+	 * @param lastname    the lastname
+	 * @param mailAddress the mail address
+	 * @param address     the address
+	 * @param phoneNumber the phone number
+	 * @param id          the id
+	 * @param firstname   the firstname
+	 * @param password    the password
+	 * @param dateOfBirth the date of birth
+	 */
+	public Student(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password, Date dateOfBirth)
+	{
+		super(lastname, mailAddress, address, phoneNumber, id, firstname, Role.STUDENT, password);
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	/**
+	 * Instantiates a new Student
+	 *
+	 * @param lastname    the lastname
+	 * @param mailAddress the mail address
+	 * @param id          the id
+	 * @param firstname   the firstname
+	 * @param password    the password
+	 * @param dateOfBirth the date of birth
+	 */
+	public Student(String lastname, String mailAddress, int id, String firstname, String password, Date dateOfBirth)
+	{
+		super(lastname, mailAddress, id, firstname, password);
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	/**
+	 * Instantiates a new Student
+	 *
+	 * @param lastname    the lastname
+	 * @param mailAddress the mail address
+	 * @param id          the id
+	 * @param firstname   the firstname
+	 * @param password    the password
+	 */
+	public Student(String lastname, String mailAddress, int id, String firstname, String password)
+	{
+		this(lastname, mailAddress, id, firstname, password, null);
+	}
+
+
+	/**
+	 * Gets date of birth.
+	 *
 	 * @return date of the student birth
 	 */
 	public Date getDateOfBirth() {
@@ -67,19 +92,21 @@ public class Student extends Person
 	}
 
 	/**
-	 * @param dateOfBirth
+	 * Sets date of birth.
+	 *
+	 * @param dateOfBirth the date of birth
 	 */
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
-	
+
 	@Override
 	public String toString() {
 		String res = super.toString();
-		res = res.replace(super.getClass().getName(), "Student");
+		res = res.replace("Person", "Student");
 		res = res.substring(0, res.length()-1);
 		res = res + ", dateOfBirth=\" + dateOfBirth + \"]";
-		
+
 		return res;
 	}
 }
