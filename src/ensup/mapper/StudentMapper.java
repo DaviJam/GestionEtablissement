@@ -3,7 +3,16 @@ package ensup.mapper;
 import ensup.business.Student;
 import ensup.dto.StudentDTO;
 
+/**
+ * The type Student mapper.
+ */
 public class StudentMapper {
+    /**
+     * Business to dto student dto.
+     *
+     * @param student the student
+     * @return the student dto
+     */
     public static StudentDTO businessToDto(Student student)
     {
         StudentDTO studentDTO = new StudentDTO();
@@ -22,6 +31,12 @@ public class StudentMapper {
         return studentDTO;
     };
 
+    /**
+     * Dto to business student.
+     *
+     * @param studentDTO the student dto
+     * @return the student
+     */
     public static Student dtoToBusiness(StudentDTO studentDTO)
     {
         Student student = new Student();

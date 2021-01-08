@@ -6,8 +6,17 @@ import ensup.dto.PersonDTO;
 import ensup.dto.StudentDTO;
 import ensup.dto.TeacherDTO;
 
+/**
+ * The type Teacher mapper.
+ */
 public class TeacherMapper extends PersonDTO {
 
+    /**
+     * Business to dto teacher dto.
+     *
+     * @param teacher the teacher
+     * @return the teacher dto
+     */
     public static TeacherDTO businessToDto(Teacher teacher){
 
         TeacherDTO teacherDto = new TeacherDTO();
@@ -25,6 +34,12 @@ public class TeacherMapper extends PersonDTO {
         return teacherDto;
     };
 
+    /**
+     * Dto to business teacher.
+     *
+     * @param teacherDTO the teacher dto
+     * @return the teacher
+     */
     public static Teacher dtoToBusiness(TeacherDTO teacherDTO)
     {
         Teacher teacher = new Teacher();

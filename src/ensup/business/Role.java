@@ -3,11 +3,26 @@ package ensup.business;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The enum Role.
+ */
 public enum Role
 {
+	/**
+	 * Director role.
+	 */
 	DIRECTOR (1, "Director"),
+	/**
+	 * Manager role.
+	 */
 	MANAGER  (2, "Manager"),
+	/**
+	 * Teacher role.
+	 */
 	TEACHER  (3, "Teacher"),
+	/**
+	 * Student role.
+	 */
 	STUDENT  (4, "Student");
 
 	private int    numRole;
@@ -19,9 +34,26 @@ public enum Role
 		this.name = name;
 	}
 
+	/**
+	 * Gets num.
+	 *
+	 * @return the num
+	 */
 	public int    getNum()  { return this.numRole; }
+
+	/**
+	 * Gets name.
+	 *
+	 * @return the name
+	 */
 	public String getName() { return this.name; }
 
+	/**
+	 * Gets role by name.
+	 *
+	 * @param name the name
+	 * @return the role by name
+	 */
 	public Role getRoleByName(String name)
 	{
 		switch(name)
@@ -33,6 +65,12 @@ public enum Role
 		}
 	}
 
+	/**
+	 * Gets role by num.
+	 *
+	 * @param num the num
+	 * @return the role by num
+	 */
 	static public Role getRoleByNum(int num)
 	{
 		switch(num)
@@ -44,6 +82,11 @@ public enum Role
 		}
 	}
 
+	/**
+	 * Gets all roles.
+	 *
+	 * @return the all roles
+	 */
 	public List<Role> getAllRoles()
 	{
 		List<Role> lRole = new ArrayList<Role>();

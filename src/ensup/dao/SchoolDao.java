@@ -10,6 +10,9 @@ import java.util.List;
 
 import ensup.business.School;
 
+/**
+ * The type School dao.
+ */
 public class SchoolDao implements ISchoolDao
 {
 	public List<School> getAll()

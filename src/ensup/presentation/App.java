@@ -27,6 +27,9 @@ import java.util.Date;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * The type App.
+ */
 public class App {
     private JPanel mainPanel;
     private JPanel connexionPanel;
@@ -76,7 +79,9 @@ public class App {
     private JScrollPane scrollPane1;
 
 
-
+    /**
+     * Instantiates a new App.
+     */
     public App() {
         //Vue connexion
         connexionBtn.addActionListener(new ActionListener() {
@@ -467,6 +472,11 @@ public class App {
     }
 
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         JFrame frame = new JFrame("App");
         frame.setContentPane(new App().mainPanel);
@@ -479,6 +489,10 @@ public class App {
         frame.getContentPane().setBackground(Color.decode("#343a40"));
     }
 }
+
+/**
+ * The type Item renderer.
+ */
 class ItemRenderer extends BasicComboBoxRenderer {
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
@@ -497,12 +511,21 @@ class ItemRenderer extends BasicComboBoxRenderer {
     }
 }
 
+/**
+ * The type Student table model.
+ */
 class StudentTableModel extends AbstractTableModel {
     private Object[][] data;
     private String[] columnNames;
     private int rowIndex;
 
 
+    /**
+     * Instantiates a new Student table model.
+     *
+     * @param data        the data
+     * @param columnNames the column names
+     */
     public StudentTableModel(Object[][] data, String[] columnNames) {
         this.data = data;
         this.columnNames = columnNames;
@@ -548,8 +571,17 @@ class StudentTableModel extends AbstractTableModel {
 }
 
 
+/**
+ * The type J table button renderer.
+ */
 class JTableButtonRenderer implements TableCellRenderer {
     private TableCellRenderer defaultRenderer;
+
+    /**
+     * Instantiates a new J table button renderer.
+     *
+     * @param renderer the renderer
+     */
     public JTableButtonRenderer(TableCellRenderer renderer) {
         defaultRenderer = renderer;
     }

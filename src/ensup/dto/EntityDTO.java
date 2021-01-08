@@ -1,5 +1,8 @@
 package ensup.dto;
 
+/**
+ * The type Entity dto.
+ */
 public class EntityDTO {
 
     private String lastname;

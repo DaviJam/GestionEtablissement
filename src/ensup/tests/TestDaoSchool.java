@@ -8,16 +8,25 @@ import ensup.business.School;
 import ensup.dao.DaoPerson;
 import ensup.dao.SchoolDao;
 
+/**
+ * The type Test dao school.
+ */
 public class TestDaoSchool
 {
 	private SchoolDao dao;
-	
+
+	/**
+	 * Instantiates a new Test dao school.
+	 */
 	public TestDaoSchool()
 	{
 		System.out.println("Constructor TestSchoolDao");
 		dao = new SchoolDao();
 	}
-	
+
+	/**
+	 * Test get all.
+	 */
 	public void testGetAll()
 	{
 		System.out.println("\nTest GetAll");
@@ -27,20 +36,29 @@ public class TestDaoSchool
 			System.out.println(((School)school).toString());
 		}
 	}
-	
+
+	/**
+	 * Test create.
+	 */
 	public void testCreate()
 	{
 		System.out.println("\nTest Create");
 		
 		this.dao.create(new School("Ensup", "ensup@gmail.com", "...", "0000", 34));
 	}
-	
+
+	/**
+	 * Test get.
+	 */
 	public void testGet()
 	{
 		System.out.println("\nTest Get");
 		System.out.println(this.dao.get(4));
 	}
-	
+
+	/**
+	 * Test update.
+	 */
 	public void testUpdate()
 	{
 		System.out.println("\nTest Update");
@@ -52,7 +70,10 @@ public class TestDaoSchool
 		}
 		catch(Exception e) { e.printStackTrace(); }
 	}
-	
+
+	/**
+	 * Test delete.
+	 */
 	public void testDelete()
 	{
 		System.out.println("\nTest Delete");
@@ -62,6 +83,11 @@ public class TestDaoSchool
 		catch(Exception e) { e.printStackTrace(); }
 	}
 
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 */
 	public static void main(String[] args)
 	{
 		System.out.println("START TEST");

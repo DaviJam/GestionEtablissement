@@ -3,7 +3,16 @@ package ensup.mapper;
 import ensup.business.Director;
 import ensup.dto.DirectorDTO;
 
+/**
+ * The type Director mapper.
+ */
 public class DirectorMapper {
+    /**
+     * Business to dto director dto.
+     *
+     * @param director the director
+     * @return the director dto
+     */
     public static DirectorDTO businessToDto(Director director){
         DirectorDTO directorDTO = new DirectorDTO();
         directorDTO.setFirstname(director.getLastname());
@@ -17,6 +26,12 @@ public class DirectorMapper {
         return directorDTO;
     };
 
+    /**
+     * Dto to business director.
+     *
+     * @param directorDTO the director dto
+     * @return the director
+     */
     public static Director dtoToBusiness(DirectorDTO directorDTO){
         Director director = new Director();
         director.setFirstname(directorDTO.getLastname());

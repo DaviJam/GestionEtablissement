@@ -34,7 +34,8 @@ public class DaoLogin {
     /**
      * Gets password.
      *
-     * @param mail the mail
+     * @param mail     the mail
+     * @param password the password
      * @return the password
      */
     public int checkPassword(String mail, String password) {

@@ -6,6 +6,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Course dao.
+ */
 public class CourseDao implements ICourseDao
 {
 	@Override

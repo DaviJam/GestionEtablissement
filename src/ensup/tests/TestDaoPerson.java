@@ -9,13 +9,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * The type Test dao person.
+ */
 public class TestDaoPerson {
     private DaoPerson _dao;
 
+    /**
+     * Instantiates a new Test dao person.
+     */
     public TestDaoPerson() {
         this._dao = new DaoPerson();
     }
 
+    /**
+     * Test create boolean.
+     *
+     * @return the boolean
+     * @throws ParseException the parse exception
+     */
     public boolean TestCreate() throws ParseException {
         boolean testRes = true;
         SimpleDateFormat dateFmt = new SimpleDateFormat("MM/dd/yyyy");
@@ -36,6 +48,12 @@ public class TestDaoPerson {
         return testRes;
     }
 
+    /**
+     * Test update boolean.
+     *
+     * @return the boolean
+     * @throws ParseException the parse exception
+     */
     public boolean TestUpdate() throws ParseException {
         boolean testRes = true;
         SimpleDateFormat dateFmt = new SimpleDateFormat("MM/dd/yyyy");
@@ -56,6 +74,12 @@ public class TestDaoPerson {
         return testRes;
     }
 
+    /**
+     * Test get all boolean.
+     *
+     * @return the boolean
+     * @throws ParseException the parse exception
+     */
     public boolean TestGetAll() throws ParseException {
         AtomicBoolean testRes = new AtomicBoolean(true);
         SimpleDateFormat dateFmt = new SimpleDateFormat("MM/dd/yyyy");
@@ -90,7 +114,14 @@ public class TestDaoPerson {
         });
         return testRes.get();
     }
-    //Todo : finish this
+
+    /**
+     * Test remove boolean.
+     *
+     * @return the boolean
+     * @throws ParseException the parse exception
+     */
+//Todo : finish this
     public boolean TestRemove() throws ParseException {
         boolean testRes = true;
         SimpleDateFormat dateFmt = new SimpleDateFormat("MM/dd/yyyy");
@@ -111,6 +142,11 @@ public class TestDaoPerson {
         return testRes;
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args)
     {
         System.out.println("START TEST");

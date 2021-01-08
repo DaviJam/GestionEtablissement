@@ -2,6 +2,9 @@ package ensup.dto;
 
 import ensup.business.Role;
 
+/**
+ * The type Teacher dto.
+ */
 public class TeacherDTO extends PersonDTO{
 
     private String subjectTaught;
@@ -9,7 +12,7 @@ public class TeacherDTO extends PersonDTO{
     /**
      * Instantiates a new Teacher.
      *
-     * @param lastname       the lastname
+     * @param lastname      the lastname
      * @param mailAddress   the mail address
      * @param address       the address
      * @param phoneNumber   the phone number
@@ -23,11 +26,25 @@ public class TeacherDTO extends PersonDTO{
         this.subjectTaught = subjectTaught;
     }
 
+    /**
+     * Instantiates a new Teacher dto.
+     *
+     * @param lastname      the lastname
+     * @param mailAddress   the mail address
+     * @param address       the address
+     * @param phoneNumber   the phone number
+     * @param firstname     the firstname
+     * @param password      the password
+     * @param subjectTaught the subject taught
+     */
     public TeacherDTO(String lastname, String mailAddress, String address, String phoneNumber, String firstname, String password, String subjectTaught) {
         super(lastname, mailAddress, address, phoneNumber, firstname, Role.TEACHER, password);
         this.subjectTaught = subjectTaught;
     }
 
+    /**
+     * Instantiates a new Teacher dto.
+     */
     public TeacherDTO() {
 
     }

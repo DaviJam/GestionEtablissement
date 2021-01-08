@@ -3,8 +3,17 @@ package ensup.mapper;
 import ensup.business.School;
 import ensup.dto.SchoolDTO;
 
+/**
+ * The type School mapper.
+ */
 public class SchoolMapper
 {
+    /**
+     * Business to dto school dto.
+     *
+     * @param school the school
+     * @return the school dto
+     */
     public static SchoolDTO businessToDto(School school)
     {
         SchoolDTO schoolDto = new SchoolDTO();
@@ -19,6 +28,12 @@ public class SchoolMapper
         return schoolDto;
     };
 
+    /**
+     * Dto to business school.
+     *
+     * @param schoolDto the school dto
+     * @return the school
+     */
     public static School dtoToBusiness(SchoolDTO schoolDto)
     {
     	School school = new School();

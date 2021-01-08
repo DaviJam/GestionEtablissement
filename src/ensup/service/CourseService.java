@@ -8,10 +8,16 @@ import ensup.mapper.CourseMapper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Course service.
+ */
 public class CourseService implements ICourseService
 {
 	private CourseDao dao;
 
+	/**
+	 * Instantiates a new Course service.
+	 */
 	public CourseService()
 	{
 		this.dao = new CourseDao();
@@ -54,7 +60,14 @@ public class CourseService implements ICourseService
 	{
 		return this.dao.delete(index);
 	}
-	
+
+	/**
+	 * Gets index.
+	 *
+	 * @param coursesubject the coursesubject
+	 * @param nbhours       the nbhours
+	 * @return the index
+	 */
 	public int getIndex( String coursesubject, float nbhours )
 	{
 		return this.dao.getIndex(coursesubject, nbhours);

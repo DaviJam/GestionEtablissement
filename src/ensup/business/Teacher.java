@@ -11,7 +11,7 @@ public class Teacher extends Person{
     /**
      * Instantiates a new Teacher.
      *
-     * @param lastname       the lastname
+     * @param lastname      the lastname
      * @param mailAddress   the mail address
      * @param address       the address
      * @param phoneNumber   the phone number
@@ -25,11 +25,25 @@ public class Teacher extends Person{
         this.subjectTaught = subjectTaught;
     }
 
+    /**
+     * Instantiates a new Teacher.
+     *
+     * @param lastname      the lastname
+     * @param mailAddress   the mail address
+     * @param address       the address
+     * @param phoneNumber   the phone number
+     * @param firstname     the firstname
+     * @param password      the password
+     * @param subjectTaught the subject taught
+     */
     public Teacher(String lastname, String mailAddress, String address, String phoneNumber, String firstname, String password, String subjectTaught) {
         super(lastname, mailAddress, address, phoneNumber, firstname, Role.TEACHER, password);
         this.subjectTaught = subjectTaught;
     }
 
+    /**
+     * Instantiates a new Teacher.
+     */
     public Teacher() {
 
     }

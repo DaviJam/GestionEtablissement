@@ -11,8 +11,9 @@ public class School extends Entity
     /**
      * Instantiates a new School.
      *
+     * @param id          the id
      * @param surname     the surname
-     * @param mailAddress  the mail address
+     * @param mailAddress the mail address
      * @param address     the address
      * @param phoneNumber the phone number
      * @param director    the director
@@ -22,12 +23,24 @@ public class School extends Entity
         this.id = id;
         this.director = director;
     }
-    
+
+    /**
+     * Instantiates a new School.
+     *
+     * @param surname     the surname
+     * @param mailAddress the mail address
+     * @param address     the address
+     * @param phoneNumber the phone number
+     * @param director    the director
+     */
     public School(String surname, String mailAddress, String address, String phoneNumber, int director)
     {
         this(-1, surname, mailAddress, address, phoneNumber, director);
     }
-    
+
+    /**
+     * Instantiates a new School.
+     */
     public School()
     {
         this(-1, null, null, null, null, -1);
@@ -36,6 +49,7 @@ public class School extends Entity
     /**
      * Instantiates a new School.
      *
+     * @param id          the id
      * @param surname     the surname
      * @param mailAddress the mail address
      * @param director    the director
@@ -45,14 +59,32 @@ public class School extends Entity
         this.id = id;
         this.director = director;
     }
+
+    /**
+     * Instantiates a new School.
+     *
+     * @param surname     the surname
+     * @param mailAddress the mail address
+     * @param director    the director
+     */
     public School(String surname, String mailAddress, int director) {
         super(surname, mailAddress);
         this.id = -1;
         this.director = director;
     }
-    
+
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() { return this.id; }
-    
+
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) { this.id = id; }
 
     /**

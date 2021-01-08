@@ -6,7 +6,12 @@ import ensup.service.ICourseService;
 
 public class TestDtoCourse
 {
-	public static void main(String[] args)
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
+    public static void main(String[] args)
     {
         // On appelle le service
         ICourseService courseservice = new CourseService();

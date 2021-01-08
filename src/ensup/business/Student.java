@@ -11,8 +11,22 @@ public class Student extends Person
 {
 	private Date dateOfBirth;
 
+	/**
+	 * Instantiates a new Student.
+	 */
 	public Student(){ }
 
+	/**
+	 * Instantiates a new Student.
+	 *
+	 * @param lastname    the lastname
+	 * @param mailAddress the mail address
+	 * @param address     the address
+	 * @param phoneNumber the phone number
+	 * @param firstname   the firstname
+	 * @param password    the password
+	 * @param dateOfBirth the date of birth
+	 */
 	public Student(String lastname, String mailAddress, String address, String phoneNumber, String firstname, String password, Date dateOfBirth)
 	{
 		super(lastname, mailAddress, address, phoneNumber, firstname, Role.STUDENT, password);
@@ -22,14 +36,14 @@ public class Student extends Person
 	/**
 	 * Instantiates a new Student
 	 *
-	 * @param lastname
-	 * @param mailAddress
-	 * @param address
-	 * @param phoneNumber
-	 * @param id
-	 * @param firstname
-	 * @param password
-	 * @param dateOfBirth
+	 * @param lastname    the lastname
+	 * @param mailAddress the mail address
+	 * @param address     the address
+	 * @param phoneNumber the phone number
+	 * @param id          the id
+	 * @param firstname   the firstname
+	 * @param password    the password
+	 * @param dateOfBirth the date of birth
 	 */
 	public Student(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password, Date dateOfBirth)
 	{
@@ -40,12 +54,12 @@ public class Student extends Person
 	/**
 	 * Instantiates a new Student
 	 *
-	 * @param lastname
-	 * @param mailAddress
-	 * @param id
-	 * @param firstname
-	 * @param password
-	 * @param dateOfBirth
+	 * @param lastname    the lastname
+	 * @param mailAddress the mail address
+	 * @param id          the id
+	 * @param firstname   the firstname
+	 * @param password    the password
+	 * @param dateOfBirth the date of birth
 	 */
 	public Student(String lastname, String mailAddress, int id, String firstname, String password, Date dateOfBirth)
 	{
@@ -56,11 +70,11 @@ public class Student extends Person
 	/**
 	 * Instantiates a new Student
 	 *
-	 * @param lastname
-	 * @param mailAddress
-	 * @param id
-	 * @param firstname
-	 * @param password
+	 * @param lastname    the lastname
+	 * @param mailAddress the mail address
+	 * @param id          the id
+	 * @param firstname   the firstname
+	 * @param password    the password
 	 */
 	public Student(String lastname, String mailAddress, int id, String firstname, String password)
 	{
@@ -69,6 +83,8 @@ public class Student extends Person
 
 
 	/**
+	 * Gets date of birth.
+	 *
 	 * @return date of the student birth
 	 */
 	public Date getDateOfBirth() {
@@ -76,7 +92,9 @@ public class Student extends Person
 	}
 
 	/**
-	 * @param dateOfBirth
+	 * Sets date of birth.
+	 *
+	 * @param dateOfBirth the date of birth
 	 */
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;

@@ -8,10 +8,16 @@ import ensup.dao.SchoolDao;
 import ensup.dto.SchoolDTO;
 import ensup.mapper.SchoolMapper;
 
+/**
+ * The type School service.
+ */
 public class SchoolService implements ISchoolService
 {
 	private SchoolDao dao;
-	
+
+	/**
+	 * Instantiates a new School service.
+	 */
 	public SchoolService()
 	{
 		this.dao = new SchoolDao();
@@ -54,7 +60,13 @@ public class SchoolService implements ISchoolService
 	{
 		return this.dao.delete(index);
 	}
-	
+
+	/**
+	 * Gets index.
+	 *
+	 * @param surname the surname
+	 * @return the index
+	 */
 	public int getIndex( String surname )
 	{
 		return this.dao.getIndex(surname);

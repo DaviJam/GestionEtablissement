@@ -3,7 +3,16 @@ package ensup.mapper;
 import ensup.business.Manager;
 import ensup.dto.ManagerDTO;
 
+/**
+ * The type Manager mapper.
+ */
 public class ManagerMapper {
+    /**
+     * Business to dto manager dto.
+     *
+     * @param manager the manager
+     * @return the manager dto
+     */
     public static ManagerDTO businessToDto(Manager manager){
         ManagerDTO managerDTO = new ManagerDTO();
         managerDTO.setFirstname(manager.getLastname());
@@ -17,6 +26,12 @@ public class ManagerMapper {
         return managerDTO;
     };
 
+    /**
+     * Dto to business manager.
+     *
+     * @param managerDto the manager dto
+     * @return the manager
+     */
     public static Manager dtoToBusiness(ManagerDTO managerDto){
         Manager manager = new Manager();
         manager.setFirstname(managerDto.getLastname());

@@ -82,6 +82,12 @@ public class Course {
     	this(null, -1, -1);
     }
 
+    /**
+     * Instantiates a new Course.
+     *
+     * @param subject the subject
+     * @param nbHours the nb hours
+     */
     public Course(String subject, float nbHours) {
 		this(subject, nbHours, -1);
 	}

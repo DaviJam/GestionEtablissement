@@ -3,6 +3,9 @@ package ensup.service;
 import ensup.dao.DaoLogin;
 import ensup.dao.DaoPerson;
 
+/**
+ * The type Service connection.
+ */
 public class ServiceConnection implements IServiceConnection{
     private DaoLogin dao = new DaoLogin();
     private DaoPerson daopers = new DaoPerson();
