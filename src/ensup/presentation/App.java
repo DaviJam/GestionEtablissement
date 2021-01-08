@@ -367,6 +367,8 @@ public class App {
                 textField5.setText("");
                 textField6.setText("");
                 textField7.setText("");
+
+                comboBox1.removeItemAt(comboBox1.getSelectedIndex());
             }
         });
         createStudent.addActionListener(new ActionListener() {
