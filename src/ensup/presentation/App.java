@@ -89,8 +89,6 @@ public class App {
             public void actionPerformed(ActionEvent e) {
                 ServiceConnection sc = new ServiceConnection();
                 ServicePerson sp = new ServicePerson();
-                /*System.out.println(textField1.getText());
-                System.out.println(passwordField1.getText());*/
 
                 int idConnexion = sc.checkConnection(textField1.getText(), passwordField1.getText());
                 PersonDTO p = sp.get(idConnexion);
@@ -129,7 +127,6 @@ public class App {
                 comboBox1.removeAllItems();
                 for(PersonDTO p : ps.getAll()){
                     if(p instanceof StudentDTO) {
-                        System.out.println(p);
                         comboBox1.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
                     }
                 }
@@ -146,7 +143,6 @@ public class App {
                 comboBox3.removeAll();
                 comboBox3.removeAllItems();
                 for(CourseDTO c : cs.getAll()){
-                    System.out.println(c);
                     comboBox3.addItem(new Item(c.getId(), c.getCourseSubject()));
                 }
 
@@ -157,7 +153,6 @@ public class App {
                 comboBox2.removeAllItems();
                 for(PersonDTO p : ps.getAll()){
                     if(p instanceof StudentDTO) {
-                        System.out.println(p);
                         comboBox2.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
                     }
                 }
@@ -241,10 +236,8 @@ public class App {
 
                 cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
                     public void valueChanged(ListSelectionEvent e) {
-                        System.out.println(e);
                         // Permet d'écouter l'action que sur le click
                         if (e.getValueIsAdjusting() == true) {
-                            System.out.println("e");
                             String columnsSelect = null;
                             int rowSelect = 0;
                             String personSelect = null;
@@ -333,14 +326,10 @@ public class App {
                 Item item = (Item) c.getSelectedItem();
 
                 if (item != null) {
-                    System.out.println(item.getId() + " : " + item.getDescription());
-
                     //On affiche les informations utilisateurs
                     ServicePerson ps = new ServicePerson();
                     PersonDTO p = ps.get(item.getId());
                     if (p instanceof StudentDTO) {
-                        System.out.println(p.toString());
-
                         String s = String.valueOf(p.getId());
                         hiddenTextField1.setText(s);
                         textField2.setText(p.getLastname());
@@ -426,13 +415,7 @@ public class App {
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         Date auj = sdf.parse(textField7.getText());
                         sp.update(textField3.getText(), textField4.getText(), textField5.getText(), textField6.getText(), textField2.getText(), passwordField2.getText(), 4, auj ,"");
-                        textField2.setText("");
-                        textField3.setText("");
-                        textField4.setText("");
-                        textField5.setText("");
-                        textField6.setText("");
-                        textField7.setText("");
-                        passwordField2.setText("");
+                        JOptionPane.showMessageDialog(null, "Les informations de l'étudiant ont bien été modifié");
                     } catch (NumberFormatException | ParseException nfe) {
                         JOptionPane.showMessageDialog(null, "Un des paramètres n'a pas été renseigné");
                     }

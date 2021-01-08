@@ -104,11 +104,6 @@ public class DaoPerson implements IDao<Person>
             res = st.executeUpdate();
 
             /*
-             * Afficher le rÃ©sultat
-             */
-            System.out.println(res);
-
-            /*
              * Fermer la connexion
              */
             cn.close();
@@ -184,17 +179,11 @@ public class DaoPerson implements IDao<Person>
             res = st.executeUpdate();
 
             /*
-             * Afficher le rÃ©sultat
-             */
-            System.out.println(res);
-
-            /*
              * Fermer la connexion
              */
             cn.close();
 
         } catch (SQLException e) {
-            System.out.println(e.toString());
             res = -1;
             //e.printStackTrace();
 
@@ -362,11 +351,6 @@ public class DaoPerson implements IDao<Person>
             }
 
             /*
-             * Afficher le rÃ©sultat
-             */
-            System.out.println(res);
-
-            /*
              * Fermer la connexion
              */
 
@@ -405,11 +389,6 @@ public class DaoPerson implements IDao<Person>
              * ExÃ©cuter la requÃªte
              */
             res = st.executeUpdate();
-
-            /*
-             * Afficher le rÃ©sultat
-             */
-            System.out.println(res);
 
             /*
              * Fermer la connexion
@@ -451,11 +430,6 @@ public class DaoPerson implements IDao<Person>
              * ExÃ©cuter la requÃªte
              */
             res = st.executeUpdate();
-
-            /*
-             * Afficher le rÃ©sultat
-             */
-            System.out.println(res);
 
             /*
              * Fermer la connexion

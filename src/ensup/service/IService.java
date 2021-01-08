@@ -33,7 +33,6 @@ public interface IService<T>
      */
     default int create(T entity)
     {
-        System.out.println(this.getClass().toString() +" was called.");
         return 0;
     }
 
@@ -45,7 +44,6 @@ public interface IService<T>
      */
     default int update(T entity)
     {
-        System.out.println(this.getClass().toString() +" was called.");
         return 0;
     }
 
@@ -57,7 +55,6 @@ public interface IService<T>
      */
     default int delete(T entity)
     {
-        System.out.println(this.getClass().toString() +" was called.");
         return 0;
     }
 

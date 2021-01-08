@@ -44,9 +44,6 @@ public class DaoLogin {
             /*
              * Crer la connexion
              */
-            System.out.println(mail);
-            System.out.println(password);
-
             cn = openConnection();
 
             /*
