@@ -38,7 +38,7 @@ public class LoginDao {
      * @param password the password
      * @return the password
      */
-    public int checkPassword(String mail, String password) {
+    public int checkPassword(String mail, String password) throws ExceptionDao {
         int id = 0;
         try {
             /*
@@ -62,6 +62,8 @@ public class LoginDao {
 
             if (rs.next()) {
                 id = rs.getInt("id");
+            } else {
+                throw new ExceptionDao("Login : Mot de passe incorrect.");
             }
 
         } catch (SQLException throwables) {
