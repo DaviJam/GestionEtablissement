@@ -1,6 +1,7 @@
 package ensup.presentation;
 
 import ensup.business.Role;
+import ensup.dao.ExceptionDao;
 import ensup.dto.CourseDTO;
 import ensup.dto.PersonDTO;
 import ensup.dto.StudentDTO;
@@ -85,22 +86,34 @@ public class App {
         connexionBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ConnectionService sc = new ConnectionService();
-                PersonService sp = new PersonService();
+                String login = textField1.getText();
+                String pwd = passwordField1.getText();
+                //Check if user set all input
+                if (!login.isEmpty()  && !pwd.isEmpty()) {
+                    ConnectionService sc = new ConnectionService();
+                    PersonService sp = new PersonService();
 
-                int idConnexion = sc.checkConnection(textField1.getText(), passwordField1.getText());
-                PersonDTO p = sp.get(idConnexion);
-                Role r = p.getRole();
-                if (r.getNum() == 1 || r.getNum() == 2) {
-                    connexionPanel.setVisible(false);
-                    menuPanel.setVisible(true);
-                    if (r.getNum() == 1) {
-                        studentListBtn.setVisible(true);
-                    } else {
-                        studentListBtn.setVisible(false);
+                    int idConnexion = 0;
+                    try {
+                        idConnexion = sc.checkConnection(textField1.getText(), passwordField1.getText());
+
+                        PersonDTO p = sp.get(idConnexion);
+                        Role r = p.getRole();
+                        if (r.getNum() == 1 || r.getNum() == 2) {
+                            connexionPanel.setVisible(false);
+                            menuPanel.setVisible(true);
+                            if (r.getNum() == 1) {
+                                studentListBtn.setVisible(true);
+                            } else {
+                                studentListBtn.setVisible(false);
+                            }
+                        }
+                    } catch (ExceptionDao exceptionDao) {
+                        JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
                 }
-
                 //JOptionPane.showMessageDialog(null, textField1.getText());
             }
         });
