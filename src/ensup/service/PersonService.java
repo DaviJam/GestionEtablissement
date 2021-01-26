@@ -1,6 +1,7 @@
 package ensup.service;
 
 import ensup.business.*;
+import ensup.dao.ExceptionDao;
 import ensup.dao.PersonDao;
 import ensup.dto.*;
 import ensup.mapper.*;
@@ -26,7 +27,7 @@ public class PersonService implements IEntityService<PersonDTO> {
 
     // Create Person
     @Override
-    public int create(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) {
+    public int create(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) throws ExceptionDao {
         // Checker le role et faire une instace et l'envoyer dans le DAO
         int check = 0;
         switch(role){
@@ -58,7 +59,7 @@ public class PersonService implements IEntityService<PersonDTO> {
 
     // Update Person
     @Override
-    public int update(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) {
+    public int update(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) throws ExceptionDao {
         int res = 0;
         switch(role){
             case 1: // Director
@@ -86,19 +87,19 @@ public class PersonService implements IEntityService<PersonDTO> {
     }
 
     @Override
-    public int delete(int index) {
+    public int delete(int index) throws ExceptionDao {
         int res = this.dao.delete(index);
         return res;
     }
 
     @Override
-    public int linkToCourse(int idEtudiant, int idCourse) {
+    public int linkToCourse(int idEtudiant, int idCourse) throws ExceptionDao {
         int res = this.dao.LinkToCourse(idEtudiant, idCourse);
         return res;
     }
 
     @Override
-    public PersonDTO get(int index) {
+    public PersonDTO get(int index) throws ExceptionDao {
         Person person = this.dao.get(index);
         PersonDTO personDTO = new PersonDTO();
         if(person instanceof Student)
@@ -119,7 +120,7 @@ public class PersonService implements IEntityService<PersonDTO> {
     }
 
     @Override
-    public List<PersonDTO> getAll() {
+    public List<PersonDTO> getAll() throws ExceptionDao{
         List<PersonDTO> personDTOList = new ArrayList<PersonDTO>();
 
         this.dao.getAll().forEach(person -> {

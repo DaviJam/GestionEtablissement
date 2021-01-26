@@ -76,7 +76,7 @@ public class CourseDao implements ICourseDao
 	}
 
 	@Override
-	public int getIndex( String coursesubject, float nbhours )
+	public int getIndex( String coursesubject, float nbhours ) throws ExceptionDao
 	{
 		Connection cn = Connect.openConnection();
 		int index = -1;

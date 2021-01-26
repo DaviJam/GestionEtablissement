@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ensup.business.School;
+import ensup.dao.ExceptionDao;
 import ensup.dao.SchoolDao;
 import ensup.dto.SchoolDTO;
 import ensup.mapper.SchoolMapper;
@@ -22,7 +23,7 @@ public class SchoolService implements IService<SchoolDTO> {
 		this.dao = new SchoolDao();
 	}
 
-	public List<SchoolDTO> getAll()
+	public List<SchoolDTO> getAll() throws ExceptionDao
 	{
 		List<SchoolDTO> listSchoolDto = new ArrayList<SchoolDTO>();
 		
@@ -32,17 +33,17 @@ public class SchoolService implements IService<SchoolDTO> {
 		return listSchoolDto;
 	}
 
-	public SchoolDTO get(int index)
+	public SchoolDTO get(int index) throws ExceptionDao
 	{
 		return SchoolMapper.businessToDto(this.dao.get(index));
 	}
 
-	public int create(SchoolDTO schoolDto)
+	public int create(SchoolDTO schoolDto) throws ExceptionDao
 	{
 		return this.dao.create(SchoolMapper.dtoToBusiness(schoolDto));
 	}
 
-	public int update(SchoolDTO schoolDto)
+	public int update(SchoolDTO schoolDto) throws ExceptionDao
 	{
 		School school = SchoolMapper.dtoToBusiness(schoolDto);
 		school.setId(schoolDto.getId());
@@ -50,12 +51,12 @@ public class SchoolService implements IService<SchoolDTO> {
 		return this.dao.update(school);
 	}
 
-	public int delete(SchoolDTO schoolDto)
+	public int delete(SchoolDTO schoolDto) throws ExceptionDao
 	{
 		return delete(schoolDto.getId());
 	}
 	
-	public int delete(int index)
+	public int delete(int index) throws ExceptionDao
 	{
 		return this.dao.delete(index);
 	}
@@ -66,7 +67,7 @@ public class SchoolService implements IService<SchoolDTO> {
 	 * @param surname the surname
 	 * @return the index
 	 */
-	public int getIndex( String surname )
+	public int getIndex( String surname ) throws ExceptionDao
 	{
 		return this.dao.getIndex(surname);
 	}

@@ -3,6 +3,7 @@ package ensup.tests;
 import java.util.List;
 
 import ensup.business.School;
+import ensup.dao.ExceptionDao;
 import ensup.dao.SchoolDao;
 
 /**
@@ -24,7 +25,7 @@ public class TestDaoSchool
 	/**
 	 * Test get all.
 	 */
-	public void testGetAll()
+	public void testGetAll() throws ExceptionDao
 	{
 		System.out.println("\nTest GetAll");
 		List<School> lSchool = this.dao.getAll();
@@ -37,8 +38,7 @@ public class TestDaoSchool
 	/**
 	 * Test create.
 	 */
-	public void testCreate()
-	{
+	public void testCreate() throws ExceptionDao {
 		System.out.println("\nTest Create");
 		
 		this.dao.create(new School("Ensup", "ensup@gmail.com", "...", "0000", 34));
@@ -47,8 +47,7 @@ public class TestDaoSchool
 	/**
 	 * Test get.
 	 */
-	public void testGet()
-	{
+	public void testGet() throws ExceptionDao {
 		System.out.println("\nTest Get");
 		System.out.println(this.dao.get(4));
 	}
@@ -85,8 +84,7 @@ public class TestDaoSchool
 	 *
 	 * @param args the input arguments
 	 */
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) throws ExceptionDao {
 		System.out.println("START TEST");
 		
 		TestDaoSchool tcd = new TestDaoSchool();

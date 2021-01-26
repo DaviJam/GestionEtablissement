@@ -15,7 +15,7 @@ import ensup.business.School;
  */
 public class SchoolDao implements ISchoolDao
 {
-	public List<School> getAll()
+	public List<School> getAll() throws ExceptionDao
 	{
 		Connection cn = Connect.openConnection();
 		List<School> alSchool = new ArrayList<School>();
@@ -45,7 +45,7 @@ public class SchoolDao implements ISchoolDao
 		return alSchool;
 	}
 	
-	public School get( int index )
+	public School get( int index ) throws ExceptionDao
 	{
 		Connection cn = Connect.openConnection();
 		School school = null;
@@ -72,7 +72,7 @@ public class SchoolDao implements ISchoolDao
 		return school;
 	}
 	
-	public int getIndex( String surname )
+	public int getIndex( String surname ) throws ExceptionDao
 	{
 		Connection cn = Connect.openConnection();
 		int index = -1;
@@ -100,7 +100,7 @@ public class SchoolDao implements ISchoolDao
 		return index;
 	}
 	
-	public int create( School school )
+	public int create( School school ) throws ExceptionDao
 	{
 		int res = 1;
 		Connection cn = Connect.openConnection();
@@ -142,7 +142,7 @@ public class SchoolDao implements ISchoolDao
 		return res;
 	}
 
-	public int update(School school)
+	public int update(School school) throws ExceptionDao
 	{
 		int res = 1;
 		School preSchool = get(school.getId());
@@ -187,7 +187,7 @@ public class SchoolDao implements ISchoolDao
 		return res;
 	}
 
-	public int delete( int index )
+	public int delete( int index ) throws ExceptionDao
 	{
 		int res = 1;
 		if( index != -1 && indexExist(index) )
@@ -214,12 +214,12 @@ public class SchoolDao implements ISchoolDao
 		return res;
 	}
 
-	public int delete( School school )
+	public int delete( School school ) throws ExceptionDao
 	{
 		return delete(school.getId());
 	}
 	
-	public boolean indexExist(int index)
+	public boolean indexExist(int index) throws ExceptionDao
 	{
 		boolean exist = false;
 		

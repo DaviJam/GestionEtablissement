@@ -19,7 +19,7 @@ public class Connect
 	 *
 	 * @return an connection open
 	 */
-	public static Connection openConnection()
+	public static Connection openConnection() throws ExceptionDao
 	{
 		Connection cn = null;
 		try
@@ -35,8 +35,9 @@ public class Connect
 			if( cn == null && URL != null )
 				cn = DriverManager.getConnection(URL);
 		}
-		catch (ClassNotFoundException cnfe){cnfe.printStackTrace();}
-		catch (SQLException sqle)          {sqle.printStackTrace();}
+		catch (ClassNotFoundException | SQLException e){
+			throw new ExceptionDao("Base de donnée : Impossible d'accéder à la base de donnée.");
+		}
 		
 		return cn;
 	}

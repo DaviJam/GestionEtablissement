@@ -14,7 +14,7 @@ import static ensup.dao.Connect.openConnection;
 /**
  * The type Dao.
  */
-public class PersonDao implements IDao<Person>
+public class DaoPerson implements IDao<Person>
 {
     /**
      * The Cn.
@@ -42,7 +42,7 @@ public class PersonDao implements IDao<Person>
     /**
      * Instantiates a new Dao person.
      */
-    public PersonDao()
+    public DaoPerson()
     {
 
     }
@@ -113,11 +113,11 @@ public class PersonDao implements IDao<Person>
              */
                 File propertiesFileDao = new File( "Properties/log4j.properties");
                 PropertyConfigurator.configure(propertiesFileDao.toString());
-                Logger log = Logger.getLogger(PersonDao.class.getName());
+                Logger log = Logger.getLogger(DaoPerson.class.getName());
                 log.info("L'utilisateur " + entity.getLastname() +" "+entity.getFirstname() + " " + entity.getMailAddress() + " a été créé.");
 
         } catch (SQLException e) {
-
+            throw new ExceptionDao("Base de donnée : impossible de créer une personne dans la base de donnée.");
         } finally {
 
         }
@@ -131,7 +131,7 @@ public class PersonDao implements IDao<Person>
      * @return Result of the request, if an exception was catched, returns -1
      */
     @Override
-    public int update(Person entity) throws ExceptionDao{
+    public int update(Person entity) throws ExceptionDao {
         try {
             /*
              * CrÃ©er la connexion
@@ -183,9 +183,9 @@ public class PersonDao implements IDao<Person>
             cn.close();
 
         } catch (SQLException e) {
+            throw new ExceptionDao("Base de donnée : impossible de mettre à jour cette personne dans la base de donnée.");
 
         } finally {
-
         }
         return res;
     }
@@ -266,10 +266,8 @@ public class PersonDao implements IDao<Person>
             cn.close();
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            res = -1;
+            throw new ExceptionDao("Base de donnée : impossible de récupérer les informations de cette personne. Elle n'existe pas.");
         } finally {
-
         }
         return p1;
     }
@@ -280,7 +278,7 @@ public class PersonDao implements IDao<Person>
      * @return List of Person, if an exception was catched, returns -1
      */
     @Override
-    public List<Person> getAll() throws ExceptionDao {
+    public List<Person> getAll() {
         List<Person> listPerson = new ArrayList<Person>();
         try {
             /*
@@ -368,7 +366,7 @@ public class PersonDao implements IDao<Person>
      * @return List of Person, if an exception was catched, returns -1
      */
     @Override
-    public int delete(int index) throws ExceptionDao {
+    public int delete(int index) {
         try {
             /*
              * CrÃ©er la connexion
@@ -408,7 +406,7 @@ public class PersonDao implements IDao<Person>
      * @param course the course
      * @return Result of the request
      */
-    public int LinkToCourse(int entity, int course) throws ExceptionDao {
+    public int LinkToCourse(int entity, int course) {
         try {
             /*
              * CrÃ©er la connexion
