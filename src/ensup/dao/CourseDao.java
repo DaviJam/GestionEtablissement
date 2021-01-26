@@ -23,6 +23,9 @@ public class CourseDao implements ICourseDao
 		{
 			st = cn.createStatement();
 			res = st.executeQuery("SELECT * FROM Course");
+			if(!res.next()){
+				throw  new ExceptionDao("pas de données dans la base  ");
+			}
 			while( res.next() )
 			{
 				Course cours = new Course(res.getString("coursesubject"),res.getFloat("nbhours"),res.getInt("id"));
@@ -30,7 +33,7 @@ public class CourseDao implements ICourseDao
 				allCourse.add(cours);
 			}
 		}
-		catch (SQLException e) {e.printStackTrace();}
+		catch (SQLException | ExceptionDao e) {e.printStackTrace();}
 		finally{
 			try {
 				st.close();
@@ -54,10 +57,13 @@ public class CourseDao implements ICourseDao
 		{
 			st = cn.createStatement();
 			res = st.executeQuery("SELECT * FROM Course WHERE id="+index);
+			if(!res.next()){
+				throw  new ExceptionDao("pas de données dans la base  ");
+			}
 			while( res.next() )
 				cours = new Course(res.getString("coursesubject"),res.getFloat("nbhours"),res.getInt("id"));
 		}
-		catch (SQLException e) {e.printStackTrace();}
+		catch (SQLException | ExceptionDao e) {e.printStackTrace();}
 		finally{
 			try {
 				st.close();
@@ -81,10 +87,13 @@ public class CourseDao implements ICourseDao
 		{
 			st = cn.createStatement();
 			res = st.executeQuery("SELECT id FROM Course WHERE coursesubject='"+coursesubject+"' AND nbhours="+nbhours);
+			if(!res.next()){
+				throw  new ExceptionDao("pas de données dans la base  ");
+			}
 			while( res.next() )
 				index = res.getInt("id");
 		}
-		catch (SQLException e) {e.printStackTrace();}
+		catch (SQLException | ExceptionDao e) {e.printStackTrace();}
 		finally{
 			try {
 				st.close();
@@ -120,9 +129,13 @@ public class CourseDao implements ICourseDao
 				pstmt.setFloat(index++, course.getNbHours());
 				
 				pstmt.execute();
+			}else{
+
+					throw  new ExceptionDao("Ce cours existe déja!");
+
 			}
 		}
-		catch (SQLException e) {res=2; e.printStackTrace();}
+		catch (SQLException | ExceptionDao e) {res=2; e.printStackTrace();}
 		finally{
 			try {
 				if( pstmt !=  null )
