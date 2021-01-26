@@ -1,5 +1,6 @@
 package ensup.tests;
 
+import ensup.dao.ExceptionDao;
 import ensup.dto.CourseDTO;
 import ensup.service.CourseService;
 import ensup.service.ICourseService;
@@ -11,8 +12,7 @@ public class TestDtoCourse
      *
      * @param args the input arguments
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws ExceptionDao {
         // On appelle le service
         ICourseService courseservice = new CourseService();
 

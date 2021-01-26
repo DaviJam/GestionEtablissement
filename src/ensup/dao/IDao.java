@@ -14,7 +14,7 @@ public interface IDao<T>
      *
      * @return list of all T
      */
-    List<T> getAll();
+    List<T> getAll() throws ExceptionDao;
 
     /**
      * Get an T in the database.
@@ -22,7 +22,7 @@ public interface IDao<T>
      * @param index index of the T to be get
      * @return the class of type T
      */
-    T get(int index);
+    T get(int index) throws ExceptionDao;
 
     /**
      * Create an T in the database.
@@ -30,7 +30,7 @@ public interface IDao<T>
      * @param entity T to be created
      * @return type of the result
      */
-    int create(T entity);
+    int create(T entity) throws ExceptionDao;
 
     /**
      * Update an T of the database.
@@ -38,7 +38,7 @@ public interface IDao<T>
      * @param entity T to be updated
      * @return type of the result
      */
-    int update(T entity);
+    int update(T entity) throws ExceptionDao;
 
     /**
      * delete an T in the database.
@@ -46,8 +46,7 @@ public interface IDao<T>
      * @param entity T to be deleted
      * @return type of the result
      */
-    default int delete(T entity)
-    {
+    default int delete(T entity) throws ExceptionDao {
         //TODO : to delete
         return 0;
     }
@@ -58,5 +57,5 @@ public interface IDao<T>
      * @param index the index
      * @return the int
      */
-    int delete(int index);
+    int delete(int index) throws ExceptionDao;
 }

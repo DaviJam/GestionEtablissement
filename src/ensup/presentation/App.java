@@ -162,8 +162,12 @@ public class App {
                 CourseService cs = new CourseService();
                 comboBox3.removeAll();
                 comboBox3.removeAllItems();
-                for(CourseDTO c : cs.getAll()){
-                    comboBox3.addItem(new Item(c.getId(), c.getCourseSubject()));
+                try {
+                    for(CourseDTO c : cs.getAll()){
+                        comboBox3.addItem(new Item(c.getId(), c.getCourseSubject()));
+                    }
+                } catch (ExceptionDao exceptionDao) {
+                    exceptionDao.printStackTrace();
                 }
 
                 //Add item in combobox student
@@ -332,7 +336,7 @@ public class App {
                         comboBox3.addItem(textField8.getText());
                         textField8.setText("");
                         textField9.setText("");
-                    } catch (NumberFormatException nfe) {
+                    } catch (NumberFormatException | ExceptionDao nfe) {
                         JOptionPane.showMessageDialog(null, "Le nombre d'heure n'est pas un nombre (ex: 1.5)");
                     }
                 }

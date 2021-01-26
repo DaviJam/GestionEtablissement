@@ -12,7 +12,7 @@ import java.util.List;
 public class CourseDao implements ICourseDao
 {
 	@Override
-	public List<Course> getAll()
+	public List<Course> getAll() throws ExceptionDao
 	{
 		Connection cn = Connect.openConnection();
 		List<Course> allCourse = new ArrayList<Course>();
@@ -46,7 +46,7 @@ public class CourseDao implements ICourseDao
 	}
 
 	@Override
-	public Course get( int index )
+	public Course get( int index )  throws ExceptionDao
 	{
 		Connection cn = Connect.openConnection();
 		Course cours = null;
@@ -106,7 +106,7 @@ public class CourseDao implements ICourseDao
 	}
 
 	@Override
-	public int create( Course course )
+	public int create( Course course ) throws ExceptionDao
 	{
 		int res = 1;
 		Connection cn = Connect.openConnection();
@@ -150,7 +150,7 @@ public class CourseDao implements ICourseDao
 	}
 
 	@Override
-	public int update(Course course)
+	public int update(Course course) throws ExceptionDao
 	{
 		int res = 1;
 		Course preCourse = get(course.getId());
@@ -184,8 +184,7 @@ public class CourseDao implements ICourseDao
 	}
 
 	@Override
-	public int delete( int index )
-	{
+	public int delete( int index ) throws ExceptionDao {
 		int res = 1;
 		if( index != -1 && indexExist(index) )
 		{
@@ -212,13 +211,12 @@ public class CourseDao implements ICourseDao
 	}
 
 	@Override
-	public int delete( Course course )
+	public int delete( Course course ) throws ExceptionDao
 	{
 		return delete(course.getId());
 	}
 	@Override
-	public boolean indexExist(int index)
-	{
+	public boolean indexExist(int index) throws ExceptionDao {
 		boolean existe = false;
 		
 		List<Course> alCourse = getAll();

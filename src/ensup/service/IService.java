@@ -1,6 +1,8 @@
 package ensup.service;
 
 
+import ensup.dao.ExceptionDao;
+
 import java.util.List;
 
 /**
@@ -15,7 +17,7 @@ public interface IService<T>
      *
      * @return list of all T
      */
-    List<T> getAll();
+    List<T> getAll() throws ExceptionDao;
 
     /**
      * Get an T in the database.
@@ -23,7 +25,7 @@ public interface IService<T>
      * @param index index of the T to be get
      * @return the class of type T
      */
-    T get(int index);
+    T get(int index) throws ExceptionDao;
 
     /**
      * Create int.
@@ -31,8 +33,7 @@ public interface IService<T>
      * @param entity the entity
      * @return type of result
      */
-    default int create(T entity)
-    {
+    default int create(T entity) throws ExceptionDao {
         return 0;
     }
 
@@ -42,8 +43,7 @@ public interface IService<T>
      * @param entity the entity
      * @return type of result
      */
-    default int update(T entity)
-    {
+    default int update(T entity) throws ExceptionDao {
         return 0;
     }
 
@@ -53,8 +53,7 @@ public interface IService<T>
      * @param entity the entity
      * @return the int
      */
-    default int delete(T entity)
-    {
+    default int delete(T entity) throws ExceptionDao {
         return 0;
     }
 
@@ -64,5 +63,5 @@ public interface IService<T>
      * @param index index of the T to be deleted
      * @return type of the result
      */
-    int delete(int index);
+    int delete(int index) throws ExceptionDao;
 }
