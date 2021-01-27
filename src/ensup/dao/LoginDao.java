@@ -1,6 +1,6 @@
 package ensup.dao;
 
-import ensup.dao.DaoException.ExceptionDao;
+import ensup.exception.dao.ExceptionDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
