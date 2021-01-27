@@ -145,10 +145,14 @@ public class App {
                 PersonService ps = new PersonService();
                 comboBox1.removeAll();
                 comboBox1.removeAllItems();
-                for(PersonDTO p : ps.getAll()){
-                    if(p instanceof StudentDTO) {
-                        comboBox1.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
+                try {
+                    for(PersonDTO p : ps.getAll()){
+                        if(p instanceof StudentDTO) {
+                            comboBox1.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
+                        }
                     }
+                } catch (ExceptionDao exceptionDao) {
+                    JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
                 }
             }
         });
@@ -175,10 +179,14 @@ public class App {
 
                 comboBox2.removeAll();
                 comboBox2.removeAllItems();
-                for(PersonDTO p : ps.getAll()){
-                    if(p instanceof StudentDTO) {
-                        comboBox2.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
+                try {
+                    for(PersonDTO p : ps.getAll()){
+                        if(p instanceof StudentDTO) {
+                            comboBox2.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
+                        }
                     }
+                } catch (ExceptionDao exceptionDao) {
+                    JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
                 }
             }
         });
@@ -197,36 +205,44 @@ public class App {
                 };
                 PersonService ps = new PersonService();
                 int nbStudent = 0;
-                for(PersonDTO p : ps.getAll()){
-                    if(p instanceof StudentDTO) {
-                        nbStudent++;
+                try {
+                    for(PersonDTO p : ps.getAll()){
+                        if(p instanceof StudentDTO) {
+                            nbStudent++;
+                        }
                     }
+                } catch (ExceptionDao exceptionDao) {
+                    JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
                 }
 
                 Object[][] data = new Object[nbStudent][7];
                 int count = 0;
-                for(PersonDTO p : ps.getAll()){
-                    if(p instanceof StudentDTO) {
-                        data[count][0] = p.getFirstname();
-                        data[count][1] = p.getLastname();
-                        data[count][2] = p.getMailAddress();
-                        data[count][3] = p.getAddress();
-                        data[count][4] = p.getPhoneNumber();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        try {
-                            Date dob = sdf.parse(((StudentDTO) p).getDateOfBirth().toString());
-                            String strDate = sdf.format(dob);
-                            data[count][5] = strDate;
-                        } catch (ParseException parseException) {
-                            parseException.printStackTrace();
+                try {
+                    for(PersonDTO p : ps.getAll()){
+                        if(p instanceof StudentDTO) {
+                            data[count][0] = p.getFirstname();
+                            data[count][1] = p.getLastname();
+                            data[count][2] = p.getMailAddress();
+                            data[count][3] = p.getAddress();
+                            data[count][4] = p.getPhoneNumber();
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            try {
+                                Date dob = sdf.parse(((StudentDTO) p).getDateOfBirth().toString());
+                                String strDate = sdf.format(dob);
+                                data[count][5] = strDate;
+                            } catch (ParseException parseException) {
+                                parseException.printStackTrace();
+                            }
+
+
+                            data[count][6] = "Gérer l'étudiant";
+
+
+                            count++;
                         }
-
-
-                        data[count][6] = "Gérer l'étudiant";
-
-
-                        count++;
                     }
+                } catch (ExceptionDao exceptionDao) {
+                    exceptionDao.printStackTrace();
                 }
 
 
@@ -248,7 +264,7 @@ public class App {
 
                 table1.getColumn("Action1").setCellRenderer( new DefaultTableCellRenderer() {
                     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) { setText(value.toString()); setBackground(new Color(255, 193 ,7));
-                    return this;
+                        return this;
                     }
                 });
 
@@ -294,15 +310,19 @@ public class App {
                                 //Add item in combobox student
                                 PersonService ps = new PersonService();
                                 comboBox1.removeAllItems();
-                                for(PersonDTO p : ps.getAll()){
-                                    //On filtre toutes les Personne de type Student et on regarde si sont email corresponds a celui de la ligne sélectionner
-                                    if(p instanceof StudentDTO ) {
-                                        Item i = new Item(p.getId(), p.getFirstname() + " " + p.getLastname());
-                                        comboBox1.addItem(i);
-                                        if(p.getMailAddress().equals(personSelect)){
-                                            comboBox1.setSelectedItem(i);
+                                try {
+                                    for(PersonDTO p : ps.getAll()){
+                                        //On filtre toutes les Personne de type Student et on regarde si sont email corresponds a celui de la ligne sélectionner
+                                        if(p instanceof StudentDTO ) {
+                                            Item i = new Item(p.getId(), p.getFirstname() + " " + p.getLastname());
+                                            comboBox1.addItem(i);
+                                            if(p.getMailAddress().equals(personSelect)){
+                                                comboBox1.setSelectedItem(i);
+                                            }
                                         }
                                     }
+                                } catch (ExceptionDao exceptionDao) {
+                                    JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
                                 }
 
 
@@ -353,7 +373,12 @@ public class App {
                 if (item != null) {
                     //On affiche les informations utilisateurs
                     PersonService ps = new PersonService();
-                    PersonDTO p = ps.get(item.getId());
+                    PersonDTO p = null;
+                    try {
+                        p = ps.get(item.getId());
+                    } catch (ExceptionDao exceptionDao) {
+                        JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
+                    }
                     if (p instanceof StudentDTO) {
                         String s = String.valueOf(p.getId());
                         hiddenTextField1.setText(s);
@@ -380,7 +405,11 @@ public class App {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PersonService ps = new PersonService();
-                ps.delete(parseInt(hiddenTextField1.getText()));
+                try {
+                    ps.delete(parseInt(hiddenTextField1.getText()));
+                } catch (ExceptionDao exceptionDao) {
+                    JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
+                }
 
                 hiddenTextField1.setText("");
                 textField2.setText("");
@@ -416,6 +445,8 @@ public class App {
                         textField16.setText("");
                     } catch (NumberFormatException | ParseException nfe) {
                         JOptionPane.showMessageDialog(null, "Un des paramètres à pas a été renseigné");
+                    } catch (ExceptionDao exceptionDao) {
+                        JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
                     }
                 }
             }
@@ -429,7 +460,11 @@ public class App {
                 int idStudent = item2.getId();
 
                 PersonService ps = new PersonService();
-                ps.linkToCourse(idStudent, idCourse);
+                try {
+                    ps.linkToCourse(idStudent, idCourse);
+                } catch (ExceptionDao exceptionDao) {
+                    JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
+                }
             }
         });
 
@@ -451,6 +486,8 @@ public class App {
                         JOptionPane.showMessageDialog(null, "Les informations de l'étudiant ont bien été modifié");
                     } catch (NumberFormatException | ParseException nfe) {
                         JOptionPane.showMessageDialog(null, "Un des paramètres n'a pas été renseigné");
+                    } catch (ExceptionDao exceptionDao) {
+                        JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
                     }
                 }
             }
@@ -458,35 +495,35 @@ public class App {
 
         modifyStudent.addActionListener(modifyStudentAction);
 
-            //Btn return
-            returnBtn.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    menuPanel.setVisible(true);
-                    studentPanel.setVisible(false);
-                }
-            });
-            returnBtn1.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    menuPanel.setVisible(true);
-                    coursePanel.setVisible(false);
-                }
-            });
-            returnBtn2.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    menuPanel.setVisible(true);
-                    studentListPanel.setVisible(false);
-                }
-            });
-            returnBtn3.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    menuPanel.setVisible(true);
-                    addStudentPanel.setVisible(false);
-                }
-            });
+        //Btn return
+        returnBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                studentPanel.setVisible(false);
+            }
+        });
+        returnBtn1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                coursePanel.setVisible(false);
+            }
+        });
+        returnBtn2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                studentListPanel.setVisible(false);
+            }
+        });
+        returnBtn3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                addStudentPanel.setVisible(false);
+            }
+        });
     }
 
 
