@@ -57,13 +57,13 @@ public class CourseService implements ICourseService {
 	public int update(CourseDTO courseDto) throws ExceptionService {
 		Course course = CourseMapper.dtoToBusiness(courseDto);
 		course.setId(courseDto.getId());
-
+		int ret;
 		try {
-			return this.dao.update(course);
+			ret = this.dao.update(course);
 		} catch (ExceptionDao exceptionDao) {
-			new ExceptionService(exceptionDao.getMessage());
+			throw new ExceptionService(exceptionDao.getMessage());
 		}
-		return 0;
+		return ret;
 	}
 
 	public int delete(CourseDTO courseDto) throws ExceptionService {
@@ -71,12 +71,13 @@ public class CourseService implements ICourseService {
 	}
 	
 	public int delete(int index) throws ExceptionService {
-		try {
-			return this.dao.delete(index);
+		int ret;
+    	try {
+			ret = this.dao.delete(index);
 		} catch (ExceptionDao exceptionDao) {
-			new ExceptionService(exceptionDao.getMessage());
+			throw new ExceptionService(exceptionDao.getMessage());
 		}
-		return 0;
+		return ret;
 	}
 
     /**

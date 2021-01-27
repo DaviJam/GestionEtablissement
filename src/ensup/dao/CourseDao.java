@@ -25,7 +25,7 @@ public class CourseDao implements ICourseDao
 			st = cn.createStatement();
 			res = st.executeQuery("SELECT * FROM Course");
 			if(!res.next()){
-				throw  new ExceptionDao("pas de données dans la base  ");
+				throw new ExceptionDao("Aucun cours disponible dans la base de donnée.");
 			}
 			while( res.next() )
 			{
@@ -33,14 +33,20 @@ public class CourseDao implements ICourseDao
 				
 				allCourse.add(cours);
 			}
+			st.close();
+			cn.close();
 		}
-		catch (SQLException | ExceptionDao e) {e.printStackTrace();}
+		catch (SQLException e) {
+			throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
+		}
 		finally{
 			try {
 				st.close();
 				cn.close();
 			}
-			catch(SQLException sqle) { sqle.printStackTrace(); }
+			catch(SQLException sqle) {
+				throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
+			}
 		}
 		
 		return allCourse;
@@ -59,18 +65,22 @@ public class CourseDao implements ICourseDao
 			st = cn.createStatement();
 			res = st.executeQuery("SELECT * FROM Course WHERE id="+index);
 			if(!res.next()){
-				throw  new ExceptionDao("pas de données dans la base  ");
+				throw  new ExceptionDao("Le cours n'existe pas dans la base de donnée.");
 			}
 			while( res.next() )
 				cours = new Course(res.getString("coursesubject"),res.getFloat("nbhours"),res.getInt("id"));
 		}
-		catch (SQLException | ExceptionDao e) {e.printStackTrace();}
+		catch (SQLException e) {
+			throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
+		}
 		finally{
 			try {
 				st.close();
 				cn.close();
 			}
-			catch(SQLException sqle) { sqle.printStackTrace(); }
+			catch(SQLException sqle) {
+				throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
+			}
 		}
 
 		return cours;
@@ -89,18 +99,22 @@ public class CourseDao implements ICourseDao
 			st = cn.createStatement();
 			res = st.executeQuery("SELECT id FROM Course WHERE coursesubject='"+coursesubject+"' AND nbhours="+nbhours);
 			if(!res.next()){
-				throw  new ExceptionDao("pas de données dans la base  ");
+				throw  new ExceptionDao("Le cours n'existe pas dans la base de donnée.");
 			}
 			while( res.next() )
 				index = res.getInt("id");
 		}
-		catch (SQLException | ExceptionDao e) {e.printStackTrace();}
+		catch (SQLException e) {
+			throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
+		}
 		finally{
 			try {
 				st.close();
 				cn.close();
 			}
-			catch(SQLException sqle) { sqle.printStackTrace(); }
+			catch(SQLException sqle) {
+				throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
+			}
 		}
 		
 		return index;
@@ -131,19 +145,22 @@ public class CourseDao implements ICourseDao
 				
 				pstmt.execute();
 			}else{
-
 					throw  new ExceptionDao("Ce cours existe déja!");
 
 			}
 		}
-		catch (SQLException | ExceptionDao e) {res=2; e.printStackTrace();}
+		catch (SQLException e) {
+			throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
+		}
 		finally{
 			try {
 				if( pstmt !=  null )
 					pstmt.close();
 				cn.close();
 			}
-			catch(SQLException sqle) {res=2; sqle.printStackTrace(); }
+			catch(SQLException sqle) {
+				throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
+			}
 			res = 0;
 		}
 		
@@ -171,13 +188,17 @@ public class CourseDao implements ICourseDao
 				st = cn.createStatement();
 				st.execute("UPDATE Course SET "+update+" WHERE id="+course.getId());
 			}
-			catch( SQLException sqle) {res=2; sqle.printStackTrace();}
+			catch( SQLException sqle) {
+				throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
+			}
 			finally {
 				try {
 					st.close();
 					cn.close();
 				}
-				catch (SQLException throwables) { res=2; throwables.printStackTrace();}
+				catch (SQLException throwables) {
+					throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
+				}
 				res = 0;
 			}
 		}
@@ -197,13 +218,16 @@ public class CourseDao implements ICourseDao
 				st = cn.createStatement();
 				st.execute("DELETE FROM Course WHERE id="+index);
 			}
-			catch (SQLException e) {res = 2; e.printStackTrace();}
+			catch (SQLException e) {
+				throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
+			}
 			finally{
 				try {
 					st.close();
 					cn.close();
 				}
-				catch(SQLException sqle) {res = 2; sqle.printStackTrace(); }
+				catch(SQLException sqle) {
+					throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");}
 				res = 0;
 			}
 		}

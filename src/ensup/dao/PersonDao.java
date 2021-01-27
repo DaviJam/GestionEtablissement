@@ -118,7 +118,7 @@ public class PersonDao implements IDao<Person>
                 log.info("L'utilisateur " + entity.getLastname() +" "+entity.getFirstname() + " " + entity.getMailAddress() + " a été créé.");
 
         } catch (SQLException e) {
-
+            throw new ExceptionDao("Impossible de créer l'utilisateur. Veuillez contacter votre administrateur.");
         } finally {
 
         }
@@ -184,7 +184,7 @@ public class PersonDao implements IDao<Person>
             cn.close();
 
         } catch (SQLException e) {
-
+            throw new ExceptionDao("Impossible de mettre à jour l'utilisateur. Veuillez contacter votre administrateur.");
         } finally {
 
         }
@@ -267,8 +267,7 @@ public class PersonDao implements IDao<Person>
             cn.close();
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            res = -1;
+            throw new ExceptionDao("Impossible de récupérer les informations de cette personne. Veuillez contacter votre administrateur.");
         } finally {
 
         }
@@ -354,8 +353,7 @@ public class PersonDao implements IDao<Person>
 
             cn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
-            res = -1;
+            throw new ExceptionDao("Impossible de récupérer les informations demandées. Veuillez contacter votre administrateur.");
         } finally {
 
         }
@@ -394,8 +392,7 @@ public class PersonDao implements IDao<Person>
             cn.close();
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            res = -1;
+            throw new ExceptionDao("Impossible de supprimer les informations de cette personne. Veuillez contacter votre administrateur.");
         } finally {
 
         }
@@ -435,8 +432,7 @@ public class PersonDao implements IDao<Person>
             cn.close();
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            res = -1;
+            throw new ExceptionDao("Impossible de liée cette personne à ce cours. Veuillez contacter votre administrateur.");
         } finally {
 
         }
