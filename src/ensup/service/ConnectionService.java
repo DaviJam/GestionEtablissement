@@ -1,9 +1,9 @@
 package ensup.service;
 
-import ensup.dao.DaoException.ExceptionDao;
+import ensup.exception.dao.ExceptionDao;
 import ensup.dao.LoginDao;
 import ensup.dao.PersonDao;
-import ensup.service.serviceException.ExceptionService;
+import ensup.exception.service.ExceptionService;
 
 /**
  * The type Service connection.
@@ -14,13 +14,14 @@ public class ConnectionService implements IConnectionService {
 
     @Override
     public int checkConnection(String mail, String mdp) throws ExceptionService {
+        int index;
         try {
-            int index = this.dao.checkPassword(mail, mdp); // Récupération du MDP et comparaison avec le mdp saisi
-            return index;
-        }catch (ExceptionDao e){
+            index = this.dao.checkPassword(mail, mdp); // Récupération du MDP et comparaison avec le mdp saisi
+        } catch (ExceptionDao e){
+            throw new ExceptionService("");
+        } finally {
 
-            throw
         }
-        return 0;
+        return index;
     }
 }
