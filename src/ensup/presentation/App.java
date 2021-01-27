@@ -1,10 +1,10 @@
 package ensup.presentation;
 
 import ensup.business.Role;
-import ensup.dao.ExceptionDao;
 import ensup.dto.CourseDTO;
 import ensup.dto.PersonDTO;
 import ensup.dto.StudentDTO;
+import ensup.exception.service.ExceptionService;
 import ensup.service.CourseService;
 import ensup.service.ConnectionService;
 import ensup.service.PersonService;
@@ -108,8 +108,8 @@ public class App {
                                 studentListBtn.setVisible(false);
                             }
                         }
-                    } catch (ExceptionDao exceptionDao) {
-                        JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
+                    } catch (ExceptionService es) {
+                        JOptionPane.showMessageDialog(null, es.getMessage());
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
@@ -151,8 +151,8 @@ public class App {
                             comboBox1.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
                         }
                     }
-                } catch (ExceptionDao exceptionDao) {
-                    JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
                 }
             }
         });
@@ -170,8 +170,8 @@ public class App {
                     for(CourseDTO c : cs.getAll()){
                         comboBox3.addItem(new Item(c.getId(), c.getCourseSubject()));
                     }
-                } catch (ExceptionDao exceptionDao) {
-                    exceptionDao.printStackTrace();
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
                 }
 
                 //Add item in combobox student
@@ -185,8 +185,8 @@ public class App {
                             comboBox2.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
                         }
                     }
-                } catch (ExceptionDao exceptionDao) {
-                    JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
                 }
             }
         });
@@ -211,8 +211,8 @@ public class App {
                             nbStudent++;
                         }
                     }
-                } catch (ExceptionDao exceptionDao) {
-                    JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
                 }
 
                 Object[][] data = new Object[nbStudent][7];
@@ -241,8 +241,8 @@ public class App {
                             count++;
                         }
                     }
-                } catch (ExceptionDao exceptionDao) {
-                    exceptionDao.printStackTrace();
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
                 }
 
 
@@ -321,8 +321,8 @@ public class App {
                                             }
                                         }
                                     }
-                                } catch (ExceptionDao exceptionDao) {
-                                    JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
+                                } catch (ExceptionService es) {
+                                    JOptionPane.showMessageDialog(null, es.getMessage());
                                 }
 
 
@@ -356,8 +356,8 @@ public class App {
                         comboBox3.addItem(textField8.getText());
                         textField8.setText("");
                         textField9.setText("");
-                    } catch (NumberFormatException | ExceptionDao nfe) {
-                        JOptionPane.showMessageDialog(null, "Le nombre d'heure n'est pas un nombre (ex: 1.5)");
+                    } catch (ExceptionService es) {
+                        JOptionPane.showMessageDialog(null, es.getMessage());
                     }
                 }
             }
@@ -376,8 +376,8 @@ public class App {
                     PersonDTO p = null;
                     try {
                         p = ps.get(item.getId());
-                    } catch (ExceptionDao exceptionDao) {
-                        JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
+                    } catch (ExceptionService es) {
+                        JOptionPane.showMessageDialog(null, es.getMessage());
                     }
                     if (p instanceof StudentDTO) {
                         String s = String.valueOf(p.getId());
@@ -407,8 +407,8 @@ public class App {
                 PersonService ps = new PersonService();
                 try {
                     ps.delete(parseInt(hiddenTextField1.getText()));
-                } catch (ExceptionDao exceptionDao) {
-                    JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
                 }
 
                 hiddenTextField1.setText("");
@@ -445,8 +445,8 @@ public class App {
                         textField16.setText("");
                     } catch (NumberFormatException | ParseException nfe) {
                         JOptionPane.showMessageDialog(null, "Un des paramètres à pas a été renseigné");
-                    } catch (ExceptionDao exceptionDao) {
-                        JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
+                    } catch (ExceptionService es) {
+                        JOptionPane.showMessageDialog(null, es.getMessage());
                     }
                 }
             }
@@ -462,8 +462,8 @@ public class App {
                 PersonService ps = new PersonService();
                 try {
                     ps.linkToCourse(idStudent, idCourse);
-                } catch (ExceptionDao exceptionDao) {
-                    JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
                 }
             }
         });
@@ -486,8 +486,8 @@ public class App {
                         JOptionPane.showMessageDialog(null, "Les informations de l'étudiant ont bien été modifié");
                     } catch (NumberFormatException | ParseException nfe) {
                         JOptionPane.showMessageDialog(null, "Un des paramètres n'a pas été renseigné");
-                    } catch (ExceptionDao exceptionDao) {
-                        JOptionPane.showMessageDialog(null, exceptionDao.getMessage());
+                    } catch (ExceptionService es) {
+                        JOptionPane.showMessageDialog(null, es.getMessage());
                     }
                 }
             }
