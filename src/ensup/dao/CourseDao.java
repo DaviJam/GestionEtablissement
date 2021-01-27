@@ -145,8 +145,7 @@ public class CourseDao implements ICourseDao
 				
 				pstmt.execute();
 			}else{
-					throw  new ExceptionDao("Ce cours existe déja!");
-
+				throw  new ExceptionDao("Ce cours existe déja!");
 			}
 		}
 		catch (SQLException e) {

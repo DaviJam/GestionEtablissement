@@ -178,13 +178,18 @@ public class PersonDao implements IDao<Person>
              */
             res = st.executeUpdate();
 
+            if( res == 0)
+            {
+                throw new ExceptionDao("La mise à jour a échoué. L'utilisateur n'existe pas en base de donnée.");
+            }
+
             /*
              * Fermer la connexion
              */
             cn.close();
 
         } catch (SQLException e) {
-            throw new ExceptionDao("Impossible de mettre à jour l'utilisateur. Veuillez contacter votre administrateur.");
+            throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée. Veuillez contacter votre administrateur.");
         } finally {
 
         }
