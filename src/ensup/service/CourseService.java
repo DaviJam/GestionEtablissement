@@ -2,10 +2,10 @@ package ensup.service;
 
 import ensup.business.Course;
 import ensup.dao.CourseDao;
-import ensup.dao.DaoException.ExceptionDao;
 import ensup.dto.CourseDTO;
+import ensup.exception.dao.ExceptionDao;
+import ensup.exception.service.ExceptionService;
 import ensup.mapper.CourseMapper;
-import ensup.service.serviceException.ExceptionService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,43 +26,58 @@ public class CourseService implements ICourseService {
     public List<CourseDTO> getAll() throws ExceptionService {
         List<CourseDTO> listCourseDto = new ArrayList<CourseDTO>();
 
-        for (Course c : this.dao.getAll())
-            listCourseDto.add(CourseMapper.businessToDto(c));
+		try {
+			for (Course c : this.dao.getAll())
+				listCourseDto.add(CourseMapper.businessToDto(c));
+		} catch (ExceptionDao exceptionDao) {
+			new ExceptionService(exceptionDao.getMessage());
+		}
 
-        return listCourseDto;
+		return listCourseDto;
     }
 
-    public CourseDTO get(int index) throws ExceptionService {
-        return CourseMapper.businessToDto(this.dao.get(index));
-    }
+	public CourseDTO get(int index) throws ExceptionService {
+		try {
+			return CourseMapper.businessToDto(this.dao.get(index));
+		} catch (ExceptionDao exceptionDao) {
+			new ExceptionService(exceptionDao.getMessage());
+		}
+		return null;
+	}
 
-    public int create(CourseDTO courseDto) throws ExceptionService {
-        try {
-            return this.dao.create(CourseMapper.dtoToBusiness(courseDto));
-        } catch (ExceptionDao e) {
-            e.getMessage();
-        }
-        return 0;
-    }
+	public int create(CourseDTO courseDto) throws ExceptionService {
+		try {
+			return this.dao.create(CourseMapper.dtoToBusiness(courseDto));
+		} catch (ExceptionDao exceptionDao) {
+			new ExceptionService(exceptionDao.getMessage());
+		}
+		return 0;
+	}
 
-    public int update(CourseDTO courseDto) throws ExceptionService {
-        Course course = CourseMapper.dtoToBusiness(courseDto);
-        course.setId(courseDto.getId());
-        try {
-            return this.dao.update(course);
-        } catch (ExceptionDao e) {
-            e.getMessage();
-        }
-        return 0;
-    }
+	public int update(CourseDTO courseDto) throws ExceptionService {
+		Course course = CourseMapper.dtoToBusiness(courseDto);
+		course.setId(courseDto.getId());
 
-    public int delete(CourseDTO courseDto) throws ExceptionService {
-        return delete(courseDto.getId());
-    }
+		try {
+			return this.dao.update(course);
+		} catch (ExceptionDao exceptionDao) {
+			new ExceptionService(exceptionDao.getMessage());
+		}
+		return 0;
+	}
 
-    public int delete(int index) throws ExceptionService {
-        return this.dao.delete(index);
-    }
+	public int delete(CourseDTO courseDto) throws ExceptionService {
+		return delete(courseDto.getId());
+	}
+	
+	public int delete(int index) throws ExceptionService {
+		try {
+			return this.dao.delete(index);
+		} catch (ExceptionDao exceptionDao) {
+			new ExceptionService(exceptionDao.getMessage());
+		}
+		return 0;
+	}
 
     /**
      * Gets index.
@@ -71,7 +86,7 @@ public class CourseService implements ICourseService {
      * @param nbhours       the nbhours
      * @return the index
      */
-    public int getIndex(String coursesubject, float nbhours) {
+    public int getIndex(String coursesubject, float nbhours) throws ExceptionDao {
         return this.dao.getIndex(coursesubject, nbhours);
     }
 }

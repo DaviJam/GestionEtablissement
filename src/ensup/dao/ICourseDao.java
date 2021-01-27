@@ -2,6 +2,7 @@ package ensup.dao;
 
 import ensup.business.Course;
 import ensup.dao.DaoException.ExceptionDao;
+import ensup.exception.dao.ExceptionDao;
 
 /**
  * The interface Course dao.
@@ -23,5 +24,5 @@ public interface ICourseDao extends IDao<Course>
 	 * @param index index of the course
 	 * @return if the index exist
 	 */
-	public boolean indexExist(int index) throws ExceptionDao;
+	public boolean indexExist(int index) throws ExceptionDao, ExceptionDao;
 }
