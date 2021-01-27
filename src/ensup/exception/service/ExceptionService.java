@@ -1,4 +1,4 @@
-package ensup.service.serviceException;
+package ensup.exception.service;
 
 public class ExceptionService extends Exception {
 

@@ -1,4 +1,4 @@
-package ensup.dao.DaoException;
+package ensup.exception.dao;
 
 public class ExceptionDao extends Exception{
     public ExceptionDao(){
