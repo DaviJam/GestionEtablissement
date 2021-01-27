@@ -1,7 +1,8 @@
 package ensup.service;
 
 
-import ensup.service.serviceException.ExceptionService;
+import ensup.exception.dao.ExceptionDao;
+import ensup.exception.service.ExceptionService;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface IService<T>
      *
      * @return list of all T
      */
-    List<T> getAll() throws ExceptionService, ExceptionService;
+    List<T> getAll() throws ExceptionService;
 
     /**
      * Get an T in the database.
