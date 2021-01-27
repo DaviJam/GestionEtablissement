@@ -25,6 +25,9 @@ Pré-requis: avoir installé Java en local sur son ordinateur
 * Double-cliquer le fichier GestionEtablissement.jar.
 * L'application s'ouvre. 
 
+Pour tester l'application, vous devez avoir un outils de gestion de base de données.
+>Aller dans le répertoire **rendu** et importer le fichier .sql dans votre outil de gestion de base de données. 
+
 Deux choix sont alors possibles.
 * Accéder à l'application avec le compte Directeur
 * Accéder à l'application avec le compte Responsable
