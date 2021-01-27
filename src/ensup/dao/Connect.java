@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class Connect
 {
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost:3306/gestionetablissement?serverTimezone=UTC";
+	private static final String URL = "jdbc:mysql://localhost:3308/gestionetablissement?serverTimezone=UTC";
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "";
 
@@ -38,7 +38,7 @@ public class Connect
 				cn = DriverManager.getConnection(URL);
 		}
 		catch (ClassNotFoundException | SQLException e){
-			throw new ExceptionDao("Base de donnée : Impossible d'accéder à la base de donnée.");
+			throw new ExceptionDao("Impossible d'accéder à la base de donnée.");
 		}
 		
 		return cn;
