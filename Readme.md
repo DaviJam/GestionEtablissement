@@ -1,10 +1,10 @@
 # GestionEtablissement
 
-## Release V0
-Création du projet 
-
 ## Release V1
 Amélioration de la robustesse
+
+## Release V0
+Création du projet 
 
 ##Fonctionalités
 Ce logiciel permet de gérer un etablissement scolaire. Il est actuellement possible de :
