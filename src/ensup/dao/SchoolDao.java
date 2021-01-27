@@ -34,7 +34,7 @@ public class SchoolDao implements ISchoolDao
 				alSchool.add(school);
 			}
 		}
-		catch (SQLException e) { throw new ExceptionDao("Problème au niveau du getAll");}
+		catch (SQLException e) { throw new ExceptionDao("Une erreur est survenue.");}
 		finally{
 			try {
 				st.close();
@@ -61,7 +61,7 @@ public class SchoolDao implements ISchoolDao
 				school = new School(res.getInt("id"),res.getString("surname"),res.getString("email"),res.getString("address"),res.getString("phone"),res.getInt("director"));
 			
 		}
-		catch (SQLException e) {throw new ExceptionDao("Problème au niveau du get");}
+		catch (SQLException e) {throw new ExceptionDao("Une erreur est survenue.");}
 		finally{
 			try {
 				st.close();
@@ -89,7 +89,7 @@ public class SchoolDao implements ISchoolDao
 				index = res.getInt("id");
 			}
 		}
-		catch (SQLException e) {throw new ExceptionDao("Le serveur ne trouve pas l'index de la personne");}
+		catch (SQLException e) {throw new ExceptionDao("Une erreur est survenue.");}
 		finally{
 			try {
 				st.close();
@@ -129,7 +129,7 @@ public class SchoolDao implements ISchoolDao
 				pstmt.execute();
 			}
 		}
-		catch (SQLException e) {res = 2; throw new ExceptionDao("Problème au niveau de la création d'une nouvelle école");}
+		catch (SQLException e) {res = 2; throw new ExceptionDao("Une erreur est survenue.");}
 		finally{
 			try {
 				if( pstmt !=  null )
@@ -173,7 +173,7 @@ public class SchoolDao implements ISchoolDao
 				st = cn.createStatement();
 				st.execute("UPDATE School SET "+update);
 			}
-			catch( SQLException sqle) {res = 2; throw new ExceptionDao("Problème au niveau de la modification");}
+			catch( SQLException sqle) {res = 2; throw new ExceptionDao("Une erreur est survenue.");}
 			finally{
 				try {
 					st.close();
@@ -201,7 +201,7 @@ public class SchoolDao implements ISchoolDao
 				st = cn.createStatement();
 				st.execute("DELETE FROM School WHERE id="+index);
 			}
-			catch (SQLException e) {res = 2; throw new ExceptionDao("Problème au niveau de la suppression");}
+			catch (SQLException e) {res = 2; throw new ExceptionDao("Une erreur est survenue.");}
 			finally{
 				try {
 					st.close();
@@ -221,7 +221,7 @@ public class SchoolDao implements ISchoolDao
 		{
 			return delete(school.getId());
 		} catch(ExceptionDao e){
-			throw new ExceptionDao("Problème au niveau du delete");
+			throw new ExceptionDao("Une erreur est survenue.");
 		}
 
 	}
@@ -239,7 +239,7 @@ public class SchoolDao implements ISchoolDao
 
 			return exist;
 		} catch(ExceptionDao e){
-			throw new ExceptionDao("Problème au niveau de la vérificaiton de l'existence de l'index");
+			throw new ExceptionDao("Une erreur est survenue.");
 		}
 
 	}
