@@ -437,7 +437,7 @@ public class PersonDao implements IDao<Person>
             cn.close();
 
         } catch (SQLException e) {
-            throw new ExceptionDao("Impossible de liée cette personne à ce cours. Veuillez contacter votre administrateur.");
+            throw new ExceptionDao("Échec lors de la tentative de création de lien entre cette personne et le cours demandé. Le cours ou l'étudiant n'existe pas en base de donnée.");
         } finally {
 
         }
