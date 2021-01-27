@@ -342,7 +342,7 @@ public class App {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TF8 et TF9
-                if (textField8.getText() == "" || textField9.getText() == "") {
+                if (textField8.getText().isEmpty() || textField9.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Un des champs est vide");
                 } else {
                     //If nb hours is not numeric return msgbox
@@ -443,6 +443,7 @@ public class App {
                         textField14.setText("");
                         textField15.setText("");
                         textField16.setText("");
+                        JOptionPane.showMessageDialog(null, "L'étudiant à bien été crée");
                     } catch (NumberFormatException | ParseException nfe) {
                         JOptionPane.showMessageDialog(null, "Un des paramètres à pas a été renseigné");
                     } catch (ExceptionService es) {
