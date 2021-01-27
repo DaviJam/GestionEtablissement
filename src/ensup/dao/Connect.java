@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class Connect
 {
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost:3308/gestionetablissement?serverTimezone=UTC";
+	private static final String URL = "jdbc:mysql://localhost:3306/gestionetablissement?serverTimezone=UTC";
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "";
 
