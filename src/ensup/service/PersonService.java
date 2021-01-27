@@ -38,7 +38,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try {
                     check = this.dao.create(director);
                 }catch (ExceptionDao exceptionDao){
-                    new ExceptionService(exceptionDao.getMessage());
+                   throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
             case 2: // Manager
@@ -47,7 +47,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try{
                 check = this.dao.create(manager);
                 }catch (ExceptionDao exceptionDao){
-                    new ExceptionService(exceptionDao.getMessage());
+                    throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
             case 3: // Teacher
@@ -57,7 +57,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try {
                     check = this.dao.create(teacher);
                 }catch (ExceptionDao exceptionDao){
-                    new ExceptionService(exceptionDao.getMessage());
+                    throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
             case 4: // Student
@@ -67,7 +67,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try{
                 check = this.dao.create(student);
                 }catch (ExceptionDao exceptionDao){
-                    new ExceptionService(exceptionDao.getMessage());
+                    throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
         }
@@ -85,7 +85,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try{
                 res = this.dao.update(director);
                 }catch (ExceptionDao exceptionDao){
-                    new ExceptionService(exceptionDao.getMessage());
+                   throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
             case 2: // Manager
@@ -94,7 +94,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try{
                 res = this.dao.update(manager);
                 }catch (ExceptionDao exceptionDao){
-                    new ExceptionService(exceptionDao.getMessage());
+                    throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
             case 3: // Teacher
@@ -103,7 +103,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try{
                 res = this.dao.update(teacher);
                 }catch (ExceptionDao exceptionDao){
-                    new ExceptionService(exceptionDao.getMessage());
+                    throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
             case 4: // Student
@@ -112,7 +112,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try{
                 res = this.dao.update(student);
                 }catch (ExceptionDao exceptionDao){
-                    new ExceptionService(exceptionDao.getMessage());
+                    throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
         }
@@ -121,13 +121,13 @@ public class PersonService implements IEntityService<PersonDTO> {
 
     @Override
     public int delete(int index) throws ExceptionService {
+        int res = 0;
         try{
-        int res = this.dao.delete(index);
+         res = this.dao.delete(index);
         return res;
         }catch (ExceptionDao exceptionDao){
-            new ExceptionService(exceptionDao.getMessage());
+            throw new ExceptionService(exceptionDao.getMessage());
         }
-        return 0;
     }
 
     @Override
@@ -136,9 +136,9 @@ public class PersonService implements IEntityService<PersonDTO> {
             int res = this.dao.LinkToCourse(idEtudiant, idCourse);
             return res;
         }catch (ExceptionDao exceptionDao){
-            new ExceptionService(exceptionDao.getMessage());
+            throw new ExceptionService(exceptionDao.getMessage());
         }
-       return 0;
+
     }
 
     @Override
@@ -162,9 +162,9 @@ public class PersonService implements IEntityService<PersonDTO> {
 
         return personDTO;
         }catch (ExceptionDao exceptionDao){
-            new ExceptionService(exceptionDao.getMessage());
+           throw new ExceptionService(exceptionDao.getMessage());
         }
-        return null;
+
     }
 
     @Override
@@ -192,8 +192,8 @@ public class PersonService implements IEntityService<PersonDTO> {
             });
             return personDTOList;
         }catch (ExceptionDao exceptionDao){
-            new ExceptionService(exceptionDao.getMessage());
+            throw new ExceptionService(exceptionDao.getMessage());
         }
-        return null;
+
     }
 }
