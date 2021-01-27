@@ -38,7 +38,7 @@ public class Connect
 				cn = DriverManager.getConnection(URL);
 		}
 		catch (ClassNotFoundException | SQLException e){
-			throw new ExceptionDao("Impossible d'accéder à la base de donnée.");
+			throw new ExceptionDao("Nous ne parvenons pas à joindre le serveur distant. Veuillez réessayer ultérieurement");
 		}
 		
 		return cn;
