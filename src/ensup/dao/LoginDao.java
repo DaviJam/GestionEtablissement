@@ -65,7 +65,7 @@ public class LoginDao {
             if (rs.next()) {
                 id = rs.getInt("id");
             } else {
-                throw new ExceptionDao("Login : Mot de passe incorrect.");
+                throw new ExceptionDao("Identifiant ou mot de passe incorrect.");
             }
 
         } catch (SQLException throwables) {

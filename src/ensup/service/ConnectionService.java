@@ -18,7 +18,7 @@ public class ConnectionService implements IConnectionService {
         try {
             index = this.dao.checkPassword(mail, mdp); // Récupération du MDP et comparaison avec le mdp saisi
         } catch (ExceptionDao e){
-            throw new ExceptionService("Login : Mopt de passe incorrect.");
+            throw new ExceptionService(e.getMessage());
         } finally {
 
         }
