@@ -1,6 +1,7 @@
 package ensup.service;
 
 import ensup.dao.ExceptionDao;
+import ensup.exception.service.ExceptionService;
 
 import java.util.Date;
 
@@ -25,7 +26,7 @@ public interface IEntityService<PersonDTO> extends IService<PersonDTO>
      * @param subjectTaught the subject taught
      * @return type of the result
      */
-    int create(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) throws ExceptionDao;
+    int create(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) throws ExceptionDao, ExceptionService;
 
     /**
      * Update int.
@@ -41,7 +42,7 @@ public interface IEntityService<PersonDTO> extends IService<PersonDTO>
      * @param subjectTaught the subject taught
      * @return the int
      */
-    int update(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) throws ExceptionDao;
+    int update(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) throws ExceptionDao, ExceptionService;
 
     /**
      * Link to course int.
@@ -50,5 +51,5 @@ public interface IEntityService<PersonDTO> extends IService<PersonDTO>
      * @param idCourse   the id course
      * @return int
      */
-    int linkToCourse(int idEtudiant, int idCourse) throws ExceptionDao;
+    int linkToCourse(int idEtudiant, int idCourse) throws ExceptionDao, ExceptionService;
 }
