@@ -1,7 +1,4 @@
 package ensup.service;
-
-
-import ensup.exception.dao.ExceptionDao;
 import ensup.exception.service.ExceptionService;
 
 import java.util.List;
