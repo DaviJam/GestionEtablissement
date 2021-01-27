@@ -1,6 +1,7 @@
 package ensup.service;
 
-import ensup.dao.ExceptionDao;
+import ensup.dao.DaoException.ExceptionDao;
+import ensup.service.ServiceException.ExceptionService;
 
 /**
  * The interface Service connection.
@@ -15,5 +16,5 @@ public interface IConnectionService
      * @return the int
      */
 // Checker ID MDP, Mot de passe oublié
-    int checkConnection(String mail, String mdp) throws ExceptionDao;
+    int checkConnection(String mail, String mdp) throws ExceptionService, ExceptionService;
 }

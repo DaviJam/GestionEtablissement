@@ -4,7 +4,7 @@ import java.util.List;
 
 import ensup.business.Course;
 import ensup.dao.CourseDao;
-import ensup.dao.ExceptionDao;
+import ensup.dao.DaoException.ExceptionDao;
 
 /**
  * The type Test dao course.

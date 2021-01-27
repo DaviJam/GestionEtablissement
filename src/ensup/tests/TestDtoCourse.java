@@ -1,6 +1,6 @@
 package ensup.tests;
 
-import ensup.dao.ExceptionDao;
+import ensup.dao.DaoException.ExceptionDao;
 import ensup.dto.CourseDTO;
 import ensup.service.CourseService;
 import ensup.service.ICourseService;
