@@ -1,6 +1,7 @@
 package ensup.dao;
 
 import ensup.business.*;
+import ensup.exception.dao.ExceptionDao;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 

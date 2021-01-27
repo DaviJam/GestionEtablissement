@@ -1,6 +1,7 @@
 package ensup.service;	
 
 import ensup.business.School;
+import ensup.exception.service.ExceptionService;
 
 /**
  * The interface Service school.
@@ -17,7 +18,7 @@ public interface ISchoolService extends IService<School>
      * @param director the director
      * @return type of the result
      */
-    int create(String surname, String email, String address, String phone, int director);
+    int create(String surname, String email, String address, String phone, int director) throws ExceptionService;
 
     /**
      * Update int.
@@ -29,7 +30,7 @@ public interface ISchoolService extends IService<School>
      * @param director the director
      * @return type of the result
      */
-    int update(String surname, String email, String address, String phone, int director);
+    int update(String surname, String email, String address, String phone, int director) throws ExceptionService;
 
     /**
      * Get the index of the school by this name
@@ -37,5 +38,5 @@ public interface ISchoolService extends IService<School>
      * @param surname name of the school
      * @return index of the School
      */
-    public int getIndex( String surname );
+    public int getIndex( String surname ) throws ExceptionService;
 }

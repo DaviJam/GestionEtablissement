@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ensup.business.School;
+import ensup.exception.dao.ExceptionDao;
 
 /**
  * The type School dao.
@@ -33,13 +34,13 @@ public class SchoolDao implements ISchoolDao
 				alSchool.add(school);
 			}
 		}
-		catch (SQLException e) {e.printStackTrace();}
+		catch (SQLException e) { throw new ExceptionDao("Problème au niveau du getAll");}
 		finally{
 			try {
 				st.close();
 				cn.close();
 			}
-			catch(SQLException sqle) { sqle.printStackTrace(); }
+			catch(SQLException sqle) { throw new ExceptionDao("Problème au niveau de la fermeture de la connexion"); }
 		}
 		
 		return alSchool;
@@ -60,13 +61,13 @@ public class SchoolDao implements ISchoolDao
 				school = new School(res.getInt("id"),res.getString("surname"),res.getString("email"),res.getString("address"),res.getString("phone"),res.getInt("director"));
 			
 		}
-		catch (SQLException e) {e.printStackTrace();}
+		catch (SQLException e) {throw new ExceptionDao("Problème au niveau du get");}
 		finally{
 			try {
 				st.close();
 				cn.close();
 			}
-			catch(SQLException sqle) { sqle.printStackTrace(); }
+			catch(SQLException sqle) { throw new ExceptionDao("Problème au niveau de la fermeture de connexion"); }
 		}
 		
 		return school;
@@ -88,13 +89,13 @@ public class SchoolDao implements ISchoolDao
 				index = res.getInt("id");
 			}
 		}
-		catch (SQLException e) {e.printStackTrace();}
+		catch (SQLException e) {throw new ExceptionDao("Le serveur ne trouve pas l'index de la personne");}
 		finally{
 			try {
 				st.close();
 				cn.close();
 			}
-			catch(SQLException sqle) { sqle.printStackTrace(); }
+			catch(SQLException sqle) { throw new ExceptionDao("Problème de fermeture au niveau de la connexion"); }
 		}
 		
 		return index;
@@ -128,14 +129,14 @@ public class SchoolDao implements ISchoolDao
 				pstmt.execute();
 			}
 		}
-		catch (SQLException e) {res = 2; e.printStackTrace();}
+		catch (SQLException e) {res = 2; throw new ExceptionDao("Problème au niveau de la création d'une nouvelle école");}
 		finally{
 			try {
 				if( pstmt !=  null )
 					pstmt.close();
 				cn.close();
 			}
-			catch(SQLException sqle) {res = 2; sqle.printStackTrace(); }
+			catch(SQLException sqle) {res = 2; throw new ExceptionDao("Problème au niveau de la fermeture de connexion"); }
 			res = 0;
 		}
 		
@@ -172,14 +173,14 @@ public class SchoolDao implements ISchoolDao
 				st = cn.createStatement();
 				st.execute("UPDATE School SET "+update);
 			}
-			catch( SQLException sqle) {res = 2; sqle.printStackTrace();}
+			catch( SQLException sqle) {res = 2; throw new ExceptionDao("Problème au niveau de la modification");}
 			finally{
 				try {
 					st.close();
 					cn.close();
 				} catch (SQLException throwables) {
 					res = 2;
-					throwables.printStackTrace();
+					throw new ExceptionDao("Problème au niveau de la fermeture de connexion");
 				}
 				res = 0;
 			}
@@ -200,13 +201,13 @@ public class SchoolDao implements ISchoolDao
 				st = cn.createStatement();
 				st.execute("DELETE FROM School WHERE id="+index);
 			}
-			catch (SQLException e) {res = 2; e.printStackTrace();}
+			catch (SQLException e) {res = 2; throw new ExceptionDao("Problème au niveau de la suppression");}
 			finally{
 				try {
 					st.close();
 					cn.close();
 				}
-				catch(SQLException sqle) {res = 2; sqle.printStackTrace(); }
+				catch(SQLException sqle) {res = 2; throw new ExceptionDao("Problème au niveau de la fermeture de connexion"); }
 				res = 0;
 			}
 		}
@@ -216,18 +217,30 @@ public class SchoolDao implements ISchoolDao
 
 	public int delete( School school ) throws ExceptionDao
 	{
-		return delete(school.getId());
+		try
+		{
+			return delete(school.getId());
+		} catch(ExceptionDao e){
+			throw new ExceptionDao("Problème au niveau du delete");
+		}
+
 	}
 	
 	public boolean indexExist(int index) throws ExceptionDao
 	{
-		boolean exist = false;
-		
-		List<School> alSchool = getAll();
-		for( School school : alSchool )
-			if( index == school.getId() )
-				exist = true;
-		
-		return exist;
+		try
+		{
+			boolean exist = false;
+
+			List<School> alSchool = getAll();
+			for( School school : alSchool )
+				if( index == school.getId() )
+					exist = true;
+
+			return exist;
+		} catch(ExceptionDao e){
+			throw new ExceptionDao("Problème au niveau de la vérificaiton de l'existence de l'index");
+		}
+
 	}
 }

@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ensup.business.School;
-import ensup.dao.ExceptionDao;
 import ensup.dao.SchoolDao;
 import ensup.dto.SchoolDTO;
+import ensup.exception.dao.ExceptionDao;
+import ensup.exception.service.ExceptionService;
 import ensup.mapper.SchoolMapper;
 
 /**
@@ -23,42 +24,73 @@ public class SchoolService implements IService<SchoolDTO> {
 		this.dao = new SchoolDao();
 	}
 
-	public List<SchoolDTO> getAll() throws ExceptionDao
+	public List<SchoolDTO> getAll() throws ExceptionService
 	{
 		List<SchoolDTO> listSchoolDto = new ArrayList<SchoolDTO>();
-		
-		for (School school: this.dao.getAll())
-			listSchoolDto.add(SchoolMapper.businessToDto(school));
-		
-		return listSchoolDto;
+
+		try{
+			for (School school: this.dao.getAll())
+				listSchoolDto.add(SchoolMapper.businessToDto(school));
+
+			return listSchoolDto;
+		}catch(ExceptionDao e){
+			throw new ExceptionService(e.getMessage());
+		}
+
 	}
 
-	public SchoolDTO get(int index) throws ExceptionDao
+	public SchoolDTO get(int index) throws ExceptionService
 	{
-		return SchoolMapper.businessToDto(this.dao.get(index));
+
+		try{
+			return SchoolMapper.businessToDto(this.dao.get(index));
+		} catch(ExceptionDao e){
+			throw new ExceptionService(e.getMessage());
+		}
 	}
 
-	public int create(SchoolDTO schoolDto) throws ExceptionDao
+	public int create(SchoolDTO schoolDto) throws ExceptionService
 	{
-		return this.dao.create(SchoolMapper.dtoToBusiness(schoolDto));
+		try{
+			return this.dao.create(SchoolMapper.dtoToBusiness(schoolDto));
+		} catch(ExceptionDao e){
+			throw new ExceptionService(e.getMessage());
+		}
+
 	}
 
-	public int update(SchoolDTO schoolDto) throws ExceptionDao
+	public int update(SchoolDTO schoolDto) throws ExceptionService
 	{
 		School school = SchoolMapper.dtoToBusiness(schoolDto);
 		school.setId(schoolDto.getId());
+		try{
+			return this.dao.update(school);
+		} catch(ExceptionDao e){
+			throw new ExceptionService(e.getMessage());
+		}
 
-		return this.dao.update(school);
 	}
 
-	public int delete(SchoolDTO schoolDto) throws ExceptionDao
+	public int delete(SchoolDTO schoolDto) throws ExceptionService
 	{
-		return delete(schoolDto.getId());
+		try{
+			return this.dao.delete(schoolDto.getId());
+		} catch(ExceptionDao e){
+			throw new ExceptionService(e.getMessage());
+		}
+
+
+
 	}
 	
-	public int delete(int index) throws ExceptionDao
+	public int delete(int index) throws ExceptionService
 	{
-		return this.dao.delete(index);
+		try
+		{
+			return this.dao.delete(index);
+		} catch(ExceptionDao e){
+			throw new ExceptionService(e.getMessage());
+		}
 	}
 
 	/**
@@ -67,8 +99,14 @@ public class SchoolService implements IService<SchoolDTO> {
 	 * @param surname the surname
 	 * @return the index
 	 */
-	public int getIndex( String surname ) throws ExceptionDao
+	public int getIndex( String surname ) throws ExceptionService
 	{
-		return this.dao.getIndex(surname);
+		try
+		{
+			return this.dao.getIndex(surname);
+		} catch(ExceptionDao e){
+			throw new ExceptionService(e.getMessage());
+		}
+
 	}
 }
