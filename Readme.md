@@ -1,12 +1,15 @@
 # GestionEtablissement
 
+## Release V2
+Amélioration de la gestion des erreurs
+
 ## Release V1
 Amélioration de la robustesse
 
 ## Release V0
 Création du projet 
 
-##Fonctionalités
+## Fonctionalités
 Ce logiciel permet de gérer un etablissement scolaire. Il est actuellement possible de :
 
 * Gérer les cours de l'école;
@@ -14,7 +17,7 @@ Ce logiciel permet de gérer un etablissement scolaire. Il est actuellement poss
 * Associer un cours à un étudiant;
 * Accéder à la liste des étudiants (pour le directeur uniquement)
 
-##Installation
+## Installation
 
 Pré-requis: avoir installé Java en local sur son ordinateur
 
@@ -32,7 +35,7 @@ Deux choix sont alors possibles.
 * Accéder à l'application avec le compte Directeur
 * Accéder à l'application avec le compte Responsable
 
-##Convention de nommage
+## Convention de nommage
 1. <b/>Package:</b>
     <br/>Utiliser la convention <u/>dotcase</u>. 
     <br/>Examples: 
