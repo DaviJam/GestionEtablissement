@@ -24,7 +24,7 @@ Pré-requis: avoir installé Java en local sur son ordinateur
 * Aller dans le projet Github : https://github.com/DaviJam/GestionEtablissement.
 * Cliquer sur le bouton vert "code" puis télécharger le fichier zip.
 * Dans Windows extraire le fichier zip.
-* Se rendre dans le dossier "rendu" du projet.
+* Se rendre dans le dossier "GestionEtablissement".
 * Double-cliquer le fichier GestionEtablissement.jar.
 * L'application s'ouvre. 
 
@@ -35,6 +35,9 @@ Deux choix sont alors possibles.
 * Accéder à l'application avec le compte Responsable :
    > Identifiant : m.demaison@ensup.eu
     <br/>Mot de passe : m.demaison
+    
+## Localisation du répertoire des Logs 
+* Le répertoire des logs est situé dans le même répertoire que le .jar.
 
 ## Convention de nommage
 1. <b/>Package:</b>
