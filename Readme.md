@@ -29,8 +29,12 @@ Pré-requis: avoir installé Java en local sur son ordinateur
 * L'application s'ouvre. 
 
 Deux choix sont alors possibles.
-* Accéder à l'application avec le compte Directeur
-* Accéder à l'application avec le compte Responsable
+* Accéder à l'application avec le compte Directeur :
+   > Identifiant : e.chaumont@ensup.eu
+    <br/>Mot de passe : e.chaumont
+* Accéder à l'application avec le compte Responsable :
+   > Identifiant : m.demaison@ensup.eu
+    <br/>Mot de passe : m.demaison
 
 ## Convention de nommage
 1. <b/>Package:</b>
