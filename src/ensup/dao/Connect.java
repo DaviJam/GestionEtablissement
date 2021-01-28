@@ -36,8 +36,11 @@ public class Connect
 			
 			if( cn == null && URL != null )
 				cn = DriverManager.getConnection(URL);
+
+			// TODO:  Add logger failed and successfull
 		}
 		catch (ClassNotFoundException | SQLException e){
+			// TODO:  Add logger failed and successfull
 			throw new ExceptionDao("Nous ne parvenons pas à joindre le serveur distant. Veuillez réessayer ultérieurement");
 		}
 		

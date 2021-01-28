@@ -17,7 +17,10 @@ import java.util.List;
 public class PersonService implements IEntityService<PersonDTO> {
 
     private PersonDao dao = null;
-
+    
+    // nom de la classe
+    String className = getClass().getName();
+    
     /**
      * Instantiates a new Service person.
      */
@@ -29,6 +32,7 @@ public class PersonService implements IEntityService<PersonDTO> {
     // Create Person
     @Override
     public int create(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) throws ExceptionService {
+        String methodName = getClass().getEnclosingMethod().getName();
         // Checker le role et faire une instace et l'envoyer dans le DAO
         int check = 0;
         switch(role){
@@ -38,6 +42,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try {
                     check = this.dao.create(director);
                 }catch (ExceptionDao exceptionDao){
+                    serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
                    throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
@@ -47,6 +52,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try{
                 check = this.dao.create(manager);
                 }catch (ExceptionDao exceptionDao){
+                    serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
                     throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
@@ -57,6 +63,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try {
                     check = this.dao.create(teacher);
                 }catch (ExceptionDao exceptionDao){
+                    serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
                     throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
@@ -67,6 +74,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try{
                 check = this.dao.create(student);
                 }catch (ExceptionDao exceptionDao){
+                    serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
                     throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
@@ -77,6 +85,7 @@ public class PersonService implements IEntityService<PersonDTO> {
     // Update Person
     @Override
     public int update(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) throws ExceptionService {
+        String methodName = getClass().getEnclosingMethod().getName();
         int res = 0;
         switch(role){
             case 1: // Director
@@ -85,6 +94,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try{
                 res = this.dao.update(director);
                 }catch (ExceptionDao exceptionDao){
+                    serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
                    throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
@@ -94,6 +104,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try{
                 res = this.dao.update(manager);
                 }catch (ExceptionDao exceptionDao){
+                    serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
                     throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
@@ -103,6 +114,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try{
                 res = this.dao.update(teacher);
                 }catch (ExceptionDao exceptionDao){
+                    serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
                     throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
@@ -112,6 +124,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 try{
                 res = this.dao.update(student);
                 }catch (ExceptionDao exceptionDao){
+                    serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
                     throw new ExceptionService(exceptionDao.getMessage());
                 }
                 break;
@@ -121,21 +134,25 @@ public class PersonService implements IEntityService<PersonDTO> {
 
     @Override
     public int delete(int index) throws ExceptionService {
+        String methodName = getClass().getEnclosingMethod().getName();
         int res = 0;
         try{
          res = this.dao.delete(index);
         return res;
         }catch (ExceptionDao exceptionDao){
+            serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
             throw new ExceptionService(exceptionDao.getMessage());
         }
     }
 
     @Override
     public int linkToCourse(int idEtudiant, int idCourse) throws ExceptionService {
+        String methodName = getClass().getEnclosingMethod().getName();
         try {
             int res = this.dao.LinkToCourse(idEtudiant, idCourse);
             return res;
         }catch (ExceptionDao exceptionDao){
+            serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
             throw new ExceptionService(exceptionDao.getMessage());
         }
 
@@ -143,6 +160,7 @@ public class PersonService implements IEntityService<PersonDTO> {
 
     @Override
     public PersonDTO get(int index) throws ExceptionService {
+        String methodName = getClass().getEnclosingMethod().getName();
         try{
         Person person = this.dao.get(index);
         PersonDTO personDTO = new PersonDTO();
@@ -162,6 +180,7 @@ public class PersonService implements IEntityService<PersonDTO> {
 
         return personDTO;
         }catch (ExceptionDao exceptionDao){
+            serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
            throw new ExceptionService(exceptionDao.getMessage());
         }
 
@@ -169,6 +188,7 @@ public class PersonService implements IEntityService<PersonDTO> {
 
     @Override
     public List<PersonDTO> getAll() throws ExceptionService{
+        String methodName = getClass().getEnclosingMethod().getName();
         List<PersonDTO> personDTOList = new ArrayList<PersonDTO>();
         try {
             this.dao.getAll().forEach(person -> {
@@ -192,6 +212,7 @@ public class PersonService implements IEntityService<PersonDTO> {
             });
             return personDTOList;
         }catch (ExceptionDao exceptionDao){
+            serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
             throw new ExceptionService(exceptionDao.getMessage());
         }
 

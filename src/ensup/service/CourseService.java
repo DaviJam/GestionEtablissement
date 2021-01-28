@@ -14,7 +14,8 @@ import java.util.List;
  * The type Course service.
  */
 public class CourseService implements ICourseService {
-    private CourseDao dao;
+    private CourseDao dao;    // nom de la classe
+	String className = getClass().getName();
 
     /**
      * Instantiates a new Course service.
@@ -24,43 +25,52 @@ public class CourseService implements ICourseService {
     }
 
     public List<CourseDTO> getAll() throws ExceptionService {
+		String methodName = getClass().getEnclosingMethod().getName();
         List<CourseDTO> listCourseDto = new ArrayList<CourseDTO>();
 
 		try {
 			for (Course c : this.dao.getAll())
 				listCourseDto.add(CourseMapper.businessToDto(c));
 		} catch (ExceptionDao exceptionDao) {
-			new ExceptionService(exceptionDao.getMessage());
+			throw new ExceptionService(exceptionDao.getMessage());
 		}
 
 		return listCourseDto;
     }
 
 	public CourseDTO get(int index) throws ExceptionService {
-		try {
-			return CourseMapper.businessToDto(this.dao.get(index));
+		String methodName = getClass().getEnclosingMethod().getName();
+		CourseDTO courseDTO;
+    	try {
+			courseDTO = CourseMapper.businessToDto(this.dao.get(index));
 		} catch (ExceptionDao exceptionDao) {
-			new ExceptionService(exceptionDao.getMessage());
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionService(exceptionDao.getMessage());
 		}
-		return null;
+		return courseDTO;
 	}
 
 	public int create(CourseDTO courseDto) throws ExceptionService {
-		try {
-			return this.dao.create(CourseMapper.dtoToBusiness(courseDto));
+		String methodName = getClass().getEnclosingMethod().getName();
+		int res;
+    	try {
+			res = this.dao.create(CourseMapper.dtoToBusiness(courseDto));
 		} catch (ExceptionDao exceptionDao) {
-			new ExceptionService(exceptionDao.getMessage());
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionService(exceptionDao.getMessage());
 		}
-		return 0;
+		return res;
 	}
 
 	public int update(CourseDTO courseDto) throws ExceptionService {
+		String methodName = getClass().getEnclosingMethod().getName();
 		Course course = CourseMapper.dtoToBusiness(courseDto);
 		course.setId(courseDto.getId());
 		int ret;
 		try {
 			ret = this.dao.update(course);
 		} catch (ExceptionDao exceptionDao) {
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
 			throw new ExceptionService(exceptionDao.getMessage());
 		}
 		return ret;
@@ -71,10 +81,12 @@ public class CourseService implements ICourseService {
 	}
 	
 	public int delete(int index) throws ExceptionService {
+		String methodName = getClass().getEnclosingMethod().getName();
 		int ret;
     	try {
 			ret = this.dao.delete(index);
 		} catch (ExceptionDao exceptionDao) {
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
 			throw new ExceptionService(exceptionDao.getMessage());
 		}
 		return ret;

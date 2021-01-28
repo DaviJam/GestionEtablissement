@@ -16,8 +16,13 @@ import ensup.exception.dao.ExceptionDao;
  */
 public class SchoolDao implements ISchoolDao
 {
+	// nom de la classe
+	String className = getClass().getName();
+	
 	public List<School> getAll() throws ExceptionDao
 	{
+		String methodName = getClass().getEnclosingMethod().getName();
+
 		Connection cn = Connect.openConnection();
 		List<School> alSchool = new ArrayList<School>();
 		
@@ -33,14 +38,24 @@ public class SchoolDao implements ISchoolDao
 				
 				alSchool.add(school);
 			}
+
+			if(alSchool.isEmpty()) {
+				DaoLogger.logDaoError(className, methodName,"La liste est vide.");
+			} else {
+				DaoLogger.logDaoInfo(className, methodName,"La récupération de liste des établissements a réussie.");
+			}
 		}
-		catch (SQLException e) { throw new ExceptionDao("Une erreur est survenue.");}
+		catch (SQLException e) {
+			DaoLogger.logDaoError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionDao("Une erreur est survenue.");}
 		finally{
 			try {
 				st.close();
 				cn.close();
 			}
-			catch(SQLException sqle) { throw new ExceptionDao("Problème au niveau de la fermeture de la connexion"); }
+			catch(SQLException sqle) {
+				DaoLogger.logDaoError(className, methodName,"Un problème est survenue lors de la tentative de fermeture de connection à la base de données.");
+				throw new ExceptionDao("Problème au niveau de la fermeture de la connexion"); }
 		}
 		
 		return alSchool;
@@ -48,6 +63,8 @@ public class SchoolDao implements ISchoolDao
 	
 	public School get( int index ) throws ExceptionDao
 	{
+		String methodName = getClass().getEnclosingMethod().getName();
+
 		Connection cn = Connect.openConnection();
 		School school = null;
 		
@@ -59,15 +76,25 @@ public class SchoolDao implements ISchoolDao
 			res = st.executeQuery("SELECT * FROM School WHERE id="+index);
 			while( res.next() )
 				school = new School(res.getInt("id"),res.getString("surname"),res.getString("email"),res.getString("address"),res.getString("phone"),res.getInt("director"));
-			
+
+			if(school == null)
+			{
+				DaoLogger.logDaoError(className, methodName,"Cette établissement n'existe pas en base de donnée.");
+			} else {
+				DaoLogger.logDaoInfo(className, methodName,"La récupération de l'établissement a réussie.");
+			}
 		}
-		catch (SQLException e) {throw new ExceptionDao("Une erreur est survenue.");}
+		catch (SQLException e) {
+			DaoLogger.logDaoError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionDao("Une erreur est survenue.");}
 		finally{
 			try {
 				st.close();
 				cn.close();
 			}
-			catch(SQLException sqle) { throw new ExceptionDao("Problème au niveau de la fermeture de connexion"); }
+			catch(SQLException sqle) {
+				DaoLogger.logDaoError(className, methodName,"Un problème est survenue lors de la tentative de fermeture de connection à la base de données.");
+				throw new ExceptionDao("Problème au niveau de la fermeture de connexion"); }
 		}
 		
 		return school;
@@ -75,6 +102,8 @@ public class SchoolDao implements ISchoolDao
 	
 	public int getIndex( String surname ) throws ExceptionDao
 	{
+		String methodName = getClass().getEnclosingMethod().getName();
+
 		Connection cn = Connect.openConnection();
 		int index = -1;
 		
@@ -84,18 +113,27 @@ public class SchoolDao implements ISchoolDao
 		{
 			st = cn.createStatement();
 			res = st.executeQuery("SELECT id FROM School WHERE surname='"+surname+"'");
-			while( res.next() )
+			if( res.next() )
 			{
 				index = res.getInt("id");
+				DaoLogger.logDaoInfo(className, methodName,"L'établissement a été récupéré avec succès.");
+			} else
+			{
+				DaoLogger.logDaoInfo(className, methodName,"Cette établissement n'existe pas en base de donnée.");
 			}
+			// TODO:  Add logger failed and successfull
 		}
-		catch (SQLException e) {throw new ExceptionDao("Une erreur est survenue.");}
+		catch (SQLException e) {
+			DaoLogger.logDaoError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionDao("Une erreur est survenue.");}
 		finally{
 			try {
 				st.close();
 				cn.close();
 			}
-			catch(SQLException sqle) { throw new ExceptionDao("Problème de fermeture au niveau de la connexion"); }
+			catch(SQLException sqle) {
+				DaoLogger.logDaoError(className, methodName,"Un problème est survenue lors de la tentative de fermeture de connection à la base de données.");
+				throw new ExceptionDao("Problème de fermeture au niveau de la connexion"); }
 		}
 		
 		return index;
@@ -103,6 +141,8 @@ public class SchoolDao implements ISchoolDao
 	
 	public int create( School school ) throws ExceptionDao
 	{
+		String methodName = getClass().getEnclosingMethod().getName();
+
 		int res = 1;
 		Connection cn = Connect.openConnection();
 		PreparedStatement pstmt = null;
@@ -128,15 +168,22 @@ public class SchoolDao implements ISchoolDao
 				
 				pstmt.execute();
 			}
+			// TODO:  Add logger failed and successfull
 		}
-		catch (SQLException e) {res = 2; throw new ExceptionDao("Une erreur est survenue.");}
+		catch (SQLException e) {
+			res = 2;
+			// TODO:  Add logger failed
+			throw new ExceptionDao("Une erreur est survenue.");}
 		finally{
 			try {
 				if( pstmt !=  null )
 					pstmt.close();
 				cn.close();
 			}
-			catch(SQLException sqle) {res = 2; throw new ExceptionDao("Problème au niveau de la fermeture de connexion"); }
+			catch(SQLException sqle) {
+				res = 2;
+				// TODO:  Add logger failed
+				throw new ExceptionDao("Problème au niveau de la fermeture de connexion"); }
 			res = 0;
 		}
 		
@@ -145,6 +192,8 @@ public class SchoolDao implements ISchoolDao
 
 	public int update(School school) throws ExceptionDao
 	{
+		String methodName = getClass().getEnclosingMethod().getName();
+
 		int res = 1;
 		School preSchool = get(school.getId());
 		String update = "";
@@ -173,13 +222,17 @@ public class SchoolDao implements ISchoolDao
 				st = cn.createStatement();
 				st.execute("UPDATE School SET "+update);
 			}
-			catch( SQLException sqle) {res = 2; throw new ExceptionDao("Une erreur est survenue.");}
+			catch( SQLException sqle) {
+				res = 2;
+				// TODO:  Add logger failed
+				throw new ExceptionDao("Une erreur est survenue.");}
 			finally{
 				try {
 					st.close();
 					cn.close();
 				} catch (SQLException throwables) {
 					res = 2;
+					// TODO:  Add logger failed
 					throw new ExceptionDao("Problème au niveau de la fermeture de connexion");
 				}
 				res = 0;
@@ -190,6 +243,8 @@ public class SchoolDao implements ISchoolDao
 
 	public int delete( int index ) throws ExceptionDao
 	{
+		String methodName = getClass().getEnclosingMethod().getName();
+
 		int res = 1;
 		if( index != -1 && indexExist(index) )
 		{
@@ -201,13 +256,19 @@ public class SchoolDao implements ISchoolDao
 				st = cn.createStatement();
 				st.execute("DELETE FROM School WHERE id="+index);
 			}
-			catch (SQLException e) {res = 2; throw new ExceptionDao("Une erreur est survenue.");}
+			catch (SQLException e) {
+				res = 2;
+				// TODO:  Add logger failed
+				throw new ExceptionDao("Une erreur est survenue.");}
 			finally{
 				try {
 					st.close();
 					cn.close();
 				}
-				catch(SQLException sqle) {res = 2; throw new ExceptionDao("Problème au niveau de la fermeture de connexion"); }
+				catch(SQLException sqle) {
+					res = 2;
+					// TODO:  Add logger failed
+					throw new ExceptionDao("Problème au niveau de la fermeture de connexion"); }
 				res = 0;
 			}
 		}
@@ -217,30 +278,34 @@ public class SchoolDao implements ISchoolDao
 
 	public int delete( School school ) throws ExceptionDao
 	{
+		String methodName = getClass().getEnclosingMethod().getName();
 		try
 		{
 			return delete(school.getId());
 		} catch(ExceptionDao e){
+			// TODO:  Add logger failed
 			throw new ExceptionDao("Une erreur est survenue.");
 		}
-
 	}
 	
 	public boolean indexExist(int index) throws ExceptionDao
 	{
+		String methodName = getClass().getEnclosingMethod().getName();
+		List<School> alSchool;
+		boolean exist = false;
+
 		try
 		{
-			boolean exist = false;
-
-			List<School> alSchool = getAll();
+			alSchool = getAll();
 			for( School school : alSchool )
 				if( index == school.getId() )
 					exist = true;
+		// TODO:  Add logger failed and successfull
 
-			return exist;
 		} catch(ExceptionDao e){
+			// TODO:  Add logger failed
 			throw new ExceptionDao("Une erreur est survenue.");
 		}
-
+		return exist;
 	}
 }

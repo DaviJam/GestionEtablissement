@@ -64,12 +64,15 @@ public class LoginDao {
 
             if (rs.next()) {
                 id = rs.getInt("id");
+                // TODO:  Add logger failed and successfull
             } else {
+                // TODO:  Add logger failed and successfull
                 throw new ExceptionDao("Identifiant ou mot de passe incorrect.");
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            // TODO:  Add logger failed and successfull
+            throw new ExceptionDao("Une erreur est survenue lors de la vérification du mot de passe de l'utilisateur.");
         }
         return id;
     }

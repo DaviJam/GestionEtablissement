@@ -2,10 +2,7 @@ package ensup.dao;
 
 import ensup.business.*;
 import ensup.exception.dao.ExceptionDao;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
-import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +35,8 @@ public class PersonDao implements IDao<Person>
      */
 // nombre de mises à jour
     int res = 0;
-
+    // nom de la classe
+    String className = getClass().getName();
 
     /**
      * Instantiates a new Dao person.
@@ -56,6 +54,7 @@ public class PersonDao implements IDao<Person>
      */
     @Override
     public int create(Person entity) throws ExceptionDao {
+        String methodName = getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -112,12 +111,10 @@ public class PersonDao implements IDao<Person>
             /**
              * Log to file
              */
-                File propertiesFileDao = new File( "Properties/log4j.properties");
-                PropertyConfigurator.configure(propertiesFileDao.toString());
-                Logger log = Logger.getLogger(PersonDao.class.getName());
-                log.info("L'utilisateur " + entity.getLastname() +" "+entity.getFirstname() + " " + entity.getMailAddress() + " a été créé.");
+            DaoLogger.logDaoInfo(className, methodName,"L'utilisateur " + entity.getLastname() +" "+entity.getFirstname() + " " + entity.getMailAddress() + " a été créé.");
 
         } catch (SQLException e) {
+            DaoLogger.logDaoError(className, methodName,"Problème d'ajout d'une personne à la base de donnée.",e);
             throw new ExceptionDao("Impossible de créer l'utilisateur. Veuillez contacter votre administrateur.");
         } finally {
 
@@ -133,6 +130,7 @@ public class PersonDao implements IDao<Person>
      */
     @Override
     public int update(Person entity) throws ExceptionDao{
+        String methodName = getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -180,15 +178,18 @@ public class PersonDao implements IDao<Person>
 
             if( res == 0)
             {
+                DaoLogger.logDaoError(className, methodName,"Echec de la mise à jour de l'utilisateur" + entity.getLastname() + " " +entity.getFirstname() + " " + entity.getMailAddress());
                 throw new ExceptionDao("La mise à jour a échoué. L'utilisateur n'existe pas en base de donnée.");
             }
 
+            DaoLogger.logDaoInfo(className, methodName,"Les information de l'utilisateur " + entity.getLastname() +" "+entity.getFirstname() + " " + entity.getMailAddress() + " ont bien été modifié.");
             /*
              * Fermer la connexion
              */
             cn.close();
 
         } catch (SQLException e) {
+            DaoLogger.logDaoError(className, methodName,"La transaction UPDATE dans la méthode update a échouée.",e);
             throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée. Veuillez contacter votre administrateur.");
         } finally {
 
@@ -205,6 +206,7 @@ public class PersonDao implements IDao<Person>
     @Override
     public Person get(int index) throws ExceptionDao {
         Person p1 = null;
+        String methodName = getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -264,6 +266,10 @@ public class PersonDao implements IDao<Person>
                         p1 = new Student(lastname, email, address, phone, id, firstName, password, null);
                     }
                 }
+                DaoLogger.logDaoInfo(className, methodName,"Les information de l'utilisateur " + lastname +" "+firstName + " " + email + " ont été récupérer de la base de donnée.");
+            } else {
+                DaoLogger.logDaoError(className, methodName,"Echec de récupération d'information concernant l'utilisateur. Ce dernier n'existe pas en base de donnée.");
+                throw new ExceptionDao("Impossible de récupérer les informations de cette personne. Veuillez contacter votre administrateur.");
             }
 
             /*
@@ -272,7 +278,8 @@ public class PersonDao implements IDao<Person>
             cn.close();
 
         } catch (SQLException e) {
-            throw new ExceptionDao("Impossible de récupérer les informations de cette personne. Veuillez contacter votre administrateur.");
+            DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",e);
+            throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée. Veuillez contacter votre administrateur.");
         } finally {
 
         }
@@ -287,6 +294,7 @@ public class PersonDao implements IDao<Person>
     @Override
     public List<Person> getAll() throws ExceptionDao {
         List<Person> listPerson = new ArrayList<Person>();
+        String methodName = getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -352,12 +360,19 @@ public class PersonDao implements IDao<Person>
                 listPerson.add(p1);
             }
 
+            if(listPerson.isEmpty())
+            {
+                DaoLogger.logDaoError(className, methodName,"Echec de récupération d'information concernant tous les utilisateurs.");
+            }
+
+            DaoLogger.logDaoInfo(className, methodName,"La récupération des informations concernant tous les utilisateurs a réussie.");
             /*
              * Fermer la connexion
              */
 
             cn.close();
         } catch (SQLException e) {
+            DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode getAll a échouée.",e);
             throw new ExceptionDao("Impossible de récupérer les informations demandées. Veuillez contacter votre administrateur.");
         } finally {
 
@@ -373,6 +388,7 @@ public class PersonDao implements IDao<Person>
      */
     @Override
     public int delete(int index) throws ExceptionDao {
+        String methodName = getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -391,12 +407,18 @@ public class PersonDao implements IDao<Person>
              */
             res = st.executeUpdate();
 
+            if (res != 0) {
+                DaoLogger.logDaoError(className, methodName,"Echec lors de la suppression de l'utilisateur. Ce dernier n'existe pas dans la base de donnée.");
+            }
+
+            DaoLogger.logDaoInfo(className, methodName,"La suppression de l'utilisateur a réussie.");
             /*
              * Fermer la connexion
              */
             cn.close();
 
         } catch (SQLException e) {
+            DaoLogger.logDaoError(className, methodName,"La transaction Delete dans la méthode delete a échouée.",e);
             throw new ExceptionDao("Impossible de supprimer les informations de cette personne. Veuillez contacter votre administrateur.");
         } finally {
 
@@ -412,6 +434,8 @@ public class PersonDao implements IDao<Person>
      * @return Result of the request
      */
     public int LinkToCourse(int entity, int course) throws ExceptionDao {
+        String methodName = getClass().getEnclosingMethod().getName();
+
         try {
             /*
              * CrÃ©er la connexion
@@ -430,6 +454,13 @@ public class PersonDao implements IDao<Person>
              * ExÃ©cuter la requÃªte
              */
             res = st.executeUpdate();
+            if(res != 0)
+            {
+                DaoLogger.logDaoError(className, methodName, "Echec lors de la liasion de l'utilisateur au cours demandé.");
+                throw new ExceptionDao("Échec lors de la tentative de création de lien entre cette personne et le cours demandé. Le cours ou l'étudiant n'existe pas.");
+            }
+
+            DaoLogger.logDaoInfo(className, methodName,"Le lien entre l'utilisateur et le cours a bien été créé.");
 
             /*
              * Fermer la connexion
@@ -437,7 +468,8 @@ public class PersonDao implements IDao<Person>
             cn.close();
 
         } catch (SQLException e) {
-            throw new ExceptionDao("Échec lors de la tentative de création de lien entre cette personne et le cours demandé. Le cours ou l'étudiant n'existe pas.");
+            DaoLogger.logDaoError(className, methodName,"La transaction INSERT dans la méthode LinkToCourse a échouée.",e);
+            throw new ExceptionDao("Impossible de lier l'utilisateur à ce cours. Veuillez contacter votre administrateur.");
         } finally {
 
         }

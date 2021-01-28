@@ -1,5 +1,7 @@
 package ensup.service;
 import ensup.exception.service.ExceptionService;
+import ensup.logger.LoggerDao;
+import ensup.logger.LoggerService;
 
 import java.util.List;
 
@@ -10,6 +12,8 @@ import java.util.List;
  */
 public interface IService<T>
 {
+    final LoggerService serviceLogger = new LoggerService();
+
     /**
      * list all T of the database.
      *

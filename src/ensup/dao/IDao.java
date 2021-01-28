@@ -1,6 +1,7 @@
 package ensup.dao;
 
 import ensup.exception.dao.ExceptionDao;
+import ensup.logger.LoggerDao;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ import java.util.List;
  */
 public interface IDao<T>
 {
+    final LoggerDao DaoLogger = new LoggerDao();
+
     /**
      * list all T of the database.
      *
