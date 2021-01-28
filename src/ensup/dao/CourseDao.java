@@ -117,6 +117,7 @@ public class CourseDao implements ICourseDao
 	@Override
 	public int getIndex( String coursesubject, float nbhours ) throws ExceptionDao
 	{
+		String methodName = getClass().getEnclosingMethod().getName();
 		Connection cn = Connect.openConnection();
 		int index = -1;
 		
@@ -129,6 +130,7 @@ public class CourseDao implements ICourseDao
 			if(!res.next()){
 
 				// TODO:  Add logger failed and successfull
+				DaoLogger.logDaoInfo(className, methodName,"Le cours " + coursesubject+" "+ nbhours + " Le cours n'existe pas dans la base de donnée.");
 				throw  new ExceptionDao("Le cours n'existe pas dans la base de donnée.");
 			}
 			while( res.next() )
@@ -137,6 +139,7 @@ public class CourseDao implements ICourseDao
 		catch (SQLException e) {
 
 			// TODO:  Add logger failed and successfull
+			DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",e);
 			throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
 		}
 		finally{
@@ -147,6 +150,7 @@ public class CourseDao implements ICourseDao
 			catch(SQLException sqle) {
 
 				// TODO:  Add logger failed and successfull
+				DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",sqle);
 				throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée.");
 			}
 		}
