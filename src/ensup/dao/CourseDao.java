@@ -16,7 +16,7 @@ public class CourseDao implements ICourseDao
 	@Override
 	public List<Course> getAll() throws ExceptionDao
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		Connection cn = Connect.openConnection();
 		List<Course> allCourse = new ArrayList<Course>();
 		
@@ -71,7 +71,7 @@ public class CourseDao implements ICourseDao
 	@Override
 	public Course get( int index )  throws ExceptionDao
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		Connection cn = Connect.openConnection();
 		Course cours = null;
 
@@ -117,7 +117,7 @@ public class CourseDao implements ICourseDao
 	@Override
 	public int getIndex( String coursesubject, float nbhours ) throws ExceptionDao
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		Connection cn = Connect.openConnection();
 		int index = -1;
 		
@@ -161,7 +161,7 @@ public class CourseDao implements ICourseDao
 	@Override
 	public int create( Course course ) throws ExceptionDao
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		int res = 1;
 		Connection cn = Connect.openConnection();
 		PreparedStatement pstmt = null;
@@ -218,7 +218,7 @@ public class CourseDao implements ICourseDao
 	@Override
 	public int update(Course course) throws ExceptionDao
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		int res = 1;
 		Course preCourse = get(course.getId());
 		String update = "";
@@ -263,7 +263,7 @@ public class CourseDao implements ICourseDao
 
 	@Override
 	public int delete( int index ) throws ExceptionDao {
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		int res = 1;
 		if( index != -1 && indexExist(index) )
 		{
