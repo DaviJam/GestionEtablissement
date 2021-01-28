@@ -444,14 +444,14 @@ public class PersonDao implements IDao<Person>
              * ExÃ©cuter la requÃªte
              */
             res = st.executeUpdate();
-            if(res != 0)
+            if(res == 0)
             {
                 DaoLogger.logDaoError(className, methodName, "Echec lors de la liasion de l'utilisateur au cours demandé.");
                 throw new ExceptionDao("Échec lors de la tentative de création de lien entre cette personne et le cours demandé. Le cours ou l'étudiant n'existe pas.");
             }
-
-            DaoLogger.logDaoInfo(className, methodName,"Le lien entre l'utilisateur et le cours a bien été créé.");
-
+            else {
+                DaoLogger.logDaoInfo(className, methodName, "Le lien entre l'utilisateur et le cours a bien été créé.");
+            }
             /*
              * Fermer la connexion
              */
