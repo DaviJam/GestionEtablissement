@@ -17,7 +17,7 @@ public class ConnectionService implements IConnectionService {
     
     @Override
     public int checkConnection(String mail, String mdp) throws ExceptionService {
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         int index;
         try {
             index = this.dao.checkPassword(mail, mdp); // Récupération du MDP et comparaison avec le mdp saisi

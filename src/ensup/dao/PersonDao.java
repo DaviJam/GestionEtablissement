@@ -54,7 +54,7 @@ public class PersonDao implements IDao<Person>
      */
     @Override
     public int create(Person entity) throws ExceptionDao {
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -128,7 +128,7 @@ public class PersonDao implements IDao<Person>
      */
     @Override
     public int update(Person entity) throws ExceptionDao{
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -202,7 +202,7 @@ public class PersonDao implements IDao<Person>
     @Override
     public Person get(int index) throws ExceptionDao {
         Person p1 = null;
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -288,7 +288,7 @@ public class PersonDao implements IDao<Person>
     @Override
     public List<Person> getAll() throws ExceptionDao {
         List<Person> listPerson = new ArrayList<Person>();
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -380,7 +380,7 @@ public class PersonDao implements IDao<Person>
      */
     @Override
     public int delete(int index) throws ExceptionDao {
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -424,7 +424,7 @@ public class PersonDao implements IDao<Person>
      * @return Result of the request
      */
     public int LinkToCourse(int entity, int course) throws ExceptionDao {
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 
         try {
             /*

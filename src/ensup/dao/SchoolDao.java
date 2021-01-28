@@ -21,7 +21,7 @@ public class SchoolDao implements ISchoolDao
 	
 	public List<School> getAll() throws ExceptionDao
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 
 		Connection cn = Connect.openConnection();
 		List<School> alSchool = new ArrayList<School>();
@@ -63,7 +63,7 @@ public class SchoolDao implements ISchoolDao
 	
 	public School get( int index ) throws ExceptionDao
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 
 		Connection cn = Connect.openConnection();
 		School school = null;
@@ -102,7 +102,7 @@ public class SchoolDao implements ISchoolDao
 	
 	public int getIndex( String surname ) throws ExceptionDao
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 
 		Connection cn = Connect.openConnection();
 		int index = -1;
@@ -141,7 +141,7 @@ public class SchoolDao implements ISchoolDao
 	
 	public int create( School school ) throws ExceptionDao
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 
 		int res = 1;
 		Connection cn = Connect.openConnection();
@@ -195,7 +195,7 @@ public class SchoolDao implements ISchoolDao
 
 	public int update(School school) throws ExceptionDao
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 
 		int res = 1;
 		School preSchool = get(school.getId());
@@ -247,7 +247,7 @@ public class SchoolDao implements ISchoolDao
 
 	public int delete( int index ) throws ExceptionDao
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 
 		int res = 1;
 		if( index != -1 && indexExist(index) )
@@ -284,7 +284,7 @@ public class SchoolDao implements ISchoolDao
 
 	public int delete( School school ) throws ExceptionDao
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		try
 		{
 			DaoLogger.logDaoInfo(className, methodName, "La méthode delete a été appelé avec succés.");
@@ -297,7 +297,7 @@ public class SchoolDao implements ISchoolDao
 	
 	public boolean indexExist(int index) throws ExceptionDao
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		List<School> alSchool;
 		boolean exist = false;
 

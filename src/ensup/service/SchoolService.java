@@ -29,7 +29,7 @@ public class SchoolService implements IService<SchoolDTO> {
 
 	public List<SchoolDTO> getAll() throws ExceptionService
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		List<SchoolDTO> listSchoolDto = new ArrayList<SchoolDTO>();
 
 		try{
@@ -47,7 +47,7 @@ public class SchoolService implements IService<SchoolDTO> {
 
 	public SchoolDTO get(int index) throws ExceptionService
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		try{
 			return SchoolMapper.businessToDto(this.dao.get(index));
 		} catch(ExceptionDao e){
@@ -58,7 +58,7 @@ public class SchoolService implements IService<SchoolDTO> {
 
 	public int create(SchoolDTO schoolDto) throws ExceptionService
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		try{
 			return this.dao.create(SchoolMapper.dtoToBusiness(schoolDto));
 		} catch(ExceptionDao e){
@@ -70,7 +70,7 @@ public class SchoolService implements IService<SchoolDTO> {
 
 	public int update(SchoolDTO schoolDto) throws ExceptionService
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		School school = SchoolMapper.dtoToBusiness(schoolDto);
 		school.setId(schoolDto.getId());
 		try{
@@ -84,7 +84,7 @@ public class SchoolService implements IService<SchoolDTO> {
 
 	public int delete(SchoolDTO schoolDto) throws ExceptionService
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		try{
 			return this.dao.delete(schoolDto.getId());
 		} catch(ExceptionDao e){
@@ -98,7 +98,7 @@ public class SchoolService implements IService<SchoolDTO> {
 	
 	public int delete(int index) throws ExceptionService
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		try
 		{
 			return this.dao.delete(index);
@@ -116,7 +116,7 @@ public class SchoolService implements IService<SchoolDTO> {
 	 */
 	public int getIndex( String surname ) throws ExceptionService
 	{
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		try
 		{
 			return this.dao.getIndex(surname);

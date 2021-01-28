@@ -32,7 +32,7 @@ public class PersonService implements IEntityService<PersonDTO> {
     // Create Person
     @Override
     public int create(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) throws ExceptionService {
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         // Checker le role et faire une instace et l'envoyer dans le DAO
         int check = 0;
         switch(role){
@@ -85,7 +85,7 @@ public class PersonService implements IEntityService<PersonDTO> {
     // Update Person
     @Override
     public int update(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) throws ExceptionService {
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         int res = 0;
         switch(role){
             case 1: // Director
@@ -134,7 +134,7 @@ public class PersonService implements IEntityService<PersonDTO> {
 
     @Override
     public int delete(int index) throws ExceptionService {
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         int res = 0;
         try{
          res = this.dao.delete(index);
@@ -147,7 +147,7 @@ public class PersonService implements IEntityService<PersonDTO> {
 
     @Override
     public int linkToCourse(int idEtudiant, int idCourse) throws ExceptionService {
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         try {
             int res = this.dao.LinkToCourse(idEtudiant, idCourse);
             return res;
@@ -160,7 +160,7 @@ public class PersonService implements IEntityService<PersonDTO> {
 
     @Override
     public PersonDTO get(int index) throws ExceptionService {
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         try{
         Person person = this.dao.get(index);
         PersonDTO personDTO = new PersonDTO();
@@ -188,7 +188,7 @@ public class PersonService implements IEntityService<PersonDTO> {
 
     @Override
     public List<PersonDTO> getAll() throws ExceptionService{
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         List<PersonDTO> personDTOList = new ArrayList<PersonDTO>();
         try {
             this.dao.getAll().forEach(person -> {
