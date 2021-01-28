@@ -25,7 +25,7 @@ public class CourseService implements ICourseService {
     }
 
     public List<CourseDTO> getAll() throws ExceptionService {
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         List<CourseDTO> listCourseDto = new ArrayList<CourseDTO>();
 
 		try {
@@ -39,7 +39,7 @@ public class CourseService implements ICourseService {
     }
 
 	public CourseDTO get(int index) throws ExceptionService {
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		CourseDTO courseDTO;
     	try {
 			courseDTO = CourseMapper.businessToDto(this.dao.get(index));
@@ -51,7 +51,7 @@ public class CourseService implements ICourseService {
 	}
 
 	public int create(CourseDTO courseDto) throws ExceptionService {
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		int res;
     	try {
 			res = this.dao.create(CourseMapper.dtoToBusiness(courseDto));
@@ -63,7 +63,7 @@ public class CourseService implements ICourseService {
 	}
 
 	public int update(CourseDTO courseDto) throws ExceptionService {
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		Course course = CourseMapper.dtoToBusiness(courseDto);
 		course.setId(courseDto.getId());
 		int ret;
@@ -81,7 +81,7 @@ public class CourseService implements ICourseService {
 	}
 	
 	public int delete(int index) throws ExceptionService {
-		String methodName = getClass().getEnclosingMethod().getName();
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		int ret;
     	try {
 			ret = this.dao.delete(index);

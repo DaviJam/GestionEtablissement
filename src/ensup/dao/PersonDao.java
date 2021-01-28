@@ -54,7 +54,7 @@ public class PersonDao implements IDao<Person>
      */
     @Override
     public int create(Person entity) throws ExceptionDao {
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -116,8 +116,6 @@ public class PersonDao implements IDao<Person>
         } catch (SQLException e) {
             DaoLogger.logDaoError(className, methodName,"Problème d'ajout d'une personne à la base de donnée.",e);
             throw new ExceptionDao("Impossible de créer l'utilisateur. Veuillez contacter votre administrateur.");
-        } finally {
-
         }
         return res;
     }
@@ -130,7 +128,7 @@ public class PersonDao implements IDao<Person>
      */
     @Override
     public int update(Person entity) throws ExceptionDao{
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -191,8 +189,6 @@ public class PersonDao implements IDao<Person>
         } catch (SQLException e) {
             DaoLogger.logDaoError(className, methodName,"La transaction UPDATE dans la méthode update a échouée.",e);
             throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée. Veuillez contacter votre administrateur.");
-        } finally {
-
         }
         return res;
     }
@@ -206,7 +202,7 @@ public class PersonDao implements IDao<Person>
     @Override
     public Person get(int index) throws ExceptionDao {
         Person p1 = null;
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -280,8 +276,6 @@ public class PersonDao implements IDao<Person>
         } catch (SQLException e) {
             DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode get a échouée.",e);
             throw new ExceptionDao("Un problème est survenu au niveau de la base de donnée. Veuillez contacter votre administrateur.");
-        } finally {
-
         }
         return p1;
     }
@@ -294,7 +288,7 @@ public class PersonDao implements IDao<Person>
     @Override
     public List<Person> getAll() throws ExceptionDao {
         List<Person> listPerson = new ArrayList<Person>();
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -374,8 +368,6 @@ public class PersonDao implements IDao<Person>
         } catch (SQLException e) {
             DaoLogger.logDaoError(className, methodName,"La transaction SELECT dans la méthode getAll a échouée.",e);
             throw new ExceptionDao("Impossible de récupérer les informations demandées. Veuillez contacter votre administrateur.");
-        } finally {
-
         }
         return listPerson;
     }
@@ -388,7 +380,7 @@ public class PersonDao implements IDao<Person>
      */
     @Override
     public int delete(int index) throws ExceptionDao {
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         try {
             /*
              * CrÃ©er la connexion
@@ -420,8 +412,6 @@ public class PersonDao implements IDao<Person>
         } catch (SQLException e) {
             DaoLogger.logDaoError(className, methodName,"La transaction Delete dans la méthode delete a échouée.",e);
             throw new ExceptionDao("Impossible de supprimer les informations de cette personne. Veuillez contacter votre administrateur.");
-        } finally {
-
         }
         return 0;
     }
@@ -434,7 +424,7 @@ public class PersonDao implements IDao<Person>
      * @return Result of the request
      */
     public int LinkToCourse(int entity, int course) throws ExceptionDao {
-        String methodName = getClass().getEnclosingMethod().getName();
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 
         try {
             /*
@@ -470,8 +460,6 @@ public class PersonDao implements IDao<Person>
         } catch (SQLException e) {
             DaoLogger.logDaoError(className, methodName,"La transaction INSERT dans la méthode LinkToCourse a échouée.",e);
             throw new ExceptionDao("Impossible de lier l'utilisateur à ce cours. Veuillez contacter votre administrateur.");
-        } finally {
-
         }
         return 0;
     }
