@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static ensup.dao.Connect.openConnection;
+import static ensup.dao.IDao.DaoLogger;
 
 /**
  * The type Dao login.
@@ -28,6 +29,8 @@ public class LoginDao {
      */
     ResultSet rs = null;
 
+
+    String className = getClass().getName();
     /**
      * The update, create and remove result.
      */
@@ -42,6 +45,7 @@ public class LoginDao {
      */
     public int checkPassword(String mail, String password) throws ExceptionDao {
         int id = 0;
+        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         try {
             /*
              * Crer la connexion
@@ -64,14 +68,14 @@ public class LoginDao {
 
             if (rs.next()) {
                 id = rs.getInt("id");
-                // TODO:  Add logger failed and successfull
+                DaoLogger.logDaoInfo(className, methodName,"L'utilisateur " + mail +  " authentifié");
             } else {
-                // TODO:  Add logger failed and successfull
+                DaoLogger.logDaoError(className, methodName,mail + " : Identifiant ou mot de passe incorrect.");
                 throw new ExceptionDao("Identifiant ou mot de passe incorrect.");
             }
 
         } catch (SQLException throwables) {
-            // TODO:  Add logger failed and successfull
+            DaoLogger.logDaoError(className, methodName,"Une erreur est survenue lors de la vérification du mot de passe de l'utilisateur.",throwables);
             throw new ExceptionDao("Une erreur est survenue lors de la vérification du mot de passe de l'utilisateur.");
         }
         return id;
