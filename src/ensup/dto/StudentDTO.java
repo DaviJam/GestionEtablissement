@@ -143,7 +143,8 @@ public class StudentDTO extends PersonDTO{
         String res = super.toString();
         res = res.replace("Person", "Student");
         res = res.substring(0, res.length()-1);
-        res = res + ", dateOfBirth=\" + dateOfBirth + \"]";
+        res = res + ", dateOfBirth=" + dateOfBirth;
+        res = res + ", average=" + average + "]";
 
         return res;
     }

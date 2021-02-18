@@ -2,11 +2,13 @@ package ensup.presentation;
 
 import ensup.business.Role;
 import ensup.dto.CourseDTO;
+import ensup.dto.MarkDTO;
 import ensup.dto.PersonDTO;
 import ensup.dto.StudentDTO;
 import ensup.exception.service.ExceptionService;
 import ensup.service.CourseService;
 import ensup.service.ConnectionService;
+import ensup.service.MarkService;
 import ensup.service.PersonService;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -95,6 +97,14 @@ public class App {
     private JButton returnBtn4;
     private JButton averageBtn;
     private JTextField textField17;
+    private JPanel markPanel;
+    private JButton markBtn;
+    private JComboBox comboBoxCourseMark;
+    private JComboBox comboBoxStrudentMark;
+    private JTextField textFieldMark;
+    private JTextField textFieldAppreciationMark;
+    private JButton addBtnMark;
+    private JButton returnBoutton6;
     private JPanel contentChart;
     private JPanel contentPieChart;
     private JComboBox comboBox4;
@@ -626,6 +636,69 @@ public class App {
                 contentPieChart.removeAll();
                 contentPieChart.add(chartPanel2,BorderLayout.CENTER);
                 contentPieChart.validate();
+            }
+        });
+
+        markBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(false);
+                markPanel.setVisible(true);
+
+                //Add item in combobox course
+                CourseService cs = new CourseService();
+                comboBoxCourseMark.removeAll();
+                comboBoxCourseMark.removeAllItems();
+                try {
+                    for(CourseDTO c : cs.getAll()){
+                        comboBoxCourseMark.addItem(new Item(c.getId(), c.getCourseSubject()));
+                    }
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
+                }
+
+                //Add item in combobox student
+                PersonService ps = new PersonService();
+
+                comboBoxStrudentMark.removeAll();
+                comboBoxStrudentMark.removeAllItems();
+                try {
+                    for(PersonDTO p : ps.getAll()){
+                        if(p instanceof StudentDTO) {
+                            comboBoxStrudentMark.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
+                        }
+                    }
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
+                }
+            }
+        });
+        addBtnMark.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Item item = (Item) comboBoxCourseMark.getSelectedItem();
+                int idCourse = item.getId();
+                Item item2 = (Item) comboBoxStrudentMark.getSelectedItem();
+                int idStudent = item2.getId();
+
+                MarkService ps = new MarkService();
+                try {
+                    ps.create(new MarkDTO( idStudent, idCourse, Float.parseFloat(textFieldMark.getText()), textFieldAppreciationMark.getText()));
+                    JOptionPane.showMessageDialog(null, "Note ajoutee avec succes.");
+                    textFieldMark.setText("");
+                    textFieldAppreciationMark.setText("");
+                    comboBoxCourseMark.setSelectedIndex(-1);
+                    comboBoxStrudentMark.setSelectedIndex(-1);
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
+                }
+            }
+        });
+        returnBoutton6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                markPanel.setVisible(false);
             }
         });
     }

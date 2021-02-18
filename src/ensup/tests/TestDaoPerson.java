@@ -1,13 +1,19 @@
 package ensup.tests;
 
-import ensup.business.*;
-import ensup.dao.PersonDao;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import ensup.business.Director;
+import ensup.business.Manager;
+import ensup.business.Person;
+import ensup.business.Student;
+import ensup.business.Teacher;
+import ensup.dao.PersonDao;
+import ensup.exception.service.ExceptionService;
+import ensup.service.PersonService;
 
 /**
  * The type Test dao person.
@@ -21,6 +27,13 @@ public class TestDaoPerson {
     public TestDaoPerson() {
         this._dao = new PersonDao();
     }
+    
+
+	
+	public void testGetMoyenne() throws ExceptionService {
+		float moyenne = (new PersonService()).getAverage(119);
+		System.out.println("\nTest GetMoyenne: "+moyenne);
+	}
 
     /**
      * Test create boolean.
