@@ -79,6 +79,7 @@ public class App {
     private JPanel averagePanel;
     private JButton returnBtn4;
     private JButton averageBtn;
+    private JTextField textField17;
     private JComboBox comboBox4;
 
 
@@ -391,6 +392,7 @@ public class App {
                         textField4.setText(p.getMailAddress());
                         textField5.setText(p.getAddress());
                         textField6.setText(p.getPhoneNumber());
+                        textField17.setText(Double.toString(((StudentDTO) p).getAverage()));
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         try {
                             Date date = sdf.parse(((StudentDTO) p).getDateOfBirth().toString());
@@ -487,7 +489,7 @@ public class App {
                         PersonService sp = new PersonService();
                         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                         Date auj = sdf.parse(textField7.getText());
-                        sp.update(textField3.getText(), textField4.getText(), textField5.getText(), textField6.getText(), textField2.getText(), passwordField2.getText(), 4, auj ,"");
+                        sp.update(textField3.getText(), textField4.getText(), textField5.getText(), textField6.getText(), textField2.getText(), passwordField2.getText(), 4, auj ,"", Double.parseDouble(textField17.getText()));
                         JOptionPane.showMessageDialog(null, "Les informations de l'étudiant ont bien été modifié");
                     } catch (NumberFormatException | ParseException nfe) {
                         JOptionPane.showMessageDialog(null, "Un des paramètres n'a pas été renseigné");

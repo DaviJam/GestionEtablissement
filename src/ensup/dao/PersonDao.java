@@ -148,7 +148,7 @@ public class PersonDao implements IDao<Person>
                     "role = ?, "+
                     "password = ?, "+
                     "dateofbirth = ?, "+
-                    "subjecttaught = ? "+
+                    "subjecttaught = ?, "+
                     "average = ? "+
                     "WHERE email = ?";
             st = cn.prepareStatement(sql_request);
