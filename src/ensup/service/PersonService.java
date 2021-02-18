@@ -84,7 +84,7 @@ public class PersonService implements IEntityService<PersonDTO> {
 
     // Update Person
     @Override
-    public int update(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught, float average) throws ExceptionService {
+    public int update(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught, double average) throws ExceptionService {
         String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         int res = 0;
         switch(role){

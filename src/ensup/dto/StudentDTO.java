@@ -9,14 +9,14 @@ import java.util.Date;
  */
 public class StudentDTO extends PersonDTO{
     private Date dateOfBirth;
-    private float average;
+    private double average;
 
     /**
      * Gets average.
      *
      * @return the average
      */
-    public float getAverage() {
+    public double getAverage() {
         return average;
     }
 
@@ -25,7 +25,7 @@ public class StudentDTO extends PersonDTO{
      *
      * @param average the average
      */
-    public void setAverage(float average) {
+    public void setAverage(double average) {
         this.average = average;
     }
 
@@ -48,7 +48,7 @@ public class StudentDTO extends PersonDTO{
      * @param dateOfBirth the date of birth
      * @param average     the average
      */
-    public StudentDTO(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password, Date dateOfBirth, float average) {
+    public StudentDTO(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password, Date dateOfBirth, double average) {
         super(lastname, mailAddress, address, phoneNumber, id, firstname, Role.STUDENT, password);
         this.dateOfBirth = dateOfBirth;
         this.average = average;

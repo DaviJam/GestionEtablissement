@@ -10,17 +10,17 @@ import java.util.Date;
 public class Student extends Person
 {
 	private Date dateOfBirth;
-	private float average;
+	private double average;
 
-	public float getAverage() {
+	public double getAverage() {
 		return average;
 	}
 
-	public void setAverage(float average) {
+	public void setAverage(double average) {
 		this.average = average;
 	}
 
-	public Student(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password, Date dateOfBirth, float average) {
+	public Student(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password, Date dateOfBirth, double average) {
 		super(lastname, mailAddress, address, phoneNumber, id, firstname, Role.STUDENT, password);
 		this.dateOfBirth = dateOfBirth;
 		this.average = average;

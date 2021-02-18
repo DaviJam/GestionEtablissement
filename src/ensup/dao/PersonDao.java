@@ -89,7 +89,7 @@ public class PersonDao implements IDao<Person>
             {
                 st.setDate  (8, new java.sql.Date(((Student) entity).getDateOfBirth().getTime()));
                 st.setString (9, null);
-                st.setFloat(10, ((Student) entity).getAverage());
+                st.setDouble(10, ((Student) entity).getAverage());
             }else if(entity instanceof Teacher)
             {
                 st.setDate  (8, null);
@@ -162,17 +162,17 @@ public class PersonDao implements IDao<Person>
             {
                 st.setDate  (7, new java.sql.Date(((Student) entity).getDateOfBirth().getTime()));
                 st.setString(8, null);
-                st.setFloat(9, ((Student) entity).getAverage());
+                st.setDouble(9, ((Student) entity).getAverage());
             }else if(entity instanceof Teacher)
             {
                 st.setDate(7, null);
                 st.setString (8, ((Teacher) entity).getSubjectTaught());
-                st.setFloat(9, (Float)null);
+                st.setDouble(9, (Double)null);
             }else
             {
                 st.setDate(7, null);
                 st.setString (8, null);
-                st.setFloat(9, (Float)null);
+                st.setDouble(9, (Double)null);
             }
             st.setString (10,  entity.getMailAddress());
             /*
