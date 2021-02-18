@@ -4,9 +4,24 @@ import ensup.business.Role;
 import ensup.dto.CourseDTO;
 import ensup.dto.PersonDTO;
 import ensup.dto.StudentDTO;
+import ensup.exception.service.ExceptionService;
 import ensup.service.CourseService;
 import ensup.service.ConnectionService;
 import ensup.service.PersonService;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.Value;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -18,6 +33,7 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -75,6 +91,13 @@ public class App {
     private JTable table1;
     private JScrollPane scrollPane1;
     private JButton logoutBtn;
+    private JPanel averagePanel;
+    private JButton returnBtn4;
+    private JButton averageBtn;
+    private JTextField textField17;
+    private JPanel contentChart;
+    private JPanel contentPieChart;
+    private JComboBox comboBox4;
 
 
     /**
@@ -85,22 +108,34 @@ public class App {
         connexionBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ConnectionService sc = new ConnectionService();
-                PersonService sp = new PersonService();
+                String login = textField1.getText();
+                String pwd = passwordField1.getText();
+                //Check if user set all input
+                if (!login.isEmpty()  && !pwd.isEmpty()) {
+                    ConnectionService sc = new ConnectionService();
+                    PersonService sp = new PersonService();
 
-                int idConnexion = sc.checkConnection(textField1.getText(), passwordField1.getText());
-                PersonDTO p = sp.get(idConnexion);
-                Role r = p.getRole();
-                if (r.getNum() == 1 || r.getNum() == 2) {
-                    connexionPanel.setVisible(false);
-                    menuPanel.setVisible(true);
-                    if (r.getNum() == 1) {
-                        studentListBtn.setVisible(true);
-                    } else {
-                        studentListBtn.setVisible(false);
+                    int idConnexion = 0;
+                    try {
+                        idConnexion = sc.checkConnection(textField1.getText(), passwordField1.getText());
+
+                        PersonDTO p = sp.get(idConnexion);
+                        Role r = p.getRole();
+                        if (r.getNum() == 1 || r.getNum() == 2) {
+                            connexionPanel.setVisible(false);
+                            menuPanel.setVisible(true);
+                            if (r.getNum() == 1) {
+                                studentListBtn.setVisible(true);
+                            } else {
+                                studentListBtn.setVisible(false);
+                            }
+                        }
+                    } catch (ExceptionService es) {
+                        JOptionPane.showMessageDialog(null, es.getMessage());
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
                 }
-
                 //JOptionPane.showMessageDialog(null, textField1.getText());
             }
         });
@@ -132,10 +167,14 @@ public class App {
                 PersonService ps = new PersonService();
                 comboBox1.removeAll();
                 comboBox1.removeAllItems();
-                for(PersonDTO p : ps.getAll()){
-                    if(p instanceof StudentDTO) {
-                        comboBox1.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
+                try {
+                    for(PersonDTO p : ps.getAll()){
+                        if(p instanceof StudentDTO) {
+                            comboBox1.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
+                        }
                     }
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
                 }
             }
         });
@@ -149,8 +188,12 @@ public class App {
                 CourseService cs = new CourseService();
                 comboBox3.removeAll();
                 comboBox3.removeAllItems();
-                for(CourseDTO c : cs.getAll()){
-                    comboBox3.addItem(new Item(c.getId(), c.getCourseSubject()));
+                try {
+                    for(CourseDTO c : cs.getAll()){
+                        comboBox3.addItem(new Item(c.getId(), c.getCourseSubject()));
+                    }
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
                 }
 
                 //Add item in combobox student
@@ -158,10 +201,14 @@ public class App {
 
                 comboBox2.removeAll();
                 comboBox2.removeAllItems();
-                for(PersonDTO p : ps.getAll()){
-                    if(p instanceof StudentDTO) {
-                        comboBox2.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
+                try {
+                    for(PersonDTO p : ps.getAll()){
+                        if(p instanceof StudentDTO) {
+                            comboBox2.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
+                        }
                     }
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
                 }
             }
         });
@@ -180,36 +227,44 @@ public class App {
                 };
                 PersonService ps = new PersonService();
                 int nbStudent = 0;
-                for(PersonDTO p : ps.getAll()){
-                    if(p instanceof StudentDTO) {
-                        nbStudent++;
+                try {
+                    for(PersonDTO p : ps.getAll()){
+                        if(p instanceof StudentDTO) {
+                            nbStudent++;
+                        }
                     }
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
                 }
 
                 Object[][] data = new Object[nbStudent][7];
                 int count = 0;
-                for(PersonDTO p : ps.getAll()){
-                    if(p instanceof StudentDTO) {
-                        data[count][0] = p.getFirstname();
-                        data[count][1] = p.getLastname();
-                        data[count][2] = p.getMailAddress();
-                        data[count][3] = p.getAddress();
-                        data[count][4] = p.getPhoneNumber();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        try {
-                            Date dob = sdf.parse(((StudentDTO) p).getDateOfBirth().toString());
-                            String strDate = sdf.format(dob);
-                            data[count][5] = strDate;
-                        } catch (ParseException parseException) {
-                            parseException.printStackTrace();
+                try {
+                    for(PersonDTO p : ps.getAll()){
+                        if(p instanceof StudentDTO) {
+                            data[count][0] = p.getFirstname();
+                            data[count][1] = p.getLastname();
+                            data[count][2] = p.getMailAddress();
+                            data[count][3] = p.getAddress();
+                            data[count][4] = p.getPhoneNumber();
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            try {
+                                Date dob = sdf.parse(((StudentDTO) p).getDateOfBirth().toString());
+                                String strDate = sdf.format(dob);
+                                data[count][5] = strDate;
+                            } catch (ParseException parseException) {
+                                parseException.printStackTrace();
+                            }
+
+
+                            data[count][6] = "Gérer l'étudiant";
+
+
+                            count++;
                         }
-
-
-                        data[count][6] = "Gérer l'étudiant";
-
-
-                        count++;
                     }
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
                 }
 
 
@@ -231,7 +286,7 @@ public class App {
 
                 table1.getColumn("Action1").setCellRenderer( new DefaultTableCellRenderer() {
                     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) { setText(value.toString()); setBackground(new Color(255, 193 ,7));
-                    return this;
+                        return this;
                     }
                 });
 
@@ -277,15 +332,19 @@ public class App {
                                 //Add item in combobox student
                                 PersonService ps = new PersonService();
                                 comboBox1.removeAllItems();
-                                for(PersonDTO p : ps.getAll()){
-                                    //On filtre toutes les Personne de type Student et on regarde si sont email corresponds a celui de la ligne sélectionner
-                                    if(p instanceof StudentDTO ) {
-                                        Item i = new Item(p.getId(), p.getFirstname() + " " + p.getLastname());
-                                        comboBox1.addItem(i);
-                                        if(p.getMailAddress().equals(personSelect)){
-                                            comboBox1.setSelectedItem(i);
+                                try {
+                                    for(PersonDTO p : ps.getAll()){
+                                        //On filtre toutes les Personne de type Student et on regarde si sont email corresponds a celui de la ligne sélectionner
+                                        if(p instanceof StudentDTO ) {
+                                            Item i = new Item(p.getId(), p.getFirstname() + " " + p.getLastname());
+                                            comboBox1.addItem(i);
+                                            if(p.getMailAddress().equals(personSelect)){
+                                                comboBox1.setSelectedItem(i);
+                                            }
                                         }
                                     }
+                                } catch (ExceptionService es) {
+                                    JOptionPane.showMessageDialog(null, es.getMessage());
                                 }
 
 
@@ -305,7 +364,7 @@ public class App {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TF8 et TF9
-                if (textField8.getText() == "" || textField9.getText() == "") {
+                if (textField8.getText().isEmpty() || textField9.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Un des champs est vide");
                 } else {
                     //If nb hours is not numeric return msgbox
@@ -319,8 +378,8 @@ public class App {
                         comboBox3.addItem(textField8.getText());
                         textField8.setText("");
                         textField9.setText("");
-                    } catch (NumberFormatException nfe) {
-                        JOptionPane.showMessageDialog(null, "Le nombre d'heure n'est pas un nombre (ex: 1.5)");
+                    } catch (ExceptionService es) {
+                        JOptionPane.showMessageDialog(null, es.getMessage());
                     }
                 }
             }
@@ -336,7 +395,12 @@ public class App {
                 if (item != null) {
                     //On affiche les informations utilisateurs
                     PersonService ps = new PersonService();
-                    PersonDTO p = ps.get(item.getId());
+                    PersonDTO p = null;
+                    try {
+                        p = ps.get(item.getId());
+                    } catch (ExceptionService es) {
+                        JOptionPane.showMessageDialog(null, es.getMessage());
+                    }
                     if (p instanceof StudentDTO) {
                         String s = String.valueOf(p.getId());
                         hiddenTextField1.setText(s);
@@ -345,6 +409,7 @@ public class App {
                         textField4.setText(p.getMailAddress());
                         textField5.setText(p.getAddress());
                         textField6.setText(p.getPhoneNumber());
+                        textField17.setText(Double.toString(((StudentDTO) p).getAverage()));
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         try {
                             Date date = sdf.parse(((StudentDTO) p).getDateOfBirth().toString());
@@ -363,7 +428,11 @@ public class App {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PersonService ps = new PersonService();
-                ps.delete(parseInt(hiddenTextField1.getText()));
+                try {
+                    ps.delete(parseInt(hiddenTextField1.getText()));
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
+                }
 
                 hiddenTextField1.setText("");
                 textField2.setText("");
@@ -397,8 +466,11 @@ public class App {
                         textField14.setText("");
                         textField15.setText("");
                         textField16.setText("");
+                        JOptionPane.showMessageDialog(null, "L'étudiant à bien été crée");
                     } catch (NumberFormatException | ParseException nfe) {
                         JOptionPane.showMessageDialog(null, "Un des paramètres à pas a été renseigné");
+                    } catch (ExceptionService es) {
+                        JOptionPane.showMessageDialog(null, es.getMessage());
                     }
                 }
             }
@@ -412,7 +484,11 @@ public class App {
                 int idStudent = item2.getId();
 
                 PersonService ps = new PersonService();
-                ps.linkToCourse(idStudent, idCourse);
+                try {
+                    ps.linkToCourse(idStudent, idCourse);
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
+                }
             }
         });
 
@@ -430,10 +506,12 @@ public class App {
                         PersonService sp = new PersonService();
                         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
                         Date auj = sdf.parse(textField7.getText());
-                        sp.update(textField3.getText(), textField4.getText(), textField5.getText(), textField6.getText(), textField2.getText(), passwordField2.getText(), 4, auj ,"");
+                        sp.update(textField3.getText(), textField4.getText(), textField5.getText(), textField6.getText(), textField2.getText(), passwordField2.getText(), 4, auj ,"", Double.parseDouble(textField17.getText()));
                         JOptionPane.showMessageDialog(null, "Les informations de l'étudiant ont bien été modifié");
                     } catch (NumberFormatException | ParseException nfe) {
                         JOptionPane.showMessageDialog(null, "Un des paramètres n'a pas été renseigné");
+                    } catch (ExceptionService es) {
+                        JOptionPane.showMessageDialog(null, es.getMessage());
                     }
                 }
             }
@@ -441,35 +519,182 @@ public class App {
 
         modifyStudent.addActionListener(modifyStudentAction);
 
-            //Btn return
-            returnBtn.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    menuPanel.setVisible(true);
-                    studentPanel.setVisible(false);
+        //Btn return
+        returnBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                studentPanel.setVisible(false);
+            }
+        });
+        returnBtn1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                coursePanel.setVisible(false);
+            }
+        });
+        returnBtn2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                studentListPanel.setVisible(false);
+            }
+        });
+        returnBtn3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                addStudentPanel.setVisible(false);
+            }
+        });
+        returnBtn4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                averagePanel.setVisible(false);
+            }
+        });
+        averageBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(false);
+                averagePanel.setVisible(true);
+                JFreeChart histo = ChartFactory.createBarChart("Classement des étudiants par moyenne", "Moyenne", "Etudiant", createDataset(), PlotOrientation.VERTICAL, true, true,false);
+                histo.getPlot().setBackgroundPaint(new Color(39,55,70));
+                histo.setBackgroundPaint(new Color(39,55,70));
+                histo.getLegend().setBackgroundPaint(new Color(39,55,70));
+                histo.getTitle().setPaint(new Color(255,255,255));
+                //CategoryPlot plot = histo.getCategoryPlot();
+                //plot.getRenderer().setSeriesPaint(0, new Color(217,83,79));
+               // plot.getRenderer().setSeriesPaint(1, new Color(240,173,78));
+               // plot.getRenderer().setSeriesPaint(2, new Color(92,184,92));
+                //plot.getRenderer().setSeriesPaint(3, new Color(2,117,216));
+                 ///Get instance of CategoryPlot /
+                 CategoryPlot plot = histo.getCategoryPlot();
+
+                // Change Bar colors */
+                BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+                renderer.setSeriesPaint(0, new Color(217,83,79));
+                renderer.setSeriesPaint(1, new Color(240,173,78));
+                renderer.setSeriesPaint(2, new Color(92,184,92));
+                renderer.setSeriesPaint(3, new Color(2,117,216));
+                renderer.setDrawBarOutline(false);
+                renderer.setItemMargin(0);
+                renderer.setLegendTextPaint(0,new Color(255,255,255));
+                renderer.setLegendTextPaint(1,new Color(255,255,255));
+                renderer.setLegendTextPaint(2,new Color(255,255,255));
+                renderer.setLegendTextPaint(3,new Color(255,255,255));
+
+                plot.getDomainAxis().setLabelPaint(new Color(255,255,255));
+                plot.getRangeAxis().setLabelPaint(new Color(255,255,255));
+                plot.getDomainAxis().setTickLabelPaint(new Color(255,255,255));
+                plot.getRangeAxis().setTickLabelPaint(new Color(255,255,255));
+                plot.getRangeAxis().setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
+
+                /***XYPlot xyPlot = histo.getXYPlot();
+                ((CategoryPlot) plot).getDomainAxis().setLabelPaint(new Color(255,255,255));
+                xyPlot.getDomainAxis().setLabelPaint(new Color(255,255,255));
+                xyPlot.getRangeAxis().setLabelPaint(new Color(255,255,255));**/
+
+
+
+
+                ChartPanel chartPanel = new ChartPanel(histo);
+                chartPanel.setBackground(new Color(39,55,70));
+                contentChart.removeAll();
+                contentChart.add(chartPanel,BorderLayout.CENTER);
+                contentChart.validate();
+
+                JFreeChart pieChart = ChartFactory.createPieChart("Niveau des étudiants par moyenne", createPieDataset());
+                pieChart.getPlot().setBackgroundPaint(new Color(39,55,70));
+                pieChart.getLegend().setBackgroundPaint(new Color(39,55,70));
+                pieChart.setBackgroundPaint(new Color(39,55,70));
+                pieChart.getTitle().setPaint(new Color(255,255,255));
+                pieChart.getLegend().setItemPaint(new Color(255,255,255));
+                pieChart.getPlot().setOutlinePaint(null);
+                PiePlot plot1 = (PiePlot)pieChart.getPlot();
+                plot1.setSectionPaint(0, new Color(217,83,79));
+                plot1.setSectionPaint(1, new Color(240,173,78));
+                plot1.setSectionPaint(2, new Color(92,184,92));
+                plot1.setSectionPaint(3, new Color(2,117,216));
+
+                ChartPanel chartPanel2 = new ChartPanel(pieChart);
+                chartPanel2.setBackground(new Color(39,55,70));
+                contentPieChart.removeAll();
+                contentPieChart.add(chartPanel2,BorderLayout.CENTER);
+                contentPieChart.validate();
+            }
+        });
+    }
+
+    private DefaultCategoryDataset createDataset() {
+            int badStudent = 0;
+            int averageStudent = 0;
+            int goodStudent = 0;
+            int excellentStudent = 0;
+            //Add item in combobox student
+            PersonService ps = new PersonService();
+            try {
+                for(PersonDTO p : ps.getAll()){
+                    if(p instanceof StudentDTO) {
+                        if(((StudentDTO) p).getAverage() < 8){
+                            badStudent++;
+                        }else if(((StudentDTO) p).getAverage() >= 8 && ((StudentDTO) p).getAverage() < 12){
+                            averageStudent++;
+                        }else if(((StudentDTO) p).getAverage() >= 12 && ((StudentDTO) p).getAverage() < 17){
+                            goodStudent++;
+                        }else if(((StudentDTO) p).getAverage() >= 17){
+                            excellentStudent++;
+                        }
+                    }
                 }
-            });
-            returnBtn1.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    menuPanel.setVisible(true);
-                    coursePanel.setVisible(false);
+            } catch (ExceptionService es) {
+                JOptionPane.showMessageDialog(null, es.getMessage());
+            }
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            dataset.addValue(badStudent, "Etudiant mauvais (0 à 8)", "Etudiant mauvais (0 à 8)");
+            dataset.addValue(averageStudent, "Etudiant moyen (8 à 12)", "Etudiant moyen (8 à 12)");
+            dataset.addValue(goodStudent, "Etudiant bon (12 à 17)", "Etudiant bon (12 à 17)");
+            dataset.addValue(excellentStudent, "Etudiant excellent (17 à 20)", "Etudiant excellent (17 à 20)");
+        return dataset;
+    }
+
+    private DefaultPieDataset createPieDataset() {
+        int badStudent = 0;
+        int averageStudent = 0;
+        int goodStudent = 0;
+        int excellentStudent = 0;
+        //Add item in combobox student
+        PersonService ps = new PersonService();
+        try {
+            for(PersonDTO p : ps.getAll()){
+                if(p instanceof StudentDTO) {
+                    if(((StudentDTO) p).getAverage() < 8){
+                        badStudent++;
+                    }else if(((StudentDTO) p).getAverage() >= 8 && ((StudentDTO) p).getAverage() < 12){
+                        averageStudent++;
+                    }else if(((StudentDTO) p).getAverage() >= 12 && ((StudentDTO) p).getAverage() < 17){
+                        goodStudent++;
+                    }else if(((StudentDTO) p).getAverage() >= 17){
+                        excellentStudent++;
+                    }
                 }
-            });
-            returnBtn2.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    menuPanel.setVisible(true);
-                    studentListPanel.setVisible(false);
-                }
-            });
-            returnBtn3.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    menuPanel.setVisible(true);
-                    addStudentPanel.setVisible(false);
-                }
-            });
+            }
+        } catch (ExceptionService es) {
+            JOptionPane.showMessageDialog(null, es.getMessage());
+        }
+
+        int total = badStudent + averageStudent + goodStudent + excellentStudent;
+
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        dataset.setValue("Etudiant mauvais (0 à 8)", (badStudent * 100 / total));
+        dataset.setValue("Etudiant moyen (8 à 12)", (averageStudent * 100 / total));
+        dataset.setValue("Etudiant bon (12 à 17)", (goodStudent * 100 / total));
+        dataset.setValue("Etudiant excellent (17 à 20)", (excellentStudent * 100 / total));
+        return dataset;
     }
 
 
@@ -592,5 +817,7 @@ class JTableButtonRenderer implements TableCellRenderer {
         return defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
     }
 }
+
+
 
 

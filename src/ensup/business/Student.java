@@ -10,6 +10,21 @@ import java.util.Date;
 public class Student extends Person
 {
 	private Date dateOfBirth;
+	private double average;
+
+	public double getAverage() {
+		return average;
+	}
+
+	public void setAverage(double average) {
+		this.average = average;
+	}
+
+	public Student(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password, Date dateOfBirth, double average) {
+		super(lastname, mailAddress, address, phoneNumber, id, firstname, Role.STUDENT, password);
+		this.dateOfBirth = dateOfBirth;
+		this.average = average;
+	}
 
 	/**
 	 * Instantiates a new Student.

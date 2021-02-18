@@ -1,5 +1,7 @@
 package ensup.dao;
 
+import ensup.exception.dao.ExceptionDao;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,16 +12,16 @@ import java.sql.SQLException;
 public class Connect
 {
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost:3306/gestionetablissement?serverTimezone=UTC";
-	private static final String USERNAME = "root";
-	private static final String PASSWORD = "";
+	private static final String URL = "jdbc:mysql://mysql-gestionetablissement.alwaysdata.net:3306/gestionetablissement_ensup?serverTimezone=UTC";
+	private static final String USERNAME = "225269";
+	private static final String PASSWORD = "GestionEtablissement";
 
 	/**
 	 * Open an connention with the information in the class
 	 *
 	 * @return an connection open
 	 */
-	public static Connection openConnection()
+	public static Connection openConnection() throws ExceptionDao
 	{
 		Connection cn = null;
 		try
@@ -34,9 +36,13 @@ public class Connect
 			
 			if( cn == null && URL != null )
 				cn = DriverManager.getConnection(URL);
+
+			// TODO:  Add logger failed and successfull
 		}
-		catch (ClassNotFoundException cnfe){cnfe.printStackTrace();}
-		catch (SQLException sqle)          {sqle.printStackTrace();}
+		catch (ClassNotFoundException | SQLException e){
+			// TODO:  Add logger failed and successfull
+			throw new ExceptionDao("Nous ne parvenons pas à joindre le serveur distant. Veuillez réessayer ultérieurement");
+		}
 		
 		return cn;
 	}

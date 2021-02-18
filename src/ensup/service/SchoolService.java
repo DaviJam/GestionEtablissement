@@ -6,6 +6,9 @@ import java.util.List;
 import ensup.business.School;
 import ensup.dao.SchoolDao;
 import ensup.dto.SchoolDTO;
+import ensup.exception.dao.ExceptionDao;
+import ensup.exception.service.ExceptionService;
+import ensup.logger.LoggerService;
 import ensup.mapper.SchoolMapper;
 
 /**
@@ -13,7 +16,9 @@ import ensup.mapper.SchoolMapper;
  */
 public class SchoolService implements IService<SchoolDTO> {
 	private SchoolDao dao;
-
+	// nom de la classe
+	String className = getClass().getName();
+	
 	/**
 	 * Instantiates a new School service.
 	 */
@@ -22,42 +27,85 @@ public class SchoolService implements IService<SchoolDTO> {
 		this.dao = new SchoolDao();
 	}
 
-	public List<SchoolDTO> getAll()
+	public List<SchoolDTO> getAll() throws ExceptionService
 	{
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		List<SchoolDTO> listSchoolDto = new ArrayList<SchoolDTO>();
-		
-		for (School school: this.dao.getAll())
-			listSchoolDto.add(SchoolMapper.businessToDto(school));
-		
+
+		try{
+			for (School school: this.dao.getAll())
+				listSchoolDto.add(SchoolMapper.businessToDto(school));
+			if(listSchoolDto.isEmpty()) {
+				serviceLogger.logServiceError(className, methodName,"La liste de cours est vide.");
+			}
+		}catch(ExceptionDao e){
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionService(e.getMessage());
+		}
 		return listSchoolDto;
 	}
 
-	public SchoolDTO get(int index)
+	public SchoolDTO get(int index) throws ExceptionService
 	{
-		return SchoolMapper.businessToDto(this.dao.get(index));
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+		try{
+			return SchoolMapper.businessToDto(this.dao.get(index));
+		} catch(ExceptionDao e){
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionService(e.getMessage());
+		}
 	}
 
-	public int create(SchoolDTO schoolDto)
+	public int create(SchoolDTO schoolDto) throws ExceptionService
 	{
-		return this.dao.create(SchoolMapper.dtoToBusiness(schoolDto));
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+		try{
+			return this.dao.create(SchoolMapper.dtoToBusiness(schoolDto));
+		} catch(ExceptionDao e){
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionService(e.getMessage());
+		}
+
 	}
 
-	public int update(SchoolDTO schoolDto)
+	public int update(SchoolDTO schoolDto) throws ExceptionService
 	{
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		School school = SchoolMapper.dtoToBusiness(schoolDto);
 		school.setId(schoolDto.getId());
+		try{
+			return this.dao.update(school);
+		} catch(ExceptionDao e){
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionService(e.getMessage());
+		}
 
-		return this.dao.update(school);
 	}
 
-	public int delete(SchoolDTO schoolDto)
+	public int delete(SchoolDTO schoolDto) throws ExceptionService
 	{
-		return delete(schoolDto.getId());
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+		try{
+			return this.dao.delete(schoolDto.getId());
+		} catch(ExceptionDao e){
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionService(e.getMessage());
+		}
+
+
+
 	}
 	
-	public int delete(int index)
+	public int delete(int index) throws ExceptionService
 	{
-		return this.dao.delete(index);
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+		try
+		{
+			return this.dao.delete(index);
+		} catch(ExceptionDao e){
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionService(e.getMessage());
+		}
 	}
 
 	/**
@@ -66,8 +114,16 @@ public class SchoolService implements IService<SchoolDTO> {
 	 * @param surname the surname
 	 * @return the index
 	 */
-	public int getIndex( String surname )
+	public int getIndex( String surname ) throws ExceptionService
 	{
-		return this.dao.getIndex(surname);
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+		try
+		{
+			return this.dao.getIndex(surname);
+		} catch(ExceptionDao e){
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionService(e.getMessage());
+		}
+
 	}
 }

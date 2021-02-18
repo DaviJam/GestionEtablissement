@@ -4,6 +4,7 @@ import java.util.List;
 
 import ensup.business.Course;
 import ensup.dao.CourseDao;
+import ensup.exception.dao.ExceptionDao;
 
 /**
  * The type Test dao course.
@@ -24,8 +25,7 @@ public class TestDaoCourse
 	/**
 	 * Test get all.
 	 */
-	public void testGetAll()
-	{
+	public void testGetAll() throws ExceptionDao {
 		System.out.println("\nTest GetAll");
 		List<Course> lCouses = this.dao.getAll();
 		for( Course course : lCouses )
@@ -37,8 +37,7 @@ public class TestDaoCourse
 	/**
 	 * Test create.
 	 */
-	public void testCreate()
-	{
+	public void testCreate() throws ExceptionDao {
 		System.out.println("\nTest Create");
 		this.dao.create(new Course("Math",        15, 1));
 		this.dao.create(new Course("Science",     10, 2));
@@ -103,8 +102,7 @@ public class TestDaoCourse
 	 *
 	 * @param args the input arguments
 	 */
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) throws ExceptionDao {
 		System.out.println("START TEST");
 		
 		TestDaoCourse tcd = new TestDaoCourse();

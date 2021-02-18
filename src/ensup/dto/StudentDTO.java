@@ -9,11 +9,50 @@ import java.util.Date;
  */
 public class StudentDTO extends PersonDTO{
     private Date dateOfBirth;
+    private double average;
+
+    /**
+     * Gets average.
+     *
+     * @return the average
+     */
+    public double getAverage() {
+        return average;
+    }
+
+    /**
+     * Sets average.
+     *
+     * @param average the average
+     */
+    public void setAverage(double average) {
+        this.average = average;
+    }
 
     /**
      * Instantiates a new Student dto.
      */
     public StudentDTO(){ }
+
+
+    /**
+     * Instantiates a new Student dto.
+     *
+     * @param lastname    the lastname
+     * @param mailAddress the mail address
+     * @param address     the address
+     * @param phoneNumber the phone number
+     * @param id          the id
+     * @param firstname   the firstname
+     * @param password    the password
+     * @param dateOfBirth the date of birth
+     * @param average     the average
+     */
+    public StudentDTO(String lastname, String mailAddress, String address, String phoneNumber, int id, String firstname, String password, Date dateOfBirth, double average) {
+        super(lastname, mailAddress, address, phoneNumber, id, firstname, Role.STUDENT, password);
+        this.dateOfBirth = dateOfBirth;
+        this.average = average;
+    }
 
     /**
      * Instantiates a new Student dto.

@@ -3,6 +3,8 @@ package ensup.service;
 import ensup.business.Course;
 import ensup.dao.CourseDao;
 import ensup.dto.CourseDTO;
+import ensup.exception.dao.ExceptionDao;
+import ensup.exception.service.ExceptionService;
 import ensup.mapper.CourseMapper;
 
 import java.util.ArrayList;
@@ -11,65 +13,93 @@ import java.util.List;
 /**
  * The type Course service.
  */
-public class CourseService implements ICourseService
-{
-	private CourseDao dao;
+public class CourseService implements ICourseService {
+    private CourseDao dao;    // nom de la classe
+	String className = getClass().getName();
 
-	/**
-	 * Instantiates a new Course service.
-	 */
-	public CourseService()
-	{
-		this.dao = new CourseDao();
-	}
+    /**
+     * Instantiates a new Course service.
+     */
+    public CourseService() {
+        this.dao = new CourseDao();
+    }
 
-	public List<CourseDTO> getAll()
-	{
-		List<CourseDTO> listCourseDto = new ArrayList<CourseDTO>();
-		
-		for (Course c: this.dao.getAll())
-			listCourseDto.add(CourseMapper.businessToDto(c));
-		
+    public List<CourseDTO> getAll() throws ExceptionService {
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+        List<CourseDTO> listCourseDto = new ArrayList<CourseDTO>();
+
+		try {
+			for (Course c : this.dao.getAll())
+				listCourseDto.add(CourseMapper.businessToDto(c));
+		} catch (ExceptionDao exceptionDao) {
+			throw new ExceptionService(exceptionDao.getMessage());
+		}
+
 		return listCourseDto;
+    }
+
+	public CourseDTO get(int index) throws ExceptionService {
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+		CourseDTO courseDTO;
+    	try {
+			courseDTO = CourseMapper.businessToDto(this.dao.get(index));
+		} catch (ExceptionDao exceptionDao) {
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionService(exceptionDao.getMessage());
+		}
+		return courseDTO;
 	}
 
-	public CourseDTO get(int index)
-	{
-		return CourseMapper.businessToDto(this.dao.get(index));
+	public int create(CourseDTO courseDto) throws ExceptionService {
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+		int res;
+    	try {
+			res = this.dao.create(CourseMapper.dtoToBusiness(courseDto));
+		} catch (ExceptionDao exceptionDao) {
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionService(exceptionDao.getMessage());
+		}
+		return res;
 	}
 
-	public int create(CourseDTO courseDto)
-	{
-		return this.dao.create(CourseMapper.dtoToBusiness(courseDto));
-	}
-
-	public int update(CourseDTO courseDto)
-	{
+	public int update(CourseDTO courseDto) throws ExceptionService {
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
 		Course course = CourseMapper.dtoToBusiness(courseDto);
 		course.setId(courseDto.getId());
-
-		return this.dao.update(course);
+		int ret;
+		try {
+			ret = this.dao.update(course);
+		} catch (ExceptionDao exceptionDao) {
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionService(exceptionDao.getMessage());
+		}
+		return ret;
 	}
 
-	public int delete(CourseDTO courseDto)
-	{
+	public int delete(CourseDTO courseDto) throws ExceptionService {
 		return delete(courseDto.getId());
 	}
 	
-	public int delete(int index)
-	{
-		return this.dao.delete(index);
+	public int delete(int index) throws ExceptionService {
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+		int ret;
+    	try {
+			ret = this.dao.delete(index);
+		} catch (ExceptionDao exceptionDao) {
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+			throw new ExceptionService(exceptionDao.getMessage());
+		}
+		return ret;
 	}
 
-	/**
-	 * Gets index.
-	 *
-	 * @param coursesubject the coursesubject
-	 * @param nbhours       the nbhours
-	 * @return the index
-	 */
-	public int getIndex( String coursesubject, float nbhours )
-	{
-		return this.dao.getIndex(coursesubject, nbhours);
-	}
+    /**
+     * Gets index.
+     *
+     * @param coursesubject the coursesubject
+     * @param nbhours       the nbhours
+     * @return the index
+     */
+    public int getIndex(String coursesubject, float nbhours) throws ExceptionDao {
+        return this.dao.getIndex(coursesubject, nbhours);
+    }
 }
