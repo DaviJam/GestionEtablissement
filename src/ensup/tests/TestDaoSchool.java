@@ -3,8 +3,8 @@ package ensup.tests;
 import java.util.List;
 
 import ensup.business.School;
-import ensup.dao.ExceptionDao;
 import ensup.dao.SchoolDao;
+import ensup.exception.dao.ExceptionDao;
 
 /**
  * The type Test dao school.
@@ -43,7 +43,7 @@ public class TestDaoSchool
 		
 		this.dao.create(new School("Ensup", "ensup@gmail.com", "...", "0000", 34));
 	}
-
+	
 	/**
 	 * Test get.
 	 */

@@ -1,6 +1,6 @@
 package ensup.tests;
 
-import ensup.dao.DaoException.ExceptionDao;
+import ensup.exception.service.ExceptionService;
 import ensup.dto.CourseDTO;
 import ensup.service.CourseService;
 import ensup.service.ICourseService;
@@ -11,8 +11,9 @@ public class TestDtoCourse
      * The entry point of application.
      *
      * @param args the input arguments
+     * @throws ExceptionService 
      */
-    public static void main(String[] args) throws ExceptionDao {
+    public static void main(String[] args) throws ExceptionService {
         // On appelle le service
         ICourseService courseservice = new CourseService();
 
