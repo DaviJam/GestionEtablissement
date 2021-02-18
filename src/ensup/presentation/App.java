@@ -10,6 +10,20 @@ import ensup.service.CourseService;
 import ensup.service.ConnectionService;
 import ensup.service.MarkService;
 import ensup.service.PersonService;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.Value;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -21,6 +35,7 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -90,6 +105,8 @@ public class App {
     private JTextField textFieldAppreciationMark;
     private JButton addBtnMark;
     private JButton returnBoutton6;
+    private JPanel contentChart;
+    private JPanel contentPieChart;
     private JComboBox comboBox4;
 
 
@@ -553,6 +570,72 @@ public class App {
             public void actionPerformed(ActionEvent e) {
                 menuPanel.setVisible(false);
                 averagePanel.setVisible(true);
+                JFreeChart histo = ChartFactory.createBarChart("Classement des étudiants par moyenne", "Moyenne", "Etudiant", createDataset(), PlotOrientation.VERTICAL, true, true,false);
+                histo.getPlot().setBackgroundPaint(new Color(39,55,70));
+                histo.setBackgroundPaint(new Color(39,55,70));
+                histo.getLegend().setBackgroundPaint(new Color(39,55,70));
+                histo.getTitle().setPaint(new Color(255,255,255));
+                //CategoryPlot plot = histo.getCategoryPlot();
+                //plot.getRenderer().setSeriesPaint(0, new Color(217,83,79));
+               // plot.getRenderer().setSeriesPaint(1, new Color(240,173,78));
+               // plot.getRenderer().setSeriesPaint(2, new Color(92,184,92));
+                //plot.getRenderer().setSeriesPaint(3, new Color(2,117,216));
+                 ///Get instance of CategoryPlot /
+                 CategoryPlot plot = histo.getCategoryPlot();
+
+                // Change Bar colors */
+                BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+                renderer.setSeriesPaint(0, new Color(217,83,79));
+                renderer.setSeriesPaint(1, new Color(240,173,78));
+                renderer.setSeriesPaint(2, new Color(92,184,92));
+                renderer.setSeriesPaint(3, new Color(2,117,216));
+                renderer.setDrawBarOutline(false);
+                renderer.setItemMargin(0);
+                renderer.setLegendTextPaint(0,new Color(255,255,255));
+                renderer.setLegendTextPaint(1,new Color(255,255,255));
+                renderer.setLegendTextPaint(2,new Color(255,255,255));
+                renderer.setLegendTextPaint(3,new Color(255,255,255));
+
+                plot.getDomainAxis().setLabelPaint(new Color(255,255,255));
+                plot.getRangeAxis().setLabelPaint(new Color(255,255,255));
+                plot.getDomainAxis().setTickLabelPaint(new Color(255,255,255));
+                plot.getRangeAxis().setTickLabelPaint(new Color(255,255,255));
+                plot.getRangeAxis().setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
+
+                /***XYPlot xyPlot = histo.getXYPlot();
+                ((CategoryPlot) plot).getDomainAxis().setLabelPaint(new Color(255,255,255));
+                xyPlot.getDomainAxis().setLabelPaint(new Color(255,255,255));
+                xyPlot.getRangeAxis().setLabelPaint(new Color(255,255,255));**/
+
+
+
+
+                ChartPanel chartPanel = new ChartPanel(histo);
+                chartPanel.setBackground(new Color(39,55,70));
+                contentChart.removeAll();
+                contentChart.add(chartPanel,BorderLayout.CENTER);
+                contentChart.validate();
+
+                JFreeChart pieChart = ChartFactory.createPieChart("Niveau des étudiants par moyenne", createPieDataset());
+                pieChart.getPlot().setBackgroundPaint(new Color(39,55,70));
+                pieChart.getLegend().setBackgroundPaint(new Color(39,55,70));
+                pieChart.setBackgroundPaint(new Color(39,55,70));
+                pieChart.getTitle().setPaint(new Color(255,255,255));
+                pieChart.getLegend().setItemPaint(new Color(255,255,255));
+                pieChart.getPlot().setOutlinePaint(null);
+                PiePlot plot1 = (PiePlot)pieChart.getPlot();
+                plot1.setSectionPaint(0, new Color(217,83,79));
+                plot1.setSectionPaint(1, new Color(240,173,78));
+                plot1.setSectionPaint(2, new Color(92,184,92));
+                plot1.setSectionPaint(3, new Color(2,117,216));
+
+                ChartPanel chartPanel2 = new ChartPanel(pieChart);
+                chartPanel2.setBackground(new Color(39,55,70));
+                contentPieChart.removeAll();
+                contentPieChart.add(chartPanel2,BorderLayout.CENTER);
+                contentPieChart.validate();
             }
         });
 
@@ -618,6 +701,73 @@ public class App {
                 markPanel.setVisible(false);
             }
         });
+    }
+
+    private DefaultCategoryDataset createDataset() {
+            int badStudent = 0;
+            int averageStudent = 0;
+            int goodStudent = 0;
+            int excellentStudent = 0;
+            //Add item in combobox student
+            PersonService ps = new PersonService();
+            try {
+                for(PersonDTO p : ps.getAll()){
+                    if(p instanceof StudentDTO) {
+                        if(((StudentDTO) p).getAverage() < 8){
+                            badStudent++;
+                        }else if(((StudentDTO) p).getAverage() >= 8 && ((StudentDTO) p).getAverage() < 12){
+                            averageStudent++;
+                        }else if(((StudentDTO) p).getAverage() >= 12 && ((StudentDTO) p).getAverage() < 17){
+                            goodStudent++;
+                        }else if(((StudentDTO) p).getAverage() >= 17){
+                            excellentStudent++;
+                        }
+                    }
+                }
+            } catch (ExceptionService es) {
+                JOptionPane.showMessageDialog(null, es.getMessage());
+            }
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            dataset.addValue(badStudent, "Etudiant mauvais (0 à 8)", "Etudiant mauvais (0 à 8)");
+            dataset.addValue(averageStudent, "Etudiant moyen (8 à 12)", "Etudiant moyen (8 à 12)");
+            dataset.addValue(goodStudent, "Etudiant bon (12 à 17)", "Etudiant bon (12 à 17)");
+            dataset.addValue(excellentStudent, "Etudiant excellent (17 à 20)", "Etudiant excellent (17 à 20)");
+        return dataset;
+    }
+
+    private DefaultPieDataset createPieDataset() {
+        int badStudent = 0;
+        int averageStudent = 0;
+        int goodStudent = 0;
+        int excellentStudent = 0;
+        //Add item in combobox student
+        PersonService ps = new PersonService();
+        try {
+            for(PersonDTO p : ps.getAll()){
+                if(p instanceof StudentDTO) {
+                    if(((StudentDTO) p).getAverage() < 8){
+                        badStudent++;
+                    }else if(((StudentDTO) p).getAverage() >= 8 && ((StudentDTO) p).getAverage() < 12){
+                        averageStudent++;
+                    }else if(((StudentDTO) p).getAverage() >= 12 && ((StudentDTO) p).getAverage() < 17){
+                        goodStudent++;
+                    }else if(((StudentDTO) p).getAverage() >= 17){
+                        excellentStudent++;
+                    }
+                }
+            }
+        } catch (ExceptionService es) {
+            JOptionPane.showMessageDialog(null, es.getMessage());
+        }
+
+        int total = badStudent + averageStudent + goodStudent + excellentStudent;
+
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        dataset.setValue("Etudiant mauvais (0 à 8)", (badStudent * 100 / total));
+        dataset.setValue("Etudiant moyen (8 à 12)", (averageStudent * 100 / total));
+        dataset.setValue("Etudiant bon (12 à 17)", (goodStudent * 100 / total));
+        dataset.setValue("Etudiant excellent (17 à 20)", (excellentStudent * 100 / total));
+        return dataset;
     }
 
 
@@ -740,5 +890,7 @@ class JTableButtonRenderer implements TableCellRenderer {
         return defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
     }
 }
+
+
 
 
