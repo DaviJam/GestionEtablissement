@@ -138,10 +138,9 @@ public class MarkDao implements IMarkDao
 			//Vérifie qu'il n'y a pas de double
 			if( mark.getId() != -1 )
 			{
-				pstmt = cn.prepareStatement("INSERT INTO Mark (id, idStudent, idCourse, mark, assessment) VALUES ( ?, ?, ?, ?, ? )");
+				pstmt = cn.prepareStatement("INSERT INTO Mark (idStudent, idCourse, mark, assessment) VALUES ( ?, ?, ?, ? )");
 				
 				int index = 1;
-				pstmt.setInt(index++, mark.getId());
 				pstmt.setInt(index++, mark.getIdStudent());
 				pstmt.setInt(index++, mark.getIdCourse());
 				pstmt.setFloat(index++, mark.getMark());

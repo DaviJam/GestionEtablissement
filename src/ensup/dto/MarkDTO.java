@@ -14,24 +14,22 @@ public class MarkDTO
     public MarkDTO() {}
     
 	/**
-	 * @param id
 	 * @param idStudent
 	 * @param idCourse
 	 * @param assessment
 	 * @param mark
 	 */
-	public MarkDTO(int id, int idStudent, int idCourse, float mark, String assessment) {
+	public MarkDTO( int idStudent, int idCourse, float mark, String assessment) {
 		super();
-		this.id = id;
 		this.idStudent = idStudent;
 		this.idCourse = idCourse;
 		this.mark = mark;
 		this.assessment = assessment;
 	}
 	
-	public MarkDTO(int id, int idStudent, int idCourse, float mark)
+	public MarkDTO( int idStudent, int idCourse, float mark)
 	{
-		this(id, idStudent, idCourse, mark, null);
+		this(idStudent, idCourse, mark, null);
 	}
 
 	public int getId() {
