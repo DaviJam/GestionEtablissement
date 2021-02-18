@@ -2,10 +2,12 @@ package ensup.service;
 
 import ensup.business.*;
 import ensup.dao.PersonDao;
+import ensup.dao.MarkDao;
 import ensup.dto.*;
 import ensup.exception.dao.ExceptionDao;
 import ensup.exception.service.ExceptionService;
 import ensup.mapper.*;
+import ensup.presentation.App;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -167,6 +169,7 @@ public class PersonService implements IEntityService<PersonDTO> {
         if(person instanceof Student)
         {
             personDTO = StudentMapper.businessToDto((Student)person);
+            ((StudentDTO)personDTO).setAverage(this.getAverage(index));
         }else if(person instanceof Manager)
         {
             personDTO = ManagerMapper.businessToDto((Manager)person);
@@ -191,10 +194,13 @@ public class PersonService implements IEntityService<PersonDTO> {
         String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         List<PersonDTO> personDTOList = new ArrayList<PersonDTO>();
         try {
-            this.dao.getAll().forEach(person -> {
+        	List<Person> listAllPerson = this.dao.getAll();
+        	for(Person person : listAllPerson)
+            {
                 if (person instanceof Student) {
                     StudentDTO studentDTO = new StudentDTO();
                     studentDTO = StudentMapper.businessToDto((Student) person);
+                    studentDTO.setAverage(getAverage(studentDTO.getId()));
                     personDTOList.add(studentDTO);
                 } else if (person instanceof Manager) {
                     ManagerDTO managerDTO = new ManagerDTO();
@@ -209,12 +215,36 @@ public class PersonService implements IEntityService<PersonDTO> {
                     directorDTO = DirectorMapper.businessToDto((Director) person);
                     personDTOList.add(directorDTO);
                 }
-            });
+            }
             return personDTOList;
         }catch (ExceptionDao exceptionDao){
             serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
             throw new ExceptionService(exceptionDao.getMessage());
         }
 
+    }
+    
+    public float getAverage(int index) throws ExceptionService
+    {
+    	String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+    	Float average = 0f;
+    	
+    	List<Mark> listMark;
+		try {
+			listMark = (new MarkDao()).getAllMarkByStudentId(index);
+	    	
+	    	for( Mark mark : listMark )
+	    	{
+	    		average += mark.getMark();
+	    	}
+	    	
+	    	average = average / listMark.size();
+		}
+		catch (ExceptionDao exceptionDao) {
+			serviceLogger.logServiceError(className, methodName,"Un problème est survenue lors de l'appel à cette méthode.");
+            throw new ExceptionService(exceptionDao.getMessage());
+		}
+    	
+    	return average;
     }
 }

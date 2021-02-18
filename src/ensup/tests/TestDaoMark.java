@@ -1,10 +1,10 @@
 package ensup.tests;
 
+import java.util.List;
+
 import ensup.business.Mark;
 import ensup.dao.MarkDao;
 import ensup.exception.dao.ExceptionDao;
-
-import java.util.List;
 
 /**
  * The type Test dao mark.
