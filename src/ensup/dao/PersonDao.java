@@ -73,8 +73,9 @@ public class PersonDao implements IDao<Person>
                     "role,"+
                     "password,"+
                     "dateofbirth,"+
-                    "subjecttaught) "+
-                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+                    "subjecttaught," +
+                    "average) "+
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
             st = cn.prepareStatement(sql_request);
             st.setString(1, entity.getFirstname());
             st.setString(2, entity.getLastname());
@@ -88,6 +89,7 @@ public class PersonDao implements IDao<Person>
             {
                 st.setDate  (8, new java.sql.Date(((Student) entity).getDateOfBirth().getTime()));
                 st.setString (9, null);
+                st.setFloat(10, ((Student) entity).getAverage());
             }else if(entity instanceof Teacher)
             {
                 st.setDate  (8, null);
@@ -147,6 +149,7 @@ public class PersonDao implements IDao<Person>
                     "password = ?, "+
                     "dateofbirth = ?, "+
                     "subjecttaught = ? "+
+                    "average = ? "+
                     "WHERE email = ?";
             st = cn.prepareStatement(sql_request);
             st.setString(1, entity.getFirstname());
@@ -159,16 +162,19 @@ public class PersonDao implements IDao<Person>
             {
                 st.setDate  (7, new java.sql.Date(((Student) entity).getDateOfBirth().getTime()));
                 st.setString(8, null);
+                st.setFloat(9, ((Student) entity).getAverage());
             }else if(entity instanceof Teacher)
             {
                 st.setDate(7, null);
                 st.setString (8, ((Teacher) entity).getSubjectTaught());
+                st.setFloat(9, (Float)null);
             }else
             {
                 st.setDate(7, null);
                 st.setString (8, null);
+                st.setFloat(9, (Float)null);
             }
-            st.setString (9,  entity.getMailAddress());
+            st.setString (10,  entity.getMailAddress());
             /*
              * ExÃ©cuter la requÃªte
              */
@@ -236,6 +242,7 @@ public class PersonDao implements IDao<Person>
                 String password = rs.getString("password");
                 Object dateofbirth = rs.getObject("dateofbirth");
                 Object subjecttaught = rs.getObject("subjecttaught");
+                float average = rs.getFloat("average");
 
                 if(rs.getInt("role") == Role.DIRECTOR.getNum())
                 {
@@ -257,9 +264,9 @@ public class PersonDao implements IDao<Person>
                 else if(rs.getInt("role") == Role.STUDENT.getNum())
                 {
                     if(dateofbirth != null) {
-                        p1 = new Student(lastname, email, address, phone, id, firstName, password, (Date)dateofbirth);
+                        p1 = new Student(lastname, email, address, phone, id, firstName, password, (Date)dateofbirth, average);
                     } else {
-                        p1 = new Student(lastname, email, address, phone, id, firstName, password, null);
+                        p1 = new Student(lastname, email, address, phone, id, firstName, password, null, average);
                     }
                 }
                 DaoLogger.logDaoInfo(className, methodName,"Les information de l'utilisateur " + lastname +" "+firstName + " " + email + " ont été récupérer de la base de donnée.");
@@ -322,6 +329,7 @@ public class PersonDao implements IDao<Person>
                 String password = rs.getString("password");
                 Object dateofbirth = rs.getObject("dateofbirth");
                 Object subjecttaught = rs.getObject("subjecttaught");
+                float average = rs.getFloat("average");
 
                 Person p1 = null;
 
@@ -345,10 +353,10 @@ public class PersonDao implements IDao<Person>
                 else if(rs.getInt("role") == Role.STUDENT.getNum())
                 {
                     if(dateofbirth != null) {
-                        p1 = new Student(lastname, email, address, phone, id, firstName, password, (Date)dateofbirth);
+                        p1 = new Student(lastname, email, address, phone, id, firstName, password, (Date)dateofbirth, average);
                     }
                     else {
-                        p1 = new Student(lastname, email, address, phone, id, firstName, password, null);
+                        p1 = new Student(lastname, email, address, phone, id, firstName, password, null, average);
                     }
                 }
                 listPerson.add(p1);
