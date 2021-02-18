@@ -1,5 +1,9 @@
 # GestionEtablissement
 
+## Release V3
+* Possibilité de renseigner la moyenne générale d'un étudiant,
+* Possibilité d'afficher la moyenne des étudiants sous forme d'histogramme et camembert
+
 ## Release V2
 Amélioration de la gestion des erreurs
 
