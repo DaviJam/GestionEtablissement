@@ -26,6 +26,7 @@ public class StudentMapper {
         studentDTO.setPassword(student.getPassword());
         studentDTO.setPhoneNumber(student.getPhoneNumber());
         studentDTO.setRole(student.getRole());
+        studentDTO.setAverage(student.getAverage());
 
 
         return studentDTO;
@@ -50,6 +51,7 @@ public class StudentMapper {
         student.setPassword(studentDTO.getPassword());
         student.setPhoneNumber(studentDTO.getPhoneNumber());
         student.setRole(studentDTO.getRole());
+        student.setAverage(studentDTO.getAverage());
 
         return student;
     };
