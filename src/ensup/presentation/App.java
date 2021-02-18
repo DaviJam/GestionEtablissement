@@ -76,6 +76,10 @@ public class App {
     private JTable table1;
     private JScrollPane scrollPane1;
     private JButton logoutBtn;
+    private JPanel averagePanel;
+    private JButton returnBtn4;
+    private JButton averageBtn;
+    private JComboBox comboBox4;
 
 
     /**
@@ -523,6 +527,35 @@ public class App {
             public void actionPerformed(ActionEvent e) {
                 menuPanel.setVisible(true);
                 addStudentPanel.setVisible(false);
+            }
+        });
+        returnBtn4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(true);
+                averagePanel.setVisible(false);
+            }
+        });
+        averageBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPanel.setVisible(false);
+                averagePanel.setVisible(true);
+
+                //Add item in combobox student
+                PersonService ps = new PersonService();
+
+                comboBox4.removeAll();
+                comboBox4.removeAllItems();
+                try {
+                    for(PersonDTO p : ps.getAll()){
+                        if(p instanceof StudentDTO) {
+                            comboBox4.addItem(new Item(p.getId(), p.getFirstname() + " " + p.getLastname()));
+                        }
+                    }
+                } catch (ExceptionService es) {
+                    JOptionPane.showMessageDialog(null, es.getMessage());
+                }
             }
         });
     }
