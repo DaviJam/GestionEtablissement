@@ -84,7 +84,7 @@ public class PersonService implements IEntityService<PersonDTO> {
 
     // Update Person
     @Override
-    public int update(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) throws ExceptionService {
+    public int update(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught, float average) throws ExceptionService {
         String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         int res = 0;
         switch(role){
@@ -119,7 +119,7 @@ public class PersonService implements IEntityService<PersonDTO> {
                 }
                 break;
             case 4: // Student
-                PersonDTO studentDTO = new StudentDTO(surname, mail, address, phone, 0, firstname,password,dateofbirth);
+                PersonDTO studentDTO = new StudentDTO(surname, mail, address, phone, 0, firstname,password,dateofbirth,average);
                 Person student = StudentMapper.dtoToBusiness((StudentDTO)studentDTO);
                 try{
                 res = this.dao.update(student);

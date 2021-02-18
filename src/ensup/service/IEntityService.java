@@ -41,7 +41,7 @@ public interface IEntityService<PersonDTO> extends IService<PersonDTO>
      * @param subjectTaught the subject taught
      * @return the int
      */
-    int update(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught) throws ExceptionService;
+    int update(String surname, String mail, String address, String phone, String firstname, String password, int role, Date dateofbirth, String subjectTaught, float average) throws ExceptionService;
 
     /**
      * Link to course int.
