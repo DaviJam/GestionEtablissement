@@ -25,6 +25,8 @@
 /bin/
 .project
 .classpath
+**/.settings/
+.gitignore
 
 #Idea IDE
 *.idea
