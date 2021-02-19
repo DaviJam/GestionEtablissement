@@ -1,7 +1,6 @@
-package ensup.dao;
+package eu.ensup.gestionetablissement.dao;
 
-import ensup.dao.IDao;
-import ensup.logger.LoggerHandler;
+import eu.ensup.gestionetablissement.logger.LoggerHandler;
 import org.apache.log4j.Logger;
 
 import java.util.Optional;

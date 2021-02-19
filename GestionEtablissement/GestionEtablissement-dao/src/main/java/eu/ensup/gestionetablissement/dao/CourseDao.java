@@ -1,6 +1,6 @@
-package ensup.dao;
+package eu.ensup.gestionetablissement.dao;
 
-import ensup.business.Course;
+import eu.ensup.gestionetablissement.business.Course;
 
 import java.sql.*;
 import java.util.ArrayList;

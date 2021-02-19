@@ -1,12 +1,12 @@
-package ensup.dao;
+package eu.ensup.gestionetablissement.dao;
 
-import ensup.business.*;
+import eu.ensup.gestionetablissement.business.Person;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ensup.dao.Connect.openConnection;
+import static eu.ensup.gestionetablissement.dao.Connect.openConnection;
 
 /**
  * The type Dao.

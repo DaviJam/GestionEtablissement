@@ -1,6 +1,6 @@
-package ensup.dao;
+package eu.ensup.gestionetablissement.dao;
 
-import ensup.business.Mark;
+import eu.ensup.gestionetablissement.business.Mark;
 
 /**
  * The interface Course dao.

@@ -1,12 +1,10 @@
-package ensup.dao;
+package eu.ensup.gestionetablissement.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static ensup.dao.Connect.openConnection;
-import static ensup.dao.IDao.DaoLogger;
 
 /**
  * The type Dao login.

@@ -1,4 +1,4 @@
-package ensup.dao;
+package eu.ensup.gestionetablissement.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import ensup.business.School;
+import eu.ensup.gestionetablissement.business.School;
 
 /**
  * The type School dao.

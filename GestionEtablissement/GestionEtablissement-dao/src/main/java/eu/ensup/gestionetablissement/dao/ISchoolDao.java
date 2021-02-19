@@ -1,6 +1,6 @@
-package ensup.dao;
+package eu.ensup.gestionetablissement.dao;
 
-import ensup.business.School;
+import eu.ensup.gestionetablissement.business.School;
 
 /**
  * The interface School dao.

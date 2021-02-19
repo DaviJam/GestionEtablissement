@@ -1,4 +1,4 @@
-package ensup.dao;
+package eu.ensup.gestionetablissement.dao;
 
 import java.util.List;
 
