@@ -1,9 +1,13 @@
 package eu.ensup.gestionetablissement.dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import static eu.ensup.gestionetablissement.dao.Connect.openConnection;
+import static eu.ensup.gestionetablissement.dao.IDao.DaoLogger;
 
 
 /**

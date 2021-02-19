@@ -3,7 +3,7 @@ package eu.ensup.gestionetablissement.service;
 import eu.ensup.gestionetablissement.dao.LoginDao;
 import eu.ensup.gestionetablissement.dao.ExceptionDao;
 
-import static ensup.service.IService.serviceLogger;
+import static eu.ensup.gestionetablissement.service.IService.serviceLogger;
 
 /**
  * The type Service connection.

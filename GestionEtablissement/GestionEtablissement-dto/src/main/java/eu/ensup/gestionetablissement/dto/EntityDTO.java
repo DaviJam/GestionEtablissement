@@ -120,7 +120,7 @@ public class EntityDTO {
      * @param entity the entity
      * @return the boolean
      */
-    public boolean isEqualTo(ensup.business.Entity entity) {
+    public boolean isEqualTo(eu.ensup.gestionetablissement.business.Entity entity) {
         boolean res = false;
         if (this.getMailAddress() == entity.getMailAddress()) {
             res = true;

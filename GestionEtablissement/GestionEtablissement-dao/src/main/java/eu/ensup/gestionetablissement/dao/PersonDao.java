@@ -1,6 +1,6 @@
 package eu.ensup.gestionetablissement.dao;
 
-import eu.ensup.gestionetablissement.business.Person;
+import eu.ensup.gestionetablissement.business.*;
 
 import java.sql.*;
 import java.util.ArrayList;
