@@ -1,7 +1,7 @@
-package ensup.mapper;
+package eu.ensup.gestionetablissement.mapper;
 
-import ensup.business.Student;
-import ensup.dto.StudentDTO;
+import eu.ensup.gestionetablissement.business.Student;
+import eu.ensup.gestionetablissement.dto.StudentDTO;
 
 /**
  * The type Student mapper.
