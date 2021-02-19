@@ -12,7 +12,7 @@ import ensup.business.Person;
 import ensup.business.Student;
 import ensup.business.Teacher;
 import ensup.dao.PersonDao;
-import ensup.exception.service.ExceptionService;
+import ensup.service.ExceptionService;
 import ensup.service.PersonService;
 
 /**

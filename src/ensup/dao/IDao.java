@@ -1,8 +1,5 @@
 package ensup.dao;
 
-import ensup.exception.dao.ExceptionDao;
-import ensup.logger.LoggerDao;
-
 import java.util.List;
 
 /**

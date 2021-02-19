@@ -1,10 +1,11 @@
-package ensup.logger;
+package ensup.service;
 
 
+import ensup.logger.LoggerHandler;
 import ensup.service.IService;
 import org.apache.log4j.Logger;
 
-public class LoggerService extends LoggerHandler{
+public class LoggerService extends LoggerHandler {
     public LoggerService(){
         super();
     }

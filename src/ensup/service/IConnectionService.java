@@ -1,7 +1,5 @@
 package ensup.service;
 
-import ensup.exception.service.ExceptionService;
-
 /**
  * The interface Service connection.
  */

@@ -1,7 +1,6 @@
 package ensup.dao;
 
 import ensup.business.Mark;
-import ensup.exception.dao.ExceptionDao;
 
 /**
  * The interface Course dao.

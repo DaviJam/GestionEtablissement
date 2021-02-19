@@ -4,7 +4,7 @@ import java.util.List;
 
 import ensup.business.Mark;
 import ensup.dao.MarkDao;
-import ensup.exception.dao.ExceptionDao;
+import ensup.dao.ExceptionDao;
 
 /**
  * The type Test dao mark.

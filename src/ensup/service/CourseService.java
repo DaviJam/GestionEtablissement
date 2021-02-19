@@ -3,8 +3,7 @@ package ensup.service;
 import ensup.business.Course;
 import ensup.dao.CourseDao;
 import ensup.dto.CourseDTO;
-import ensup.exception.dao.ExceptionDao;
-import ensup.exception.service.ExceptionService;
+import ensup.dao.ExceptionDao;
 import ensup.mapper.CourseMapper;
 
 import java.util.ArrayList;

@@ -1,7 +1,6 @@
 package ensup.service;	
 
 import ensup.business.School;
-import ensup.exception.service.ExceptionService;
 
 /**
  * The interface Service school.

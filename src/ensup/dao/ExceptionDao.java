@@ -1,6 +1,6 @@
-package ensup.exception.dao;
+package ensup.dao;
 
-import ensup.logger.LoggerDao;
+import ensup.dao.LoggerDao;
 
 public class ExceptionDao extends Exception{
     private LoggerDao daoLogger = new LoggerDao();

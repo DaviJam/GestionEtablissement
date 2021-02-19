@@ -4,10 +4,8 @@ import ensup.business.*;
 import ensup.dao.PersonDao;
 import ensup.dao.MarkDao;
 import ensup.dto.*;
-import ensup.exception.dao.ExceptionDao;
-import ensup.exception.service.ExceptionService;
+import ensup.dao.ExceptionDao;
 import ensup.mapper.*;
-import ensup.presentation.App;
 
 import java.util.ArrayList;
 import java.util.Date;

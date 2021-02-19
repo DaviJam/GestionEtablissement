@@ -1,7 +1,6 @@
 package ensup.dao;
 
 import ensup.business.School;
-import ensup.exception.dao.ExceptionDao;
 
 /**
  * The interface School dao.

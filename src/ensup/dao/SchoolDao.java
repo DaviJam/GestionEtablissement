@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ensup.business.School;
-import ensup.exception.dao.ExceptionDao;
 
 /**
  * The type School dao.

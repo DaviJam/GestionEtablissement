@@ -1,7 +1,5 @@
 package ensup.service;
 
-import ensup.exception.service.ExceptionService;
-
 import java.util.Date;
 
 /**

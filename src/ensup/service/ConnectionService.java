@@ -1,9 +1,7 @@
 package ensup.service;
 
 import ensup.dao.LoginDao;
-import ensup.dao.PersonDao;
-import ensup.exception.dao.ExceptionDao;
-import ensup.exception.service.ExceptionService;
+import ensup.dao.ExceptionDao;
 
 import static ensup.service.IService.serviceLogger;
 
