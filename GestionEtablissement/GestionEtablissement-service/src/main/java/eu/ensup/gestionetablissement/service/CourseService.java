@@ -2,6 +2,7 @@ package eu.ensup.gestionetablissement.service;
 
 import eu.ensup.gestionetablissement.business.Course;
 import eu.ensup.gestionetablissement.dao.CourseDao;
+import eu.ensup.gestionetablissement.dao.ICourseDao;
 import eu.ensup.gestionetablissement.dto.CourseDTO;
 import eu.ensup.gestionetablissement.dao.ExceptionDao;
 import eu.ensup.gestionetablissement.mapper.CourseMapper;
@@ -13,17 +14,24 @@ import java.util.List;
  * The type Course service.
  */
 public class CourseService implements ICourseService {
-    private CourseDao dao;    // nom de la classe
+	// 1) Avoir une propriété du service qui est une interface (ICourseDao)
+	private ICourseDao dao = null;
 	String className = getClass().getName();
 
+	// 2) Coder dans le service un constructeur qui prend le dao
     /**
      * Instantiates a new Course service.
+     * @param mockDao
      */
-    public CourseService() {
-        this.dao = new CourseDao();
+    public CourseService(ICourseDao mockDao) {
+        this.dao = mockDao;
     }
 
-    public List<CourseDTO> getAll() throws ExceptionService {
+	public CourseService() {
+    	this.dao = new CourseDao();
+	}
+
+	public List<CourseDTO> getAll() throws ExceptionService {
 		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
         List<CourseDTO> listCourseDto = new ArrayList<CourseDTO>();
 
