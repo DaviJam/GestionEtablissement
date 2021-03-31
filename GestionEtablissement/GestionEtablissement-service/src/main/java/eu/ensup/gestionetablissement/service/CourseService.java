@@ -5,6 +5,7 @@ import eu.ensup.gestionetablissement.dao.CourseDao;
 import eu.ensup.gestionetablissement.dto.CourseDTO;
 import eu.ensup.gestionetablissement.dao.ExceptionDao;
 import eu.ensup.gestionetablissement.mapper.CourseMapper;
+import org.mockito.InjectMocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +15,26 @@ import java.util.List;
  */
 public class CourseService implements ICourseService {
     private CourseDao dao;    // nom de la classe
+	/**
+	 * The Class name.
+	 */
 	String className = getClass().getName();
 
-    /**
-     * Instantiates a new Course service.
-     */
-    public CourseService() {
-        this.dao = new CourseDao();
+	/**
+	 * Instantiates a new Course service.
+	 */
+	public CourseService() {
+//        this.dao = new CourseDao();
     }
+
+	/**
+	 * Instantiates a new Course service.
+	 *
+	 * @param dao the dao
+	 */
+	public CourseService(CourseDao dao) {
+		this.dao = dao;
+	}
 
     public List<CourseDTO> getAll() throws ExceptionService {
 		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -91,14 +104,15 @@ public class CourseService implements ICourseService {
 		return ret;
 	}
 
-    /**
-     * Gets index.
-     *
-     * @param coursesubject the coursesubject
-     * @param nbhours       the nbhours
-     * @return the index
-     */
-    public int getIndex(String coursesubject, float nbhours) throws ExceptionDao {
+	/**
+	 * Gets index.
+	 *
+	 * @param coursesubject the coursesubject
+	 * @param nbhours       the nbhours
+	 * @return the index
+	 * @throws ExceptionDao the exception dao
+	 */
+	public int getIndex(String coursesubject, float nbhours) throws ExceptionDao {
         return this.dao.getIndex(coursesubject, nbhours);
     }
 }
