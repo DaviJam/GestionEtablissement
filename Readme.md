@@ -1,17 +1,19 @@
+## Faire fonctionner tous les tests
+Pré-requis : Avoir Maven
+
+Télécharger le projet en format zip depuis Github
+Extraire le fichier zip
+Ouvrir l’invit de commande Windows et se situer dans le projet.
+Effectuer la commande “cd GestionEtablissement” pour se rendre dans le dossier GestionEtablissement
+Éxecuter la commande “mvn test” pour effectuer tous les tests de l’appli
+
+## Exécuter les tests de la couche service
+Depuis le dossier GestionEtablissement, effectuer la commande “ cd GestionEtablissement-service” pour se rendre dans le dossier GestionEtablissement-service
+Éxecuter la commande “mvn test” pour effectuer tous les tests de la partie service de l’application
+
+
+
 # GestionEtablissement
-
-## Release V3
-* Possibilité de renseigner la moyenne générale d'un étudiant,
-* Possibilité d'afficher la moyenne des étudiants sous forme d'histogramme et camembert
-
-## Release V2
-Amélioration de la gestion des erreurs
-
-## Release V1
-Amélioration de la robustesse
-
-## Release V0
-Création du projet 
 
 ## Fonctionalités
 Ce logiciel permet de gérer un etablissement scolaire. Il est actuellement possible de :
@@ -42,6 +44,19 @@ Deux choix sont alors possibles.
     
 ## Localisation du répertoire des Logs 
 * Le répertoire des logs est situé dans le même répertoire que le .jar.
+
+## Release V3
+* Possibilité de renseigner la moyenne générale d'un étudiant,
+* Possibilité d'afficher la moyenne des étudiants sous forme d'histogramme et camembert
+
+## Release V2
+Amélioration de la gestion des erreurs
+
+## Release V1
+Amélioration de la robustesse
+
+## Release V0
+Création du projet 
 
 ## Convention de nommage
 1. <b/>Package:</b>
