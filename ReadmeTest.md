@@ -2,7 +2,7 @@
 
 ## Utilisation
 Cloner le projet dans le répertoire de votre choix.
-> git clone https://github.com/DaviJam/GestionEtablissement.git
+> git clone -b UnitTest https://github.com/DaviJam/GestionEtablissement.git
 
 ## Tests unitaires
 Pour lancer les tests unitaires CourseService, 
