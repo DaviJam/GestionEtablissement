@@ -15,7 +15,6 @@
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
-
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -56,8 +55,8 @@
       </dependency>
       <dependency>
           <groupId>org.junit.jupiter</groupId>
-          <artifactId>junit-jupiter</artifactId>
-          <version>RELEASE</version>
+          <artifactId>junit-jupiter-api</artifactId>
+          <version>5.4.2</version>
           <scope>test</scope>
       </dependency>
   </dependencies>

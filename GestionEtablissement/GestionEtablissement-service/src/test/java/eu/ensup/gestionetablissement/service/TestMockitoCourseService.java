@@ -1,11 +1,11 @@
 package eu.ensup.gestionetablissement.service;
 
+import org.junit.Test;
 import eu.ensup.gestionetablissement.business.Course;
 import eu.ensup.gestionetablissement.dao.CourseDao;
 import eu.ensup.gestionetablissement.dao.ExceptionDao;
 import eu.ensup.gestionetablissement.dao.ICourseDao;
 import eu.ensup.gestionetablissement.dto.CourseDTO;
-import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 // 4) On annote la classe avec @RunWith(MockitoJUnitRunner.class)
 
 @RunWith(MockitoJUnitRunner.class)
-public class MockiStudentService {
+public class TestMockitoCourseService {
 
     // 5) Ajouter une propriété de type interface dans la classe de test
     // 6) Annoter la propriété de type interface avec @Mock

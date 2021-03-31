@@ -16,6 +16,7 @@ import java.util.List;
 public class CourseService implements ICourseService {
 	// 1) Avoir une propriété du service qui est une interface (ICourseDao)
 	private ICourseDao dao = null;
+	private CourseDao cdao = null;
 	String className = getClass().getName();
 
 	// 2) Coder dans le service un constructeur qui prend le dao
@@ -23,6 +24,11 @@ public class CourseService implements ICourseService {
      * Instantiates a new Course service.
      * @param mockDao
      */
+
+	public CourseService(CourseDao mockDao) {
+		this.cdao = mockDao;
+	}
+
     public CourseService(ICourseDao mockDao) {
         this.dao = mockDao;
     }
@@ -106,6 +112,7 @@ public class CourseService implements ICourseService {
      * @param nbhours       the nbhours
      * @return the index
      */
+	@Override
     public int getIndex(String coursesubject, float nbhours) throws ExceptionDao {
         return this.dao.getIndex(coursesubject, nbhours);
     }
