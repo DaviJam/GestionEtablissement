@@ -39,7 +39,8 @@ public class Connect
 		}
 		catch (ClassNotFoundException | SQLException e){
 			// TODO:  Add logger failed and successfull
-			throw new ExceptionDao("Nous ne parvenons pas à joindre le serveur distant. Veuillez réessayer ultérieurement");
+			e.printStackTrace();
+			//throw new ExceptionDao("Nous ne parvenons pas à joindre le serveur distant. Veuillez réessayer ultérieurement");
 		}
 		
 		return cn;

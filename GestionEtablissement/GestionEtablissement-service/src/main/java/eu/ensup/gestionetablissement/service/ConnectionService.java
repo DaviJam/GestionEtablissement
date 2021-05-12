@@ -19,9 +19,10 @@ public class ConnectionService implements IConnectionService {
         int index;
         try {
             index = this.dao.checkPassword(mail, mdp); // Récupération du MDP et comparaison avec le mdp saisi
-            serviceLogger.logServiceInfo(className, methodName,"Le mot de passe utilisateur "+mail+" est correct.");
+            //serviceLogger.logServiceInfo(className, methodName,"Le mot de passe utilisateur "+mail+" est correct.");
         } catch (ExceptionDao e){
-            serviceLogger.logServiceError(className, methodName,"Le mot de passe utilisateur est incorrect.");
+            e.printStackTrace();
+            //serviceLogger.logServiceError(className, methodName,"Le mot de passe utilisateur est incorrect.");
             throw new ExceptionService(e.getMessage());
         } finally {
 
