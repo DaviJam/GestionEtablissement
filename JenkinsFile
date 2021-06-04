@@ -9,7 +9,7 @@ pipeline {
 		}
 		stage('Test') {
 			steps {
-				bat 'mvn test'
+				bat 'cd GestionEtablissement && mvn test'
 			}
 		}
 		stage('Deploy') {
