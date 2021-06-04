@@ -13,9 +13,17 @@ pipeline {
 			}
 		}
 		stage('Deploy') {
-			steps {
-				echo 'Deploying....'
-			}
-		}
+		steps {
+            echo 'Deploying....'
+             script {
+                try {
+                    deploy adapters: [tomcat9(credentialsId: '8be91146-a9b1-4fb3-8006-783fc927e8a6', url: 'http://localhost:8080/')], contextPath: '/EtablissementScolaire', war: '**/*.war'
+                    } catch (err) {
+                }
+             }
+        }
+        }
 	}
 }
+
+
