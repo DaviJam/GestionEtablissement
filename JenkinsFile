@@ -4,6 +4,7 @@ pipeline {
 	stages {
 		stage('Build') {
 			steps {
+				bat 'cd GestionEtablissement'
 				bat 'mvn clean install'
 			}
 		}
