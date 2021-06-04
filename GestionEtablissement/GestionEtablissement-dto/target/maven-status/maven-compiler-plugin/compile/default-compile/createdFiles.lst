@@ -1,0 +1,9 @@
+eu\ensup\gestionetablissement\dto\DirectorDTO.class
+eu\ensup\gestionetablissement\dto\EntityDTO.class
+eu\ensup\gestionetablissement\dto\PersonDTO.class
+eu\ensup\gestionetablissement\dto\CourseDTO.class
+eu\ensup\gestionetablissement\dto\StudentDTO.class
+eu\ensup\gestionetablissement\dto\TeacherDTO.class
+eu\ensup\gestionetablissement\dto\MarkDTO.class
+eu\ensup\gestionetablissement\dto\SchoolDTO.class
+eu\ensup\gestionetablissement\dto\ManagerDTO.class

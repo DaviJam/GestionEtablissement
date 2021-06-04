@@ -1,0 +1,3 @@
+controllers\AuthController.class
+controllers\ManageCourseController.class
+controllers\ManageUserController.class

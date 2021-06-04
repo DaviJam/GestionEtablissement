@@ -1,0 +1,7 @@
+eu\ensup\gestionetablissement\mapper\ManagerMapper.class
+eu\ensup\gestionetablissement\mapper\DirectorMapper.class
+eu\ensup\gestionetablissement\mapper\StudentMapper.class
+eu\ensup\gestionetablissement\mapper\TeacherMapper.class
+eu\ensup\gestionetablissement\mapper\SchoolMapper.class
+eu\ensup\gestionetablissement\mapper\MarkMapper.class
+eu\ensup\gestionetablissement\mapper\CourseMapper.class

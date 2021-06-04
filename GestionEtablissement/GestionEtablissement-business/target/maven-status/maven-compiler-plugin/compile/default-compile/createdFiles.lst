@@ -1,0 +1,10 @@
+eu\ensup\gestionetablissement\business\Role.class
+eu\ensup\gestionetablissement\business\Person.class
+eu\ensup\gestionetablissement\business\Director.class
+eu\ensup\gestionetablissement\business\Teacher.class
+eu\ensup\gestionetablissement\business\Manager.class
+eu\ensup\gestionetablissement\business\School.class
+eu\ensup\gestionetablissement\business\Mark.class
+eu\ensup\gestionetablissement\business\Student.class
+eu\ensup\gestionetablissement\business\Entity.class
+eu\ensup\gestionetablissement\business\Course.class
